@@ -13,11 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.ServletWebRequest;
 import org.springframework.web.context.request.WebRequest;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class BossExceptionHandler {
@@ -32,24 +28,20 @@ public class BossExceptionHandler {
         return new ResponseEntity<>(new ErrorResult(emailAlreadyUseException.getMessage()), HttpStatus.BAD_REQUEST);
     }
 
+    // invalid json
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<Object> handleJsonParseError(HttpMessageNotReadableException ex, WebRequest request) {
-        String message = "Geçersiz veri formatı. Lütfen enum değerlerini kontrol edin.";
+        String message = "Invalid data format";
 
         Throwable mostSpecificCause = ex.getMostSpecificCause();
         if (mostSpecificCause instanceof InvalidFormatException) {
             message = mostSpecificCause.getMessage();
         }
 
-        Map<String, Object> body = new HashMap<>();
-        body.put("status", HttpStatus.BAD_REQUEST.value());
-        body.put("error", "Bad Request");
-        body.put("message", message);
-
-        return new ResponseEntity<>(body, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(new ErrorResult(message), HttpStatus.BAD_REQUEST);
     }
 
-    // 1. Validation hataları (Boş alanlar, min/max vs.)
+    // 1. Validation errors
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> handleValidationErrors(MethodArgumentNotValidException ex, WebRequest request) {
         List<String> validationErrors = ex.getBindingResult()
@@ -58,12 +50,10 @@ public class BossExceptionHandler {
                 .map(DefaultMessageSourceResolvable::getDefaultMessage)
                 .toList();
 
-        String message = "";
+        String message = "Invalid field";
 
         if (!validationErrors.isEmpty()) {
             message = validationErrors.get(0);
-        } else {
-            message = "Invalid field";
         }
 
         return new ResponseEntity<>(new ErrorResult(message), HttpStatus.BAD_REQUEST);
