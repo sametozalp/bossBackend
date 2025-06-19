@@ -1,4 +1,4 @@
-package com.boss.bossBackend.exception;
+package com.boss.bossBackend.exception.userException;
 
 public class UserNotFoundException extends RuntimeException{
 

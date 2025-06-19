@@ -1,6 +1,7 @@
 package com.boss.bossBackend.exception;
 
 import com.boss.bossBackend.common.utilities.results.ErrorResult;
+import com.boss.bossBackend.exception.userException.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
