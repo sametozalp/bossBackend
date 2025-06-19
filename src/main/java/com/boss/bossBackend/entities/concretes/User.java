@@ -1,6 +1,7 @@
 package com.boss.bossBackend.entities.concretes;
 
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
+import com.boss.bossBackend.entities.enums.UserType;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,6 +15,17 @@ public class User extends BaseEntity {
     private String email;
 
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
 
     public String getUsername() {
         return username;

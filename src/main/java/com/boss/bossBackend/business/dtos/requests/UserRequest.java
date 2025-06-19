@@ -1,7 +1,9 @@
 package com.boss.bossBackend.business.dtos.requests;
 
+import com.boss.bossBackend.entities.enums.UserType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public class UserRequest {
@@ -14,8 +16,19 @@ public class UserRequest {
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@gmail\\.com$", message = "Email must be a gmail.com address")
     private String email;
 
+    @NotNull(message = "User type cannot be null")
+    private UserType userType;
+
     @NotBlank(message = "Password cannot be blank")
     private String password;
+
+    public UserType getUserType() {
+        return userType;
+    }
+
+    public void setUserType(UserType userType) {
+        this.userType = userType;
+    }
 
     public String getUsername() {
         return username;
