@@ -7,6 +7,7 @@ import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.business.dtos.requests.UserRequest;
 import com.boss.bossBackend.business.dtos.responses.UserResponse;
 import com.boss.bossBackend.exception.userException.EmailAlreadyUseException;
+import com.boss.bossBackend.exception.userException.UsernameAlreadyUseException;
 import com.boss.bossBackend.util.mappers.UserMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,9 @@ public class UserManager implements UserService {
     public SuccessDataResult<UserResponse> add(UserRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new EmailAlreadyUseException("Email is already in use.");
+        }
+        else if (userRepository.existsByUsername(request.getUsername())) {
+            throw new UsernameAlreadyUseException("Username is already in use.");
         }
 
         User user = UserMapper.toEntity(request);
