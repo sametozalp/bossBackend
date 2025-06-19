@@ -1,4 +1,4 @@
-package com.boss.bossBackend.business.mappers;
+package com.boss.bossBackend.util.mappers;
 
 import com.boss.bossBackend.business.dtos.requests.UserRequest;
 import com.boss.bossBackend.business.dtos.responses.UserResponse;
@@ -11,6 +11,7 @@ public class UserMapper {
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
+        user.setUserType(request.getUserType());
         return user;
     }
 
@@ -19,6 +20,8 @@ public class UserMapper {
         response.setId(user.getId());
         response.setUsername(user.getUsername());
         response.setEmail(user.getEmail());
+        response.setUserType(user.getUserType());
+        response.setCreatedAt(user.getCreatedAt());
         return response;
     }
 }

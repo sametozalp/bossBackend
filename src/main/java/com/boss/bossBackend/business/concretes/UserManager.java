@@ -7,12 +7,13 @@ import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.business.dtos.requests.UserRequest;
 import com.boss.bossBackend.business.dtos.responses.UserResponse;
 import com.boss.bossBackend.exception.userException.EmailAlreadyUseException;
+import com.boss.bossBackend.util.mappers.UserMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.boss.bossBackend.business.mappers.UserMapper;
 
 @Service
 public class UserManager implements UserService {
+
     private final UserRepository userRepository;
     private PasswordEncoder passwordEncoder;
 
