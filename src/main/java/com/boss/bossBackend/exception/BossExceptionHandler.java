@@ -1,6 +1,7 @@
 package com.boss.bossBackend.exception;
 
 import com.boss.bossBackend.common.utilities.results.ErrorResult;
+import com.boss.bossBackend.exception.userException.EmailAlreadyUseException;
 import com.boss.bossBackend.exception.userException.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,11 @@ public class BossExceptionHandler {
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<?> userNotFound(UserNotFoundException userNotFoundException) {
-
         return new ResponseEntity<>(new ErrorResult(userNotFoundException.getMessage()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EmailAlreadyUseException.class)
+    public ResponseEntity<?> emailAlreadyUse(EmailAlreadyUseException emailAlreadyUseException) {
+        return new ResponseEntity<>(new ErrorResult(emailAlreadyUseException.getMessage()), HttpStatus.BAD_REQUEST);
     }
 }
