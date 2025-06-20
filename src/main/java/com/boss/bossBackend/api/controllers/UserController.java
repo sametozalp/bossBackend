@@ -1,11 +1,10 @@
 package com.boss.bossBackend.api.controllers;
 
 import com.boss.bossBackend.business.abstracts.UserService;
-import com.boss.bossBackend.business.dtos.requests.UserRequest;
+import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.business.dtos.responses.UserResponse;
 import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/add")
-    public ResponseEntity<?> add(@Valid @RequestBody UserRequest request) {
+    public ResponseEntity<?> add(@Valid @RequestBody UserRegisterRequest request) {
         SuccessDataResult<UserResponse> response = userService.add(request);
         return ResponseEntity.ok(response);
     }

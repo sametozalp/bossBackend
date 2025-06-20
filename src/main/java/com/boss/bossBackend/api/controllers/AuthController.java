@@ -1,10 +1,13 @@
 package com.boss.bossBackend.api.controllers;
 
 import com.boss.bossBackend.business.concretes.AuthManager;
+import com.boss.bossBackend.business.dtos.requests.UserLoginRequest;
+import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.enums.Role;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -18,15 +21,9 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public Map<String, String> login(@RequestParam String username,
-                                     @RequestParam String password,
-                                     @RequestParam Role role) {
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setRole(role);
-
-        return authManager.login(user);
+    public Map<String, String> login(@RequestBody UserLoginRequest userLoginRequest) {
+        //return authManager.login(userLoginRequest);
+        return new HashMap<>();
     }
 
 
@@ -36,16 +33,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public Map<String, String> register(@RequestParam String username,
-                                        @RequestParam String password,
-                                        @RequestParam Role role) {
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(password);
-        user.setRole(role);
-        user.setEmail(username + "@gmail.com");
-
-        return authManager.register(user);
+    public Map<String, String> register(@RequestBody UserRegisterRequest request) {
+        return authManager.register(request);
     }
-
 }

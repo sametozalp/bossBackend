@@ -2,6 +2,9 @@ package com.boss.bossBackend.business.concretes;
 
 import com.boss.bossBackend.business.abstracts.AuthService;
 import com.boss.bossBackend.business.abstracts.UserService;
+import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
+import com.boss.bossBackend.business.dtos.responses.UserResponse;
+import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.dataAccess.abstracts.UserRepository;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.security.JwtService;
@@ -13,12 +16,10 @@ import java.util.Map;
 public class AuthManager implements AuthService {
 
     private final JwtService jwtService;
-    private final UserRepository userRepository;
     private final UserService userService;
 
     public AuthManager(JwtService jwtService, UserService userService, UserRepository userRepository, UserService userService1) {
         this.jwtService = jwtService;
-        this.userRepository = userRepository;
         this.userService = userService1;
     }
 
@@ -40,9 +41,12 @@ public class AuthManager implements AuthService {
         return login(user);
     }
 
-    public Map<String, String> register(User user) {
+    public Map<String, String> register(UserRegisterRequest request) {
+        SuccessDataResult<UserResponse> result = userService.add(request);
 
-        User savedUser = userRepository.save(user);
-        return login(savedUser);
+        User user = userService.getByEmail(result.getData().getEmail());
+
+        return login(user);
     }
+
 }
