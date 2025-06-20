@@ -1,14 +1,11 @@
 package com.boss.bossBackend.business.concretes;
 
 import com.boss.bossBackend.business.abstracts.UserService;
-import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
+import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.dataAccess.abstracts.UserRepository;
 import com.boss.bossBackend.entities.concretes.User;
-import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
-import com.boss.bossBackend.business.dtos.responses.UserResponse;
 import com.boss.bossBackend.exception.userException.EmailAlreadyUseException;
 import com.boss.bossBackend.exception.userException.UsernameAlreadyUseException;
-import com.boss.bossBackend.util.mappers.UserMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,38 +13,23 @@ import org.springframework.stereotype.Service;
 public class UserManager implements UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     public UserManager(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
-    public SuccessDataResult<UserResponse> add(UserRegisterRequest request) {
+    public User add(User user) {
+        return userRepository.save(user);
+    }
+
+    @Override
+    public Boolean controlForRegisterParameters(UserRegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new EmailAlreadyUseException("Email is already in use.");
         } else if (userRepository.existsByUsername(request.getUsername())) {
             throw new UsernameAlreadyUseException("Username is already in use.");
         }
 
-        User user = UserMapper.toEntity(request);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-
-        User savedUser = userRepository.save(user);
-        UserResponse response = UserMapper.toResponse(savedUser);
-
-        return new SuccessDataResult<UserResponse>(response);
-    }
-
-    @Override
-    public User getByEmail(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
-    }
-
-    @Override
-    public User getByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new RuntimeException("User not found with email: " + username));
+        return true;
     }
 }

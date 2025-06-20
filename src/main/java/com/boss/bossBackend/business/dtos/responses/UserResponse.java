@@ -1,30 +1,40 @@
 package com.boss.bossBackend.business.dtos.responses;
 
+import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.enums.Role;
 
 import java.time.LocalDateTime;
 
 public class UserResponse {
-    private Long id;
-    private String username;
-    private String email;
-    private Role role;
-    private LocalDateTime createdAt;
-    private String token;
+    private final Long id;
+    private final String username;
+    private final String email;
+    private final Role role;
+    private final LocalDateTime createdAt;
+    private String accessToken;
+    private String refreshToken;
 
-    public void setToken(String token) {
-        this.token = token;
-    }
-
-    public String getToken() {
-        return token;
+    public UserResponse(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+        this.email = user.getEmail();
+        this.role = user.getRole();
+        this.createdAt = user.getCreatedAt();
     }
 
     public Long getId() {
         return id;
     }
 
-    public Role getUserType() {
+    public String getUsername() {
+        return username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Role getRole() {
         return role;
     }
 
@@ -32,31 +42,19 @@ public class UserResponse {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setUserType(Role role) {
-        this.role = role;
+    public String getRefreshToken() {
+        return refreshToken;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }

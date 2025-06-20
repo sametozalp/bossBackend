@@ -19,12 +19,12 @@ public class UserController {
     public UserController(UserService userService) {
         this.userService = userService;
     }
-
-    @PostMapping(value = "/add")
-    public ResponseEntity<?> add(@Valid @RequestBody UserRegisterRequest request) {
-        SuccessDataResult<UserResponse> response = userService.add(request);
-        return ResponseEntity.ok(response);
-    }
+//
+//    @PostMapping(value = "/add")
+//    public ResponseEntity<?> add(@Valid @RequestBody UserRegisterRequest request) {
+//        SuccessDataResult<UserResponse> response = userService.add(request);
+//        return ResponseEntity.ok(response);
+//    }
 
 //    @PostMapping("/save")
 //    public ResponseEntity<?> save(@Valid @RequestBody UserRequest request) {

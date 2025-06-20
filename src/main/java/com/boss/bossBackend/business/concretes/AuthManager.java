@@ -4,35 +4,40 @@ import com.boss.bossBackend.business.abstracts.AuthService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.business.dtos.responses.UserResponse;
-import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.dataAccess.abstracts.UserRepository;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.security.JwtService;
+import com.boss.bossBackend.util.mappers.UserMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.Map;
 
 @Service
 public class AuthManager implements AuthService {
 
     private final JwtService jwtService;
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    public AuthManager(JwtService jwtService, UserService userService, UserRepository userRepository, UserService userService1) {
+    public AuthManager(JwtService jwtService, UserService userService, UserRepository userRepository, UserService userService1, PasswordEncoder passwordEncoder) {
         this.jwtService = jwtService;
         this.userService = userService1;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public Map<String, String> login(User user) {
+    public ResponseEntity<UserResponse> login(User user) {
         String accessToken = jwtService.generateAccessToken(user);
         String refreshToken = jwtService.generateRefreshToken(user);
-        return Map.of(
-                "accessToken", accessToken,
-                "refreshToken", refreshToken
-        );
+
+        UserResponse response = UserMapper.toResponse(user);
+        response.setAccessToken(accessToken);
+        response.setRefreshToken(refreshToken);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    public Map<String, String> refreshToken(String refreshToken) {
+    public ResponseEntity<UserResponse> refreshToken(String refreshToken) {
         if (!jwtService.isTokenValid(refreshToken)) {
             throw new RuntimeException("Invalid refresh token");
         }
@@ -41,12 +46,15 @@ public class AuthManager implements AuthService {
         return login(user);
     }
 
-    public Map<String, String> register(UserRegisterRequest request) {
-        SuccessDataResult<UserResponse> result = userService.add(request);
+    public ResponseEntity<UserResponse> register(UserRegisterRequest request) {
 
-        User user = userService.getByEmail(result.getData().getEmail());
+        userService.controlForRegisterParameters(request); // throw
 
-        return login(user);
+        User user = UserMapper.toEntity(request);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
+        User result = userService.add(user);
+        return login(result);
     }
 
 }

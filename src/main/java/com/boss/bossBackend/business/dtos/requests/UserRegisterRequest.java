@@ -13,7 +13,7 @@ public class UserRegisterRequest {
 
     @NotBlank(message = "Email cannot be blank")
     @Email(message = "Invalid email format")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@(gmail|hotmail|yahoo|outlook)\\.com$", message = "Email must be a gmail.com address")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@(gmail|hotmail|yahoo|outlook)\\.com$", message = "Email error")
     private String email;
 
     @NotNull(message = "User type cannot be null")

@@ -1,15 +1,15 @@
 package com.boss.bossBackend.business.abstracts;
 
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
+import com.boss.bossBackend.business.dtos.responses.UserResponse;
 import com.boss.bossBackend.entities.concretes.User;
-
-import java.util.Map;
+import org.springframework.http.ResponseEntity;
 
 public interface AuthService {
 
-    public Map<String, String> login(User user);
+    public ResponseEntity<UserResponse> login(User user);
 
-    public Map<String, String> refreshToken(String refreshToken);
+    public ResponseEntity<UserResponse> refreshToken(String refreshToken);
 
-    public Map<String, String> register(UserRegisterRequest request);
+    public ResponseEntity<UserResponse> register(UserRegisterRequest request);
 }
