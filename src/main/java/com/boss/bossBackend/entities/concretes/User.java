@@ -1,8 +1,14 @@
 package com.boss.bossBackend.entities.concretes;
 
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
-import com.boss.bossBackend.entities.enums.UserType;
+import com.boss.bossBackend.entities.enums.Role;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -17,14 +23,14 @@ public class User extends BaseEntity {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private UserType userType;
+    private Role role;
 
-    public UserType getUserType() {
-        return userType;
+    public Role getRole() {
+        return role;
     }
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getUsername() {
@@ -42,6 +48,7 @@ public class User extends BaseEntity {
     public void setEmail(String email) {
         this.email = email;
     }
+
 
     public String getPassword() {
         return password;

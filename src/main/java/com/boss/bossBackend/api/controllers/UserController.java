@@ -26,4 +26,15 @@ public class UserController {
         SuccessDataResult<UserResponse> response = userService.add(request);
         return ResponseEntity.ok(response);
     }
+
+//    @PostMapping("/save")
+//    public ResponseEntity<?> save(@Valid @RequestBody UserRequest request) {
+//        SuccessDataResult<UserResponse> response = userService.save(request);
+//        return ResponseEntity.ok(response);
+//    }
+//
+//    @PostMapping("/auth")
+//    public ResponseEntity<?> auth(@Valid @RequestBody UserRequest request) {
+//        return new ResponseEntity<>(userService.save(request));
+//    }
 }

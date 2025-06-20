@@ -1,6 +1,6 @@
 package com.boss.bossBackend.business.dtos.requests;
 
-import com.boss.bossBackend.entities.enums.UserType;
+import com.boss.bossBackend.entities.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,17 +17,17 @@ public class UserRequest {
     private String email;
 
     @NotNull(message = "User type cannot be null")
-    private UserType userType;
+    private Role role;
 
     @NotBlank(message = "Password cannot be blank")
     private String password;
 
-    public UserType getUserType() {
-        return userType;
+    public Role getUserType() {
+        return role;
     }
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
+    public void setUserType(Role role) {
+        this.role = role;
     }
 
     public String getUsername() {

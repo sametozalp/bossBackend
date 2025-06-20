@@ -1,6 +1,6 @@
 package com.boss.bossBackend.entities.enums;
 
-public enum UserType {
+public enum Role {
     OBSERVER,
     INVESTOR,
     ENTREPRENEUR

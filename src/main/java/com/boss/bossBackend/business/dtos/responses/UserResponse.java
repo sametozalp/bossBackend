@@ -1,23 +1,31 @@
 package com.boss.bossBackend.business.dtos.responses;
 
-import com.boss.bossBackend.entities.enums.UserType;
+import com.boss.bossBackend.entities.enums.Role;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 public class UserResponse {
     private Long id;
     private String username;
     private String email;
-    private UserType userType;
+    private Role role;
     private LocalDateTime createdAt;
+    private String token;
+
+    public void setToken(String token) {
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
+    }
 
     public Long getId() {
         return id;
     }
 
-    public UserType getUserType() {
-        return userType;
+    public Role getUserType() {
+        return role;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -28,8 +36,8 @@ public class UserResponse {
         this.createdAt = createdAt;
     }
 
-    public void setUserType(UserType userType) {
-        this.userType = userType;
+    public void setUserType(Role role) {
+        this.role = role;
     }
 
     public void setId(Long id) {

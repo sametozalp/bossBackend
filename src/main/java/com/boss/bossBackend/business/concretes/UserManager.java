@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 public class UserManager implements UserService {
 
     private final UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     public UserManager(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
