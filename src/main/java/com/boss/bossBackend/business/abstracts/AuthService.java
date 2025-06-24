@@ -9,7 +9,7 @@ public interface AuthService {
 
     public ResponseEntity<UserResponse> login(User user);
 
-    public ResponseEntity<UserResponse> refreshToken(String refreshToken);
+    //public ResponseEntity<UserResponse> refreshToken(String refreshToken);
 
     public ResponseEntity<UserResponse> register(UserRegisterRequest request);
 }
