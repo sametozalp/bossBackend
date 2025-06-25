@@ -1,15 +1,16 @@
 package com.boss.bossBackend.business.dtos.responses;
 
 import com.boss.bossBackend.entities.concretes.User;
-import com.boss.bossBackend.entities.enums.Role;
+import com.boss.bossBackend.entities.concretes.UserRole;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 public class UserResponse {
-    private final Long id;
+    private final String id;
     private final String username;
     private final String email;
-    private final Role role;
+    private Set<UserRole> authorities;
     private final LocalDateTime createdAt;
     private String accessToken;
     private String refreshToken;
@@ -18,11 +19,19 @@ public class UserResponse {
         this.id = user.getId();
         this.username = user.getUsername();
         this.email = user.getEmail();
-        this.role = user.getRole();
+        this.authorities = user.getUserRoles();
         this.createdAt = user.getCreatedAt();
     }
 
-    public Long getId() {
+    public Set<UserRole> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<UserRole> authorities) {
+        this.authorities = authorities;
+    }
+
+    public String getId() {
         return id;
     }
 
@@ -32,10 +41,6 @@ public class UserResponse {
 
     public String getEmail() {
         return email;
-    }
-
-    public Role getRole() {
-        return role;
     }
 
     public LocalDateTime getCreatedAt() {

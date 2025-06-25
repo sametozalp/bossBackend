@@ -25,14 +25,12 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public Boolean controlForRegisterParameters(UserRegisterRequest request) {
+    public void controlForRegisterParameters(UserRegisterRequest request) {
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new EmailAlreadyUseException("Email is already in use.");
         } else if (userRepository.existsByUsername(request.getUsername())) {
             throw new UsernameAlreadyUseException("Username is already in use.");
         }
-
-        return true;
     }
 
     @Override

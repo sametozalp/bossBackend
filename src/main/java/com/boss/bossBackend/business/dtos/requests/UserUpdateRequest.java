@@ -7,7 +7,7 @@ import jakarta.validation.constraints.Pattern;
 public class UserUpdateRequest {
 
     @NotBlank(message = "Id cannot be blank")
-    private int id;
+    private String id;
 
     @NotBlank(message = "Username cannot be blank")
     private String username;
@@ -29,7 +29,7 @@ public class UserUpdateRequest {
         return email;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

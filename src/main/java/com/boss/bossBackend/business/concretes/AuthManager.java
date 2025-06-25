@@ -4,11 +4,13 @@ import com.boss.bossBackend.business.abstracts.AuthService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.business.dtos.responses.UserResponse;
+import com.boss.bossBackend.common.security.jwt.JwtService;
 import com.boss.bossBackend.dataAccess.abstracts.UserRepository;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.util.mappers.UserMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -17,15 +19,27 @@ public class AuthManager implements AuthService {
 
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
+    private final JwtService jwtService;
 
-    public AuthManager(UserService userService, UserRepository userRepository, UserService userService1, PasswordEncoder passwordEncoder) {
+    public AuthManager(UserService userService, UserRepository userRepository, UserService userService1, PasswordEncoder passwordEncoder, JwtService jwtService) {
         this.userService = userService1;
         this.passwordEncoder = passwordEncoder;
+        this.jwtService = jwtService;
     }
 
     public ResponseEntity<UserResponse> login(User user) {
 
         UserResponse response = UserMapper.toResponse(user);
+
+        String generatedToken = jwtService.generateToken(user.getUsername(),
+                user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
+
+        String refreshToken = jwtService.generateToken(user.getUsername(),
+                user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
+
+        response.setAccessToken(generatedToken);
+
+        response.setRefreshToken(refreshToken);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -43,8 +57,11 @@ public class AuthManager implements AuthService {
 
         userService.controlForRegisterParameters(request); // throw
 
-        User user = UserMapper.toEntity(request);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
+
 
         User result = userService.add(user);
         return login(result);

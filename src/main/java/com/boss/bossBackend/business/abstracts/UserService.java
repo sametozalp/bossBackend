@@ -7,7 +7,7 @@ import com.boss.bossBackend.entities.concretes.User;
 public interface UserService {
 
     User add(User user);
-    Boolean controlForRegisterParameters(UserRegisterRequest request);
+    void controlForRegisterParameters(UserRegisterRequest request);
 
     User updateUser(UserUpdateRequest request);
 }

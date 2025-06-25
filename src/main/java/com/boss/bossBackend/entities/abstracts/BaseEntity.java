@@ -3,13 +3,14 @@ package com.boss.bossBackend.entities.abstracts;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @MappedSuperclass
 public abstract class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -35,7 +36,7 @@ public abstract class BaseEntity {
         this.deletedAt = LocalDateTime.now();
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
@@ -49,10 +50,6 @@ public abstract class BaseEntity {
 
     public LocalDateTime getDeletedAt() {
         return deletedAt;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {

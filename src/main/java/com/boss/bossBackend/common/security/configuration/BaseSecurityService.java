@@ -16,7 +16,7 @@ public class BaseSecurityService {
             "/swagger-ui.html",
             "/v3/api-docs",
             "/v3/api-docs/**",
-            "/api/auth/**"
+            "/api/auth/**",
     };
 
     public BaseSecurityService(JwtAuthFilter jwtAuthFilter) {
