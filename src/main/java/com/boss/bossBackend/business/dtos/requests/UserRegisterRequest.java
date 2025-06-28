@@ -3,10 +3,11 @@ package com.boss.bossBackend.business.dtos.requests;
 import jakarta.validation.constraints.*;
 
 public class UserRegisterRequest {
-
+    @NotNull
     @NotBlank(message = "Username cannot be blank")
     private String username;
 
+    @NotNull
     @NotBlank(message = "Email cannot be blank")
     @Email(message = "Invalid email format")
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@(gmail|hotmail|yahoo|outlook)\\.com$", message = "Email error")
@@ -14,6 +15,15 @@ public class UserRegisterRequest {
 
     @NotBlank(message = "Password cannot be blank")
     private String password;
+
+    @NotBlank(message = "Is corporate cannot be blank")
+    @NotEmpty
+    @NotNull
+    private boolean isCorporate;
+
+    public boolean getIsCorporate() {
+        return isCorporate;
+    }
 
     public String getUsername() {
         return username;
