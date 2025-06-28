@@ -25,7 +25,7 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<UserRole> authorities;
+    private Set<UserRole> roles;
 
     public String getUsername() {
         return username;
@@ -63,19 +63,19 @@ public class User extends BaseEntity implements UserDetails {
         this.email = email;
     }
 
-    public void setAuthorities(Set<UserRole> authorities) {
-        this.authorities = authorities;
+    public void setRoles(Set<UserRole> roles) {
+        this.roles = roles;
     }
 
     public Set<UserRole> getUserRoles() {
-        return this.authorities;
+        return this.roles;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (this.authorities == null)
+        if (this.roles == null)
             return new HashSet<>();
-        return (Collection<? extends GrantedAuthority>) authorities.stream().map(UserRole::getRole).toList();
+        return (Collection<? extends GrantedAuthority>) roles.stream().map(UserRole::getRole).toList();
     }
 
     public String getPassword() {

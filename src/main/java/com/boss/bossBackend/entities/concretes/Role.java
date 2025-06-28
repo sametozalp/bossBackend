@@ -11,12 +11,11 @@ import java.util.UUID;
 @Entity
 @Table(name = "roles")
 @SQLRestriction(value = "deleted_date IS NULL")
-public class Role extends BaseEntity implements GrantedAuthority {
+public class Role implements GrantedAuthority {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id")
-    private UUID id;
+    private int id;
 
     @Column(name = "name")
     private String name;

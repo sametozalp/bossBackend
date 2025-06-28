@@ -7,7 +7,7 @@ import org.hibernate.annotations.SQLRestriction;
 @Entity
 @Table(name = "userRoles")
 @SQLRestriction(value = "deleted_date IS NULL")
-public class UserRole extends BaseEntity {
+public class UserRole extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
