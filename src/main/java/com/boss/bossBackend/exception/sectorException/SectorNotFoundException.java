@@ -1,4 +1,4 @@
-package com.boss.bossBackend.business.concretes;
+package com.boss.bossBackend.exception.sectorException;
 
 public class SectorNotFoundException extends RuntimeException{
 

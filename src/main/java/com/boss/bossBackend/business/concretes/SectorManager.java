@@ -3,6 +3,7 @@ package com.boss.bossBackend.business.concretes;
 import com.boss.bossBackend.business.abstracts.SectorService;
 import com.boss.bossBackend.dataAccess.abstracts.SectorRepository;
 import com.boss.bossBackend.entities.concretes.Sector;
+import com.boss.bossBackend.exception.sectorException.SectorNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
