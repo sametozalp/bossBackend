@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -25,7 +26,7 @@ public class User extends BaseEntity implements UserDetails {
     private String password;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<UserRole> roles;
+    private List<UserRole> roles;
 
     public String getUsername() {
         return username;
@@ -63,11 +64,11 @@ public class User extends BaseEntity implements UserDetails {
         this.email = email;
     }
 
-    public void setRoles(Set<UserRole> roles) {
+    public void setRoles(List<UserRole> roles) {
         this.roles = roles;
     }
 
-    public Set<UserRole> getUserRoles() {
+    public List<UserRole> getUserRoles() {
         return this.roles;
     }
 

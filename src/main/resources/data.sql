@@ -1,9 +1,0 @@
-DELETE FROM sectors;
-INSERT INTO sectors (id, name) VALUES (1, 'Teknoloji');
-INSERT INTO sectors (id, name) VALUES (2, 'Finans');
-INSERT INTO sectors (id, name) VALUES (3, 'Sağlık');
-
-DELETE FROM roles;
-INSERT INTO roles (id, name) VALUES (1, 'USER');
-INSERT INTO roles (id, name) VALUES (2, 'TEKNOPARK');
-INSERT INTO roles (id, name) VALUES (3, 'ADMIN');

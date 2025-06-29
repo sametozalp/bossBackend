@@ -5,6 +5,7 @@ import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.business.dtos.responses.UserResponse;
 import com.boss.bossBackend.common.security.jwt.JwtService;
+import com.boss.bossBackend.dataAccess.abstracts.RoleRepository;
 import com.boss.bossBackend.dataAccess.abstracts.UserRepository;
 import com.boss.bossBackend.dataAccess.abstracts.UserRoleRepository;
 import com.boss.bossBackend.entities.concretes.Role;
@@ -17,6 +18,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
 public class AuthManager implements AuthService {
 
@@ -24,12 +27,14 @@ public class AuthManager implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final UserRoleRepository userRoleRepository;
+    private final RoleRepository roleRepository;
 
-    public AuthManager(UserService userService, UserRepository userRepository, UserService userService1, PasswordEncoder passwordEncoder, JwtService jwtService, UserRoleRepository userRoleRepository) {
+    public AuthManager(UserService userService, UserRepository userRepository, UserService userService1, PasswordEncoder passwordEncoder, JwtService jwtService, UserRoleRepository userRoleRepository, RoleRepository roleRepository) {
         this.userService = userService1;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.userRoleRepository = userRoleRepository;
+        this.roleRepository = roleRepository;
     }
 
     public ResponseEntity<UserResponse> login(User user) {
@@ -45,6 +50,8 @@ public class AuthManager implements AuthService {
         response.setAccessToken(generatedToken);
 
         response.setRefreshToken(refreshToken);
+
+        response.setRoles(userRoleRepository.findByUserId(user.getId()));
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -69,12 +76,11 @@ public class AuthManager implements AuthService {
 
         User result = userService.add(user);
 
-        if (request.getIsCorporate()) {
-            UserRole userRole = new UserRole();
-            userRole.setUser(result);
-            userRole.setRole(new Role(1));
-            userRoleRepository.save(userRole);
-        }
+        UserRole userRole = new UserRole();
+        userRole.setUser(result);
+        Role role = roleRepository.findById(1);//.orElseThrow(() -> new RuntimeException("Role not found"));
+        userRole.setRole(role);
+        userRoleRepository.save(userRole);
 
         return login(result);
     }

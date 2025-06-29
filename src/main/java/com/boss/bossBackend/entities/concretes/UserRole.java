@@ -1,16 +1,17 @@
 package com.boss.bossBackend.entities.concretes;
 
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLRestriction;
 
 @Entity
-@Table(name = "userRoles")
-@SQLRestriction(value = "deleted_date IS NULL")
+@Table(name = "user_roles")
 public class UserRole extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
     @ManyToOne

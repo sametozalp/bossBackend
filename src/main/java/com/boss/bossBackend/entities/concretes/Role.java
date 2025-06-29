@@ -10,7 +10,6 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "roles")
-@SQLRestriction(value = "deleted_date IS NULL")
 public class Role implements GrantedAuthority {
 
     @Id
@@ -20,15 +19,15 @@ public class Role implements GrantedAuthority {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "role",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private Set<UserRole> userRoles;
 
     @Override
     public String getAuthority() {
-        return this.name.toLowerCase(); //ADMIN
+        return this.name;
     }
 
-    public Role(int id) {
-        this.id = id;
+    public Role() {
+
     }
 }
