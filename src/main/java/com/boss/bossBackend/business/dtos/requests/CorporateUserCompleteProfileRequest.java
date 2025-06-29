@@ -13,12 +13,16 @@ public class CorporateUserCompleteProfileRequest {
     @NotBlank(message = "Company name cannot be blank")
     private String companyName;
 
+    @NotNull(message = "Tax Plate name cannot be null")
+    @NotBlank(message = "Tax Plate name cannot be blank")
+    private String taxPlate;
+
     @NotNull(message = "Contact phone cannot be null")
     @NotBlank(message = "Contact phone cannot be blank")
-    private int contactPhone;
+    private String contactPhone;
 
     @NotNull(message = "Foundation year cannot be null")
-    @NotBlank(message = "Foundation year cannot be blank")
+    //@NotBlank(message = "Foundation year cannot be blank")
     private int foundationYear;
 
     @NotNull(message = "Tax number cannot be null")
@@ -34,7 +38,7 @@ public class CorporateUserCompleteProfileRequest {
     private String tradeRegistryCertificate;
 
     @NotNull(message = "Sector ID cannot be null")
-    @NotBlank(message = "Sector ID cannot be blank")
+    //@NotBlank(message = "Sector ID cannot be blank")
     private int sectorId;
 
     @NotNull(message = "User ID cannot be null")
@@ -47,10 +51,6 @@ public class CorporateUserCompleteProfileRequest {
 
     public String getCompanyName() {
         return companyName;
-    }
-
-    public int getContactPhone() {
-        return contactPhone;
     }
 
     public int getFoundationYear() {
@@ -75,5 +75,53 @@ public class CorporateUserCompleteProfileRequest {
 
     public String getUserId() {
         return userId;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getTaxPlate() {
+        return taxPlate;
+    }
+
+    public void setTaxPlate(String taxPlate) {
+        this.taxPlate = taxPlate;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public void setFoundationYear(int foundationYear) {
+        this.foundationYear = foundationYear;
+    }
+
+    public void setTaxNumber(String taxNumber) {
+        this.taxNumber = taxNumber;
+    }
+
+    public void setTaxOffice(String taxOffice) {
+        this.taxOffice = taxOffice;
+    }
+
+    public void setTradeRegistryCertificate(String tradeRegistryCertificate) {
+        this.tradeRegistryCertificate = tradeRegistryCertificate;
+    }
+
+    public void setSectorId(int sectorId) {
+        this.sectorId = sectorId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

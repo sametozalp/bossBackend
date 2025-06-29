@@ -1,5 +1,6 @@
 package com.boss.bossBackend.entities.concretes;
 
+import com.boss.bossBackend.business.dtos.requests.CorporateUserCompleteProfileRequest;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 
@@ -39,4 +40,22 @@ public class CorporateUser extends BaseEntity {
     @JoinColumn(name = "sector_id")
     private Sector sector;
 
+    public CorporateUser() {
+
+    }
+
+    public CorporateUser(CorporateUserCompleteProfileRequest request, User user, Sector sector) {
+
+        this.companyName = request.getCompanyName();
+        this.taxNumber = request.getTaxNumber();
+        this.contactPhone = request.getContactPhone();
+        this.address = request.getAddress();
+        //this.taxPlate = request.
+        this.tradeRegistryCertificate = request.getTradeRegistryCertificate();
+        this.foundationYear = request.getFoundationYear();
+        this.taxOffice = request.getTaxOffice();
+
+        this.user = user;
+        this.sector = sector;
+    }
 }
