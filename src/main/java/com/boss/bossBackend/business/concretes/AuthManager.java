@@ -6,7 +6,10 @@ import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.business.dtos.responses.UserResponse;
 import com.boss.bossBackend.common.security.jwt.JwtService;
 import com.boss.bossBackend.dataAccess.abstracts.UserRepository;
+import com.boss.bossBackend.dataAccess.abstracts.UserRoleRepository;
+import com.boss.bossBackend.entities.concretes.Role;
 import com.boss.bossBackend.entities.concretes.User;
+import com.boss.bossBackend.entities.concretes.UserRole;
 import com.boss.bossBackend.util.mappers.UserMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +23,13 @@ public class AuthManager implements AuthService {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
+    private final UserRoleRepository userRoleRepository;
 
-    public AuthManager(UserService userService, UserRepository userRepository, UserService userService1, PasswordEncoder passwordEncoder, JwtService jwtService) {
+    public AuthManager(UserService userService, UserRepository userRepository, UserService userService1, PasswordEncoder passwordEncoder, JwtService jwtService, UserRoleRepository userRoleRepository) {
         this.userService = userService1;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
+        this.userRoleRepository = userRoleRepository;
     }
 
     public ResponseEntity<UserResponse> login(User user) {
@@ -62,8 +67,15 @@ public class AuthManager implements AuthService {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-
         User result = userService.add(user);
+
+        if (request.getIsCorporate()) {
+            UserRole userRole = new UserRole();
+            userRole.setUser(result);
+            userRole.setRole(new Role(1));
+            userRoleRepository.save(userRole);
+        }
+
         return login(result);
     }
 
