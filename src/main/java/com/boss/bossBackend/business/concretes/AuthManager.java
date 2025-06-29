@@ -18,6 +18,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.management.relation.RoleList;
+import java.util.ArrayList;
 import java.util.Set;
 
 @Service
@@ -40,8 +42,9 @@ public class AuthManager implements AuthService {
     public ResponseEntity<UserResponse> login(User user) {
 
         UserResponse response = UserMapper.toResponse(user);
+        response.setRoles(userRoleRepository.findByUserId(user.getId()));
 
-        String generatedToken = jwtService.generateToken(user.getEmail(),
+        String generatedToken = jwtService.generateToken(response.getEmail(),
                 user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
 
         String refreshToken = jwtService.generateToken(user.getEmail(),
@@ -50,8 +53,6 @@ public class AuthManager implements AuthService {
         response.setAccessToken(generatedToken);
 
         response.setRefreshToken(refreshToken);
-
-        response.setRoles(userRoleRepository.findByUserId(user.getId()));
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
@@ -81,6 +82,10 @@ public class AuthManager implements AuthService {
         Role role = roleRepository.findById(1);//.orElseThrow(() -> new RuntimeException("Role not found"));
         userRole.setRole(role);
         userRoleRepository.save(userRole);
+
+        ArrayList<UserRole> userRoleList = new ArrayList<>();
+        userRoleList.add(userRole);
+        result.setRoles(userRoleList);
 
         return login(result);
     }
