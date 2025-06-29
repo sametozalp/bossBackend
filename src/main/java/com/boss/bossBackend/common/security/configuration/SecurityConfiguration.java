@@ -28,12 +28,25 @@ public class SecurityConfiguration {
         return authenticationConfiguration.getAuthenticationManager();
     }
 
+
+//    @Bean
+//    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+//        baseSecurityService.configureCoreSecurity(httpSecurity);
+//        httpSecurity.authorizeHttpRequests(req->req
+//                .anyRequest()
+//                .authenticated());
+//        return httpSecurity.build();
+//    }
+
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
-        baseSecurityService.configureCoreSecurity(httpSecurity);
-        httpSecurity.authorizeHttpRequests(req->req
-                .anyRequest()
-                .authenticated());
-        return httpSecurity.build();
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(auth -> auth
+                        .anyRequest().permitAll()
+                )
+                .csrf(csrf -> csrf.disable()); // Güncel kullanım şekli
+        return http.build();
     }
+
+
 }

@@ -12,4 +12,6 @@ public interface UserService {
     void controlForRegisterParameters(UserRegisterRequest request);
 
     User updateUser(UserUpdateRequest request);
+
+    User getUser(String id);
 }

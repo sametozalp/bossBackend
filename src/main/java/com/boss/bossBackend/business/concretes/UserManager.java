@@ -6,6 +6,7 @@ import com.boss.bossBackend.business.dtos.requests.UserUpdateRequest;
 import com.boss.bossBackend.dataAccess.abstracts.UserRepository;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.exception.userException.EmailAlreadyUseException;
+import com.boss.bossBackend.exception.userException.UserNotFoundException;
 import com.boss.bossBackend.exception.userException.UsernameAlreadyUseException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,5 +46,11 @@ public class UserManager implements UserService {
 //        }
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public User getUser(String id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 }

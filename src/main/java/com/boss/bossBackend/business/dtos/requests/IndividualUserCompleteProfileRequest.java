@@ -15,11 +15,11 @@ public class IndividualUserCompleteProfileRequest {
 
     @NotNull(message = "Phone number cannot be null")
     @NotBlank(message = "Phone number cannot be blank")
-    private int phoneNumber;
+    private String phoneNumber;
 
     @NotNull(message = "Social security number cannot be null")
     @NotBlank(message = "Social security number cannot be blank")
-    private int socialSecurityNumber;
+    private String socialSecurityNumber;
 
     @NotNull(message = "User ID cannot be null")
     @NotBlank(message = "User ID cannot be blank")
@@ -33,15 +33,35 @@ public class IndividualUserCompleteProfileRequest {
         return surname;
     }
 
-    public int getPhoneNumber() {
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public int getSocialSecurityNumber() {
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getSocialSecurityNumber() {
         return socialSecurityNumber;
     }
 
-    public String getUserId() {
-        return userId;
+    public void setSocialSecurityNumber(String socialSecurityNumber) {
+        this.socialSecurityNumber = socialSecurityNumber;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }
