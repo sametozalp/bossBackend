@@ -31,10 +31,10 @@ public class AuthManager implements AuthService {
 
         UserResponse response = UserMapper.toResponse(user);
 
-        String generatedToken = jwtService.generateToken(user.getUsername(),
+        String generatedToken = jwtService.generateToken(user.getEmail(),
                 user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
 
-        String refreshToken = jwtService.generateToken(user.getUsername(),
+        String refreshToken = jwtService.generateToken(user.getEmail(),
                 user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
 
         response.setAccessToken(generatedToken);

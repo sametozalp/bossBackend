@@ -22,25 +22,25 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private long expiration;
 
-    public String generateToken(String username, List<String> roles){
+    public String generateToken(String email, List<String> roles){
         Map<String,Object> claims = new HashMap<>();
         claims.put("roles",roles);
-        return createToken(claims,username);
+        return createToken(claims,email);
     }
 
     public List<String> extractRoles(String token){
         return getClaimsFromToken(token).get("roles",List.class);
     }
 
-    public Boolean validateToken(String token,String username){
-        return username.equals(extractUsername(token)) && !isTokenExpired(token);
+    public Boolean validateToken(String token,String email){
+        return email.equals(extractEmail(token)) && !isTokenExpired(token);
     }
 
     public boolean isTokenExpired(String token){
         return extractExpiration(token).before(new Date());
     }
 
-    public String extractUsername(String token){
+    public String extractEmail(String token){
         return getClaimsFromToken(token).getSubject();
     }
 
@@ -52,12 +52,12 @@ public class JwtService {
         return Jwts.parser().verifyWith(getSigningKey()).build().parseSignedClaims(token).getPayload();
     }
 
-    public String createToken(Map<String,Object> claims,String username){
+    public String createToken(Map<String,Object> claims,String email){
         return Jwts.builder()
                 .claims(claims)
-                .subject(username)
+                .subject(email)
                 .issuedAt(new Date(System.currentTimeMillis()))
-                .expiration(new Date(System.currentTimeMillis() + expiration))
+                .expiration(new Date(System.currentTimeMillis() + expiration * 1000))
                 .signWith(getSigningKey(),Jwts.SIG.HS256)
                 .compact();
     }

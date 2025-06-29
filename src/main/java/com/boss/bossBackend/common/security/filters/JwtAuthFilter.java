@@ -29,7 +29,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
          String jwtHeader = request.getHeader("Authorization");
          if (jwtHeader!=null && jwtHeader.startsWith("Bearer ")){
              String jwt = jwtHeader.substring(7);
-             String username = jwtService.extractUsername(jwt);
+             String username = jwtService.extractEmail(jwt);
              List<String> roles = jwtService.extractRoles(jwt);
              List<SimpleGrantedAuthority> authorities = roles.stream().map(SimpleGrantedAuthority::new).toList();
              if (jwtService.validateToken(jwt,username)){
