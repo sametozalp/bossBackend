@@ -5,9 +5,8 @@ import com.boss.bossBackend.entities.concretes.UserRole;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
 
-public class UserResponse {
+public class UserRegisterResponse {
     private final String id;
     private final String username;
     private final String email;
@@ -16,7 +15,7 @@ public class UserResponse {
     private String refreshToken;
     private List<UserRole> roles;
 
-    public UserResponse(User user) {
+    public UserRegisterResponse(User user) {
         this.id = user.getId();
         this.username = user.getUsername();
         this.email = user.getEmail();

@@ -3,7 +3,7 @@ package com.boss.bossBackend.business.concretes;
 import com.boss.bossBackend.business.abstracts.AuthService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
-import com.boss.bossBackend.business.dtos.responses.UserResponse;
+import com.boss.bossBackend.business.dtos.responses.UserRegisterResponse;
 import com.boss.bossBackend.common.security.jwt.JwtService;
 import com.boss.bossBackend.dataAccess.abstracts.RoleRepository;
 import com.boss.bossBackend.dataAccess.abstracts.UserRepository;
@@ -18,9 +18,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.management.relation.RoleList;
 import java.util.ArrayList;
-import java.util.Set;
 
 @Service
 public class AuthManager implements AuthService {
@@ -39,9 +37,9 @@ public class AuthManager implements AuthService {
         this.roleRepository = roleRepository;
     }
 
-    public ResponseEntity<UserResponse> login(User user) {
+    public ResponseEntity<UserRegisterResponse> login(User user) {
 
-        UserResponse response = UserMapper.toResponse(user);
+        UserRegisterResponse response = UserMapper.toResponse(user);
         response.setRoles(userRoleRepository.findByUserId(user.getId()));
 
         String generatedToken = jwtService.generateToken(response.getEmail(),
@@ -66,7 +64,7 @@ public class AuthManager implements AuthService {
 //        return login(user);
 //    }
 
-    public ResponseEntity<UserResponse> register(UserRegisterRequest request) {
+    public ResponseEntity<UserRegisterResponse> register(UserRegisterRequest request) {
 
         userService.controlForRegisterParameters(request); // throw
 

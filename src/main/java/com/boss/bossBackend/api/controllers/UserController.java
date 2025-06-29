@@ -2,7 +2,7 @@ package com.boss.bossBackend.api.controllers;
 
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.UserUpdateRequest;
-import com.boss.bossBackend.business.dtos.responses.UserResponse;
+import com.boss.bossBackend.business.dtos.responses.UserRegisterResponse;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.util.mappers.UserMapper;
 import org.springframework.http.HttpStatus;
@@ -39,8 +39,8 @@ public class UserController {
 
 
 @PutMapping("/updateUser")
-public ResponseEntity<UserResponse> updateUser(@RequestBody UserUpdateRequest request,
-                                               Authentication authentication) {
+public ResponseEntity<UserRegisterResponse> updateUser(@RequestBody UserUpdateRequest request,
+                                                       Authentication authentication) {
     String email = authentication.getName();
     System.out.println("aha email: " + email);
     User updatedUser = userService.updateUser(request);

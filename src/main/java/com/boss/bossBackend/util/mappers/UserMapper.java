@@ -1,7 +1,7 @@
 package com.boss.bossBackend.util.mappers;
 
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
-import com.boss.bossBackend.business.dtos.responses.UserResponse;
+import com.boss.bossBackend.business.dtos.responses.UserRegisterResponse;
 import com.boss.bossBackend.entities.concretes.User;
 
 public class UserMapper {
@@ -14,7 +14,7 @@ public class UserMapper {
         return user;
     }
 
-    public static UserResponse toResponse(User user) {
-        return new UserResponse(user);
+    public static UserRegisterResponse toResponse(User user) {
+        return new UserRegisterResponse(user);
     }
 }
