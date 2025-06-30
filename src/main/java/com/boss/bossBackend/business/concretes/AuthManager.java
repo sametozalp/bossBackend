@@ -1,5 +1,6 @@
 package com.boss.bossBackend.business.concretes;
 
+import com.boss.bossBackend.api.controllers.RoleService;
 import com.boss.bossBackend.business.abstracts.AuthService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
@@ -27,14 +28,14 @@ public class AuthManager implements AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final UserRoleRepository userRoleRepository;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
 
-    public AuthManager(UserService userService, UserRepository userRepository, UserService userService1, PasswordEncoder passwordEncoder, JwtService jwtService, UserRoleRepository userRoleRepository, RoleRepository roleRepository) {
+    public AuthManager(UserService userService, UserRepository userRepository, UserService userService1, PasswordEncoder passwordEncoder, JwtService jwtService, UserRoleRepository userRoleRepository, RoleRepository roleRepository, RoleService roleService) {
         this.userService = userService1;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.userRoleRepository = userRoleRepository;
-        this.roleRepository = roleRepository;
+        this.roleService = roleService;
     }
 
     public ResponseEntity<UserRegisterResponse> login(User user) {
@@ -77,7 +78,7 @@ public class AuthManager implements AuthService {
 
         UserRole userRole = new UserRole();
         userRole.setUser(result);
-        Role role = roleRepository.findById(1);//.orElseThrow(() -> new RuntimeException("Role not found"));
+        Role role = roleService.findById(1);//.orElseThrow(() -> new RuntimeException("Role not found"));
         userRole.setRole(role);
         userRoleRepository.save(userRole);
 
