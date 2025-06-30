@@ -1,8 +1,12 @@
 package com.boss.bossBackend.business.dtos.requests;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
-public class UserRegisterRequest {
+public class TechnoparkRegisterRequest {
+
     @NotNull
     @NotBlank(message = "Username cannot be blank")
     private String username;
@@ -15,6 +19,16 @@ public class UserRegisterRequest {
 
     @NotBlank(message = "Password cannot be blank")
     private String password;
+
+    @NotBlank(message = "Password cannot be blank")
+    private String location;
+
+    @NotBlank(message = "Password cannot be blank")
+    private String technoparkName;
+
+    public TechnoparkRegisterRequest() {
+
+    }
 
     public String getUsername() {
         return username;
@@ -38,5 +52,21 @@ public class UserRegisterRequest {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getTechnoparkName() {
+        return technoparkName;
+    }
+
+    public void setTechnoparkName(String technoparkName) {
+        this.technoparkName = technoparkName;
     }
 }

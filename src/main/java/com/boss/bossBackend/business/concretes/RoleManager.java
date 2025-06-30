@@ -1,6 +1,6 @@
 package com.boss.bossBackend.business.concretes;
 
-import com.boss.bossBackend.api.controllers.RoleService;
+import com.boss.bossBackend.business.abstracts.RoleService;
 import com.boss.bossBackend.dataAccess.abstracts.RoleRepository;
 import com.boss.bossBackend.entities.concretes.Role;
 import com.boss.bossBackend.exception.roleException.RoleNotFoundException;

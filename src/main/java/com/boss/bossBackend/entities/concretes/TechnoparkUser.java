@@ -1,5 +1,6 @@
 package com.boss.bossBackend.entities.concretes;
 
+import com.boss.bossBackend.business.dtos.requests.TechnoparkRegisterRequest;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 
@@ -16,5 +17,13 @@ public class TechnoparkUser extends BaseEntity {
 
     @Column(name = "location", nullable = false)
     private String location;
+
+    public TechnoparkUser(TechnoparkRegisterRequest request, User user) {
+
+        this.user = user;
+        this.name = request.getTechnoparkName();
+        this.location = request.getLocation();
+
+    }
 
 }

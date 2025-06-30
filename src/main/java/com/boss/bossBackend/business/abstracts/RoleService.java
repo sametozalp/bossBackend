@@ -1,4 +1,4 @@
-package com.boss.bossBackend.api.controllers;
+package com.boss.bossBackend.business.abstracts;
 
 import com.boss.bossBackend.entities.concretes.Role;
 
