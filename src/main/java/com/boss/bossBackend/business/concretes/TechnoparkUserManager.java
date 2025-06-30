@@ -6,6 +6,7 @@ import com.boss.bossBackend.business.dtos.requests.TechnoparkRegisterRequest;
 import com.boss.bossBackend.dataAccess.abstracts.TechnoparkUserRepository;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
+import com.boss.bossBackend.exception.userException.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -21,8 +22,9 @@ public class TechnoparkUserManager implements TechnoparkUserService {
 
 
     @Override
-    public TechnoparkUser findByUserId(String userId) {
-        return repository.findByUserId(userId);
+    public TechnoparkUser findByUserId(String technoparkId) {
+        return repository.findByUserId(technoparkId)
+                .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
     @Override

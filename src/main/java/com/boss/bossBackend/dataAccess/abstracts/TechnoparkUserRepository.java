@@ -3,9 +3,11 @@ package com.boss.bossBackend.dataAccess.abstracts;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.Optional;
+
 public interface TechnoparkUserRepository extends JpaRepository<TechnoparkUser, String> {
 
-    TechnoparkUser findByUserId(String userId);
+    Optional<TechnoparkUser> findByUserId(String userId);
 
 
 }

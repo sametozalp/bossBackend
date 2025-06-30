@@ -18,6 +18,10 @@ public class TechnoparkUser extends BaseEntity {
     @Column(name = "location", nullable = false)
     private String location;
 
+    public  TechnoparkUser() {
+
+    }
+
     public TechnoparkUser(TechnoparkRegisterRequest request, User user) {
 
         this.user = user;
