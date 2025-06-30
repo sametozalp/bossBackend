@@ -42,7 +42,6 @@ public class UserController {
 public ResponseEntity<UserRegisterResponse> updateUser(@RequestBody UserUpdateRequest request,
                                                        Authentication authentication) {
     String email = authentication.getName();
-    System.out.println("aha email: " + email);
     User updatedUser = userService.updateUser(request);
     return new ResponseEntity<>(UserMapper.toResponse(updatedUser), HttpStatus.OK);
 }

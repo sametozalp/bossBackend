@@ -15,7 +15,7 @@ public class Room extends BaseEntity {
     private TechnoparkUser technoparkUser;
 
     public Room() {
-        
+
     }
 
     public Room(TechnoparkUser technoparkUser) {
