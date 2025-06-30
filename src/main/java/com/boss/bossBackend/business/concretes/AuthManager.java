@@ -2,6 +2,7 @@ package com.boss.bossBackend.business.concretes;
 
 import com.boss.bossBackend.api.controllers.RoleService;
 import com.boss.bossBackend.business.abstracts.AuthService;
+import com.boss.bossBackend.business.abstracts.UserRoleService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.business.dtos.responses.UserRegisterResponse;
@@ -27,21 +28,21 @@ public class AuthManager implements AuthService {
     private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
-    private final UserRoleRepository userRoleRepository;
     private final RoleService roleService;
+    private final UserRoleService userRoleService;
 
-    public AuthManager(UserService userService, UserRepository userRepository, UserService userService1, PasswordEncoder passwordEncoder, JwtService jwtService, UserRoleRepository userRoleRepository, RoleRepository roleRepository, RoleService roleService) {
+    public AuthManager(UserService userService1, PasswordEncoder passwordEncoder, JwtService jwtService, RoleService roleService, UserRoleService userRoleService) {
         this.userService = userService1;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
-        this.userRoleRepository = userRoleRepository;
         this.roleService = roleService;
+        this.userRoleService = userRoleService;
     }
 
     public ResponseEntity<UserRegisterResponse> login(User user) {
 
         UserRegisterResponse response = UserMapper.toResponse(user);
-        response.setRoles(userRoleRepository.findByUserId(user.getId()));
+        response.setRoles(userRoleService.findByUserId(user.getId()));
 
         String generatedToken = jwtService.generateToken(response.getEmail(),
                 user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
@@ -80,7 +81,7 @@ public class AuthManager implements AuthService {
         userRole.setUser(result);
         Role role = roleService.findById(1);//.orElseThrow(() -> new RuntimeException("Role not found"));
         userRole.setRole(role);
-        userRoleRepository.save(userRole);
+        userRoleService.save(userRole);
 
         ArrayList<UserRole> userRoleList = new ArrayList<>();
         userRoleList.add(userRole);
