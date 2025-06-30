@@ -1,5 +1,6 @@
 package com.boss.bossBackend.api.controllers;
 
+import com.boss.bossBackend.business.abstracts.AuthService;
 import com.boss.bossBackend.business.concretes.AuthManager;
 import com.boss.bossBackend.business.dtos.requests.UserLoginRequest;
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
@@ -14,11 +15,12 @@ import java.util.Map;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-    private final AuthManager authManager;
+    private final AuthService authService;
 
-    public AuthController(AuthManager authManager) {
-        this.authManager = authManager;
+    public AuthController(AuthService authService) {
+        this.authService = authService;
     }
+
 
     @PostMapping("/login")
     public Map<String, String> login(@RequestBody UserLoginRequest userLoginRequest) {
@@ -33,6 +35,6 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<UserRegisterResponse> register(@RequestBody UserRegisterRequest request) {
-        return authManager.register(request);
+        return authService.register(request);
     }
 }
