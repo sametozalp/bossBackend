@@ -14,6 +14,10 @@ public class Room extends BaseEntity {
     @JoinColumn(name = "technopark_id", nullable = false)
     private TechnoparkUser technoparkUser;
 
+    public Room() {
+        
+    }
+
     public Room(TechnoparkUser technoparkUser) {
         this.technoparkUser = technoparkUser;
     }

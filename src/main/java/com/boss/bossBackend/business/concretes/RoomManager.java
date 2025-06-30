@@ -6,6 +6,7 @@ import com.boss.bossBackend.business.dtos.requests.CreateRoomRequest;
 import com.boss.bossBackend.dataAccess.abstracts.RoomRepository;
 import com.boss.bossBackend.entities.concretes.Room;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
+import com.boss.bossBackend.exception.roomException.RoomNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,6 +25,12 @@ public class RoomManager implements RoomService {
         TechnoparkUser technoparkUser = technoparkUserService.findByUserId(createRoomRequest.getTechnoparkUserId());
         Room room = new Room(technoparkUser);
         return repository.save(room);
+    }
+
+    @Override
+    public Room findById(String roomId) {
+        return repository.findById(roomId)
+                .orElseThrow(() -> new RoomNotFoundException("Room not found"));
     }
 
 }

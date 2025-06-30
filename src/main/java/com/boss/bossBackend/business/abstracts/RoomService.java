@@ -6,4 +6,6 @@ import com.boss.bossBackend.entities.concretes.Room;
 public interface RoomService {
 
     Room createRoom(CreateRoomRequest createRoomRequest);
+
+    Room findById(String roomId);
 }

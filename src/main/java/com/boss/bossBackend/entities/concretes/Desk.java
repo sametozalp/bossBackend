@@ -13,5 +13,14 @@ public class Desk extends BaseEntity {
     private Room room;
 
     @Column(name = "desk_available")
-    private DeskAvailableEnum deskAvailable;
+    private DeskAvailableEnum deskAvailable = DeskAvailableEnum.AVAILABLE;
+
+    public Desk(Room room, DeskAvailableEnum deskAvailable) {
+        this.room = room;
+        this.deskAvailable = deskAvailable;
+    }
+
+    public Desk(Room room) {
+        this.room = room;
+    }
 }
