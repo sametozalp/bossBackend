@@ -1,12 +1,9 @@
 package com.boss.bossBackend.entities.concretes;
 
-import com.boss.bossBackend.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
-import org.hibernate.annotations.SQLRestriction;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "roles")
