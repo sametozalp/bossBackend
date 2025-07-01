@@ -2,9 +2,11 @@ package com.boss.bossBackend.business.dtos.responses.userDetailResponse;
 
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.concretes.UserRole;
+import com.boss.bossBackend.entities.enums.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -14,7 +16,7 @@ public class UserDetailResponse {
     private String email;
     private String accessToken;
     private String refreshToken;
-    private List<UserRole> roles;
+    private List<String> roles;
     private LocalDateTime createdAt;
     private CorporateUserDetailResponse corporateUser;
     private IndividualUserDetailResponse individualUser;
@@ -29,8 +31,13 @@ public class UserDetailResponse {
         this.id = user.getId();
         this.username = user.getUsername();
         this.email = user.getEmail();
-        this.roles = user.getUserRoles();
+        //this.roles = user.getUserRoles();
         this.createdAt = user.getCreatedAt();
+
+        this.roles = new ArrayList<>();
+        for (UserRole userRole: user.getUserRoles()) {
+            this.roles.add(userRole.getRole().getAuthority());
+        }
     }
 
     public UserDetailResponse(User user, CorporateUserDetailResponse corporateUser, IndividualUserDetailResponse individualUser, TechnoParkUserDetailResponse technoParkUser) {
@@ -40,8 +47,13 @@ public class UserDetailResponse {
         this.individualUser = individualUser;
         this.corporateUser = corporateUser;
         this.technoParkUser = technoParkUser;
-        this.roles = user.getUserRoles();
+        //this.roles = user.getUserRoles();
         this.createdAt = user.getCreatedAt();
+
+        this.roles = new ArrayList<>();
+        for (UserRole userRole: user.getUserRoles()) {
+            this.roles.add(userRole.getRole().getAuthority());
+        }
     }
 
     public UserDetailResponse(User user, CorporateUserDetailResponse corporateUser, IndividualUserDetailResponse individualUser, TechnoParkUserDetailResponse technoParkUser, String accessToken, String refreshToken) {
@@ -51,9 +63,15 @@ public class UserDetailResponse {
         this.individualUser = individualUser;
         this.corporateUser = corporateUser;
         this.technoParkUser = technoParkUser;
-        this.roles = user.getUserRoles();
+        //this.roles = user.getUserRoles();
         this.accessToken = accessToken;
         this.refreshToken = refreshToken;
+
+        this.roles = new ArrayList<>();
+        for (UserRole userRole: user.getUserRoles()) {
+            this.roles.add(userRole.getRole().getAuthority());
+        }
+
     }
 
     public CorporateUserDetailResponse getCorporateUser() {
@@ -120,11 +138,11 @@ public class UserDetailResponse {
         this.refreshToken = refreshToken;
     }
 
-    public List<UserRole> getRoles() {
+    public List<String> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<UserRole> roles) {
+    public void setRoles(List<String> roles) {
         this.roles = roles;
     }
 
