@@ -8,13 +8,17 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "sectors")
-public class Sector {
-
-    @Id
-    @Column(nullable = false, unique = true)
-    private int id;
+public class Sector extends BaseEntity {
 
     @Column(nullable = false, unique = true)
     private String name;
+
+    public Sector() {
+
+    }
+
+    public Sector(String name) {
+        this.name = name;
+    }
 
 }

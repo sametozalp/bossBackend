@@ -1,6 +1,7 @@
 package com.boss.bossBackend.business.concretes;
 
 import com.boss.bossBackend.business.abstracts.SectorService;
+import com.boss.bossBackend.common.utilities.results.SuccessResult;
 import com.boss.bossBackend.dataAccess.abstracts.SectorRepository;
 import com.boss.bossBackend.entities.concretes.Sector;
 import com.boss.bossBackend.exception.sectorException.SectorNotFoundException;
@@ -18,5 +19,12 @@ public class SectorManager implements SectorService {
     @Override
     public Sector findBySectorId(int sectorId) {
         return repository.findById(sectorId).orElseThrow(() -> new SectorNotFoundException("Sector not found"));
+    }
+
+    @Override
+    public SuccessResult saveToDbWithName(String name) {
+        Sector sector = new Sector(name);
+        repository.save(sector);
+        return new SuccessResult();
     }
 }
