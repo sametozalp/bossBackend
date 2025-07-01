@@ -8,7 +8,10 @@ import com.boss.bossBackend.dataAccess.abstracts.IndividualUserRepository;
 import com.boss.bossBackend.entities.concretes.IndividualUser;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.exception.userException.UserAlreadyExistException;
+import com.boss.bossBackend.exception.userException.UserNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class IndividualUserManager implements IndividualUserService {
@@ -27,12 +30,18 @@ public class IndividualUserManager implements IndividualUserService {
 
         controlForRegisterParameters(request);
 
-        User user = userService.getUser(request.getUserId());
+        User user = userService.findById(request.getUserId());
         IndividualUser individualUser = new IndividualUser(request, user);
 
         individualUserRepository.save(individualUser);
 
         return new SuccessResult();
+    }
+
+    @Override
+    public IndividualUser findByUserId(String userId) {
+        return individualUserRepository.findByUserId(userId)
+                .orElseThrow(() -> new UserNotFoundException("Individual user not found"));
     }
 
     private void controlForRegisterParameters(IndividualUserCompleteProfileRequest request) {

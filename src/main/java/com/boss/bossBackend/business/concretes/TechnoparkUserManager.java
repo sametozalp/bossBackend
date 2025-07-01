@@ -35,7 +35,7 @@ public class TechnoparkUserManager implements TechnoparkUserService {
         user.setEmail(request.getEmail());
         user.setPassword(request.getPassword());
 
-        User savedUser = userService.add(user);
+        User savedUser = userService.saveToDb(user);
         TechnoparkUser technoparkUser = new TechnoparkUser(request, savedUser);
 
         return repository.save(technoparkUser);

@@ -38,7 +38,7 @@ public class UserController {
 
 
 
-@PutMapping("/updateUser")
+@PostMapping("/updateUser")
 public ResponseEntity<UserRegisterResponse> updateUser(@RequestBody UserUpdateRequest request,
                                                        Authentication authentication) {
     String email = authentication.getName();

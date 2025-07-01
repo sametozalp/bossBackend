@@ -30,7 +30,7 @@ public class ListingManager implements ListingService {
 
     @Override
     public DataResult<Listing> save(ListingSaveRequest request) {
-        User publishedByUser = userService.getUser(request.getPublishedById());
+        User publishedByUser = userService.findById(request.getPublishedById());
         Listing listing = new Listing(request, publishedByUser);
         return new SuccessDataResult<>(repository.save(listing));
     }

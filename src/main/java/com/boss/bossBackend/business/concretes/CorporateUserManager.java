@@ -10,6 +10,7 @@ import com.boss.bossBackend.entities.concretes.CorporateUser;
 import com.boss.bossBackend.entities.concretes.Sector;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.exception.userException.UserAlreadyExistException;
+import com.boss.bossBackend.exception.userException.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,12 +33,18 @@ public class CorporateUserManager implements CorporateUserService {
 
         Sector sector = sectorService.findBySectorId(request.getSectorId());
 
-        User user = userService.getUser(request.getUserId());
+        User user = userService.findById(request.getUserId());
         CorporateUser corporateUser = new CorporateUser(request, user, sector);
 
         repository.save(corporateUser);
 
         return new SuccessResult();
+    }
+
+    @Override
+    public CorporateUser findByUserId(String userId) {
+        return repository.findByUserId(userId)
+                .orElseThrow(() -> new UserNotFoundException("Corporate user not found"));
     }
 
     private void controlForRegisterParameters(CorporateUserCompleteProfileRequest request) {

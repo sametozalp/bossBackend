@@ -1,9 +1,13 @@
 package com.boss.bossBackend.business.concretes;
 
+import com.boss.bossBackend.business.abstracts.CorporateUserService;
+import com.boss.bossBackend.business.abstracts.IndividualUserService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.business.dtos.requests.UserUpdateRequest;
 import com.boss.bossBackend.dataAccess.abstracts.UserRepository;
+import com.boss.bossBackend.entities.concretes.CorporateUser;
+import com.boss.bossBackend.entities.concretes.IndividualUser;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.exception.userException.EmailAlreadyUseException;
 import com.boss.bossBackend.exception.userException.UserNotFoundException;
@@ -19,11 +23,11 @@ public class UserManager implements UserService {
 
     private final UserRepository userRepository;
 
-    public UserManager(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserManager(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
-    public User add(User user) {
+    public User saveToDb(User user) {
         return userRepository.save(user);
     }
 
@@ -51,7 +55,7 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public User getUser(String id) {
+    public User findById(String id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
     }

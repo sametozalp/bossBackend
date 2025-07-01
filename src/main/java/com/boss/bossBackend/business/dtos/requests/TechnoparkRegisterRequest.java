@@ -7,23 +7,26 @@ import jakarta.validation.constraints.Pattern;
 
 public class TechnoparkRegisterRequest {
 
-    @NotNull
+    @NotNull(message = "Username cannot be null")
     @NotBlank(message = "Username cannot be blank")
     private String username;
 
-    @NotNull
+    @NotNull(message = "Email cannot be null")
     @NotBlank(message = "Email cannot be blank")
     @Email(message = "Invalid email format")
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@(gmail|hotmail|yahoo|outlook)\\.com$", message = "Email error")
     private String email;
 
+    @NotNull(message = "Password cannot be null")
     @NotBlank(message = "Password cannot be blank")
     private String password;
 
-    @NotBlank(message = "Password cannot be blank")
+    @NotNull(message = "Location cannot be null")
+    @NotBlank(message = "Location cannot be blank")
     private String location;
 
-    @NotBlank(message = "Password cannot be blank")
+    @NotNull(message = "Technopark name cannot be null")
+    @NotBlank(message = "Technopark name cannot be blank")
     private String technoparkName;
 
     public TechnoparkRegisterRequest() {

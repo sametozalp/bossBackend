@@ -5,16 +5,20 @@ import java.math.BigDecimal;
 
 public class ListingSaveRequest {
 
+    @NotBlank(message = "Publisher ID cannot be blank")
     @NotNull(message = "Publisher ID cannot be null")
     private String publishedById;
 
+    @NotNull(message = "Listing type cannot be null")
     @NotBlank(message = "Listing type cannot be blank")
     private String listingType;
 
+    @NotNull(message = "Title cannot be null")
     @NotBlank(message = "Title cannot be blank")
     @Size(max = 100, message = "Title must be at most 100 characters long")
     private String title;
 
+    @NotNull(message = "Description cannot be null")
     @NotBlank(message = "Description cannot be blank")
     @Size(max = 1000, message = "Description must be at most 1000 characters long")
     private String description;

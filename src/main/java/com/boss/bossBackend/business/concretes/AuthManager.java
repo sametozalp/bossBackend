@@ -72,7 +72,7 @@ public class AuthManager implements AuthService {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        User result = userService.add(user);
+        User result = userService.saveToDb(user);
 
         UserRole userRole = new UserRole();
         userRole.setUser(result);
