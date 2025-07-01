@@ -1,5 +1,6 @@
 package com.boss.bossBackend.entities.concretes;
 
+import com.boss.bossBackend.entities.enums.RoleEnum;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -13,15 +14,16 @@ public class Role implements GrantedAuthority {
     @Column(name = "id")
     private int id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "name")
-    private String name;
+    private RoleEnum name;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private Set<UserRole> userRoles;
 
     @Override
     public String getAuthority() {
-        return this.name;
+        return this.name.name();
     }
 
     public Role() {

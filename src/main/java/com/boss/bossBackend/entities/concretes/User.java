@@ -1,5 +1,6 @@
 package com.boss.bossBackend.entities.concretes;
 
+import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLRestriction;
@@ -26,6 +27,16 @@ public class User extends BaseEntity implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserRole> roles;
+
+    public User() {
+
+    }
+
+    public User(UserRegisterRequest request) {
+        this.username = request.getUsername();
+        this.email = request.getEmail();
+        this.password = request.getPassword();
+    }
 
     public String getUsername() {
         return username;

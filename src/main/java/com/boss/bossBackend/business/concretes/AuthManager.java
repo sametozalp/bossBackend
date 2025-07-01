@@ -12,6 +12,8 @@ import com.boss.bossBackend.common.utilities.results.DataResult;
 import com.boss.bossBackend.entities.concretes.Role;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.concretes.UserRole;
+import com.boss.bossBackend.entities.enums.RoleEnum;
+import jakarta.transaction.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
@@ -66,28 +68,34 @@ public class AuthManager implements AuthService {
 //        return login(user);
 //    }
 
+    @Transactional
     public DataResult<FullUserDetailResponse> register(UserRegisterRequest request) {
 
         userService.controlForRegisterParameters(request); // throw
+        request.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        User user = new User();
-        user.setUsername(request.getUsername());
-        user.setEmail(request.getEmail());
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        User user = new User(request);
+        User savedUser = userService.saveToDb(user); // save user
 
-        User result = userService.saveToDb(user);
+        UserRole userRole1 = new UserRole();
+        userRole1.setUser(savedUser);
 
-        UserRole userRole = new UserRole();
-        userRole.setUser(result);
-        Role role = roleService.findById(1);//.orElseThrow(() -> new RuntimeException("Role not found"));
-        userRole.setRole(role);
-        userRoleService.save(userRole);
+        Role investorRole = roleService.findByName(RoleEnum.INVESTOR);
+        userRole1.setRole(investorRole);
+        userRoleService.save(userRole1);
+
+        UserRole userRole2 = new UserRole();
+        userRole2.setUser(savedUser);
+        Role entrepreneurRole = roleService.findByName(RoleEnum.ENTREPRENEUR);
+        userRole2.setRole(entrepreneurRole);
+        userRoleService.save(userRole2);
 
         ArrayList<UserRole> userRoleList = new ArrayList<>();
-        userRoleList.add(userRole);
-        result.setRoles(userRoleList);
+        userRoleList.add(userRole1);
+        userRoleList.add(userRole2);
+        savedUser.setRoles(userRoleList);
 
-        return login(result);
+        return login(savedUser);
     }
 
 }
