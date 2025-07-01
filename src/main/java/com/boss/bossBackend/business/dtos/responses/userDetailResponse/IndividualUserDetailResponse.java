@@ -1,8 +1,8 @@
-package com.boss.bossBackend.business.dtos.responses;
+package com.boss.bossBackend.business.dtos.responses.userDetailResponse;
 
 import com.boss.bossBackend.entities.concretes.IndividualUser;
 
-public class IndividualUserResponse {
+public class IndividualUserDetailResponse {
 
     private String id;
     private String name;
@@ -10,10 +10,10 @@ public class IndividualUserResponse {
     private String socialSecurityNumber;
     private String phoneNumber;
 
-    public IndividualUserResponse() {
+    public IndividualUserDetailResponse() {
     }
 
-    public IndividualUserResponse(IndividualUser individualUser) {
+    public IndividualUserDetailResponse(IndividualUser individualUser) {
         this.id = individualUser.getId();
         this.name = individualUser.getName();
         this.surname = individualUser.getSurname();

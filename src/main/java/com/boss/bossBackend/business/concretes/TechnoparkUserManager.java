@@ -7,7 +7,10 @@ import com.boss.bossBackend.dataAccess.abstracts.TechnoparkUserRepository;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.exception.userException.UserNotFoundException;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class TechnoparkUserManager implements TechnoparkUserService {
@@ -15,11 +18,10 @@ public class TechnoparkUserManager implements TechnoparkUserService {
     private final TechnoparkUserRepository repository;
     private final UserService userService;
 
-    public TechnoparkUserManager(TechnoparkUserRepository repository, UserService userService) {
+    public TechnoparkUserManager(TechnoparkUserRepository repository, @Lazy UserService userService) {
         this.repository = repository;
         this.userService = userService;
     }
-
 
     @Override
     public TechnoparkUser findByUserId(String technoparkId) {
@@ -39,5 +41,10 @@ public class TechnoparkUserManager implements TechnoparkUserService {
         TechnoparkUser technoparkUser = new TechnoparkUser(request, savedUser);
 
         return repository.save(technoparkUser);
+    }
+
+    @Override
+    public Optional<TechnoparkUser> findByUserIdOptional(String userId) {
+        return repository.findByUserId(userId);
     }
 }

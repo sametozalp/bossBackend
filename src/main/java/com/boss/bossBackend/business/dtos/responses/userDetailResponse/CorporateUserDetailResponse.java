@@ -1,8 +1,8 @@
-package com.boss.bossBackend.business.dtos.responses;
+package com.boss.bossBackend.business.dtos.responses.userDetailResponse;
 
 import com.boss.bossBackend.entities.concretes.CorporateUser;
 
-public class CorporateUserResponse {
+public class CorporateUserDetailResponse {
 
     private String id;
     private String companyName;
@@ -13,11 +13,11 @@ public class CorporateUserResponse {
     private String taxPlate;
     private String tradeRegistryCertificate;
 
-    public CorporateUserResponse() {
+    public CorporateUserDetailResponse() {
 
     }
 
-    public CorporateUserResponse(CorporateUser corporateUser) {
+    public CorporateUserDetailResponse(CorporateUser corporateUser) {
         this.id = corporateUser.getId();
         this.companyName = corporateUser.getCompanyName();
         this.contactPhone = corporateUser.getContactPhone();

@@ -10,4 +10,6 @@ public interface TechnoparkUserService {
     TechnoparkUser findByUserId(String technoparkId);
 
     TechnoparkUser save(TechnoparkRegisterRequest request);
+
+    Optional<TechnoparkUser> findByUserIdOptional(String userId);
 }

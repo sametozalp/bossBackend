@@ -1,7 +1,7 @@
 package com.boss.bossBackend.business.dtos.responses;
 
+import com.boss.bossBackend.business.dtos.responses.userDetailResponse.UserDetailResponse;
 import com.boss.bossBackend.entities.concretes.Listing;
-import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.enums.ListingEnum;
 
 import java.math.BigDecimal;
@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
 
 public class GetListingResponse {
 
-    private CustomUserResponse publishedBy;
+    private UserDetailResponse publishedBy;
     private String listingType;
     private String title;
     private String description;
     private BigDecimal minAmount;
     private BigDecimal maxAmount;
     private ListingEnum status;
-    private CustomUserResponse reviewedBy;
+    private UserDetailResponse reviewedBy;
     private LocalDateTime reviewedAt;
 
     public GetListingResponse() {
@@ -31,15 +31,15 @@ public class GetListingResponse {
         this.minAmount = listing.getMinAmount();
         this.maxAmount = listing.getMaxAmount();
         this.status = listing.getStatus();
-        this.reviewedBy = listing.getReviewedBy() != null ? new CustomUserResponse() : null;
+        this.reviewedBy = listing.getReviewedBy() != null ? new UserDetailResponse() : null;
         this.reviewedAt = listing.getReviewedAt();
     }
 
-    public CustomUserResponse getPublishedBy() {
+    public UserDetailResponse getPublishedBy() {
         return publishedBy;
     }
 
-    public void setPublishedBy(CustomUserResponse publishedBy) {
+    public void setPublishedBy(UserDetailResponse publishedBy) {
         this.publishedBy = publishedBy;
     }
 
@@ -91,11 +91,11 @@ public class GetListingResponse {
         this.status = status;
     }
 
-    public CustomUserResponse getReviewedBy() {
+    public UserDetailResponse getReviewedBy() {
         return reviewedBy;
     }
 
-    public void setReviewedBy(CustomUserResponse reviewedBy) {
+    public void setReviewedBy(UserDetailResponse reviewedBy) {
         this.reviewedBy = reviewedBy;
     }
 
