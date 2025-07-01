@@ -4,6 +4,9 @@ import com.boss.bossBackend.business.abstracts.CorporateUserService;
 import com.boss.bossBackend.business.abstracts.SectorService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.CorporateUserCompleteProfileRequest;
+import com.boss.bossBackend.business.dtos.responses.GetUserDetailResponse;
+import com.boss.bossBackend.common.utilities.results.DataResult;
+import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.common.utilities.results.SuccessResult;
 import com.boss.bossBackend.dataAccess.abstracts.CorporateUserRepository;
 import com.boss.bossBackend.entities.concretes.CorporateUser;
@@ -30,7 +33,7 @@ public class CorporateUserManager implements CorporateUserService {
     }
 
     @Override
-    public SuccessResult completeProfile(CorporateUserCompleteProfileRequest request) {
+    public DataResult<GetUserDetailResponse> completeProfile(CorporateUserCompleteProfileRequest request) {
 
         controlForRegisterParameters(request);
 
@@ -41,7 +44,7 @@ public class CorporateUserManager implements CorporateUserService {
 
         repository.save(corporateUser);
 
-        return new SuccessResult();
+        return userService.getUserDetails(request.getUserId());
     }
 
     @Override
