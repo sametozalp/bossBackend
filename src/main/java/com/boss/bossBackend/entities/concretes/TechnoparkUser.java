@@ -5,7 +5,7 @@ import com.boss.bossBackend.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "technopark_user")
+@Table(name = "technopark_users")
 public class TechnoparkUser extends BaseEntity {
 
     @OneToOne

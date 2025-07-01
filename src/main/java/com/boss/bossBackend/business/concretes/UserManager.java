@@ -67,7 +67,7 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public DataResult<GetUserDetailResponse> getUserDetails(String userId) {
+    public DataResult<FullUserDetailResponse> getUserDetails(String userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
@@ -84,6 +84,6 @@ public class UserManager implements UserService {
                 .orElse(null);
 
         UserDetailResponse userDetailResponse = new UserDetailResponse(user, corporateUserDetailResponse, individualUserDetailResponse, technoParkUserDetailResponse);
-        return new SuccessDataResult<>(new GetUserDetailResponse(userDetailResponse));
+        return new SuccessDataResult<>(new FullUserDetailResponse(userDetailResponse));
     }
 }

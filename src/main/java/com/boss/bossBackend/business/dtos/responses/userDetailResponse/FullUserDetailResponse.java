@@ -1,14 +1,14 @@
 package com.boss.bossBackend.business.dtos.responses.userDetailResponse;
 
-public class GetUserDetailResponse {
+public class FullUserDetailResponse {
 
     private UserDetailResponse user;
 
-    public GetUserDetailResponse() {
+    public FullUserDetailResponse() {
 
     }
 
-    public GetUserDetailResponse(UserDetailResponse userDetailResponse) {
+    public FullUserDetailResponse(UserDetailResponse userDetailResponse) {
         this.user = userDetailResponse;
     }
 

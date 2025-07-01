@@ -4,7 +4,7 @@ import com.boss.bossBackend.business.abstracts.CorporateUserService;
 import com.boss.bossBackend.business.abstracts.SectorService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.CorporateUserCompleteProfileRequest;
-import com.boss.bossBackend.business.dtos.responses.userDetailResponse.GetUserDetailResponse;
+import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
 import com.boss.bossBackend.common.utilities.results.DataResult;
 import com.boss.bossBackend.dataAccess.abstracts.CorporateUserRepository;
 import com.boss.bossBackend.entities.concretes.CorporateUser;
@@ -31,7 +31,7 @@ public class CorporateUserManager implements CorporateUserService {
     }
 
     @Override
-    public DataResult<GetUserDetailResponse> completeProfile(CorporateUserCompleteProfileRequest request) {
+    public DataResult<FullUserDetailResponse> completeProfile(CorporateUserCompleteProfileRequest request) {
 
         controlForRegisterParameters(request);
 

@@ -3,7 +3,7 @@ package com.boss.bossBackend.business.concretes;
 import com.boss.bossBackend.business.abstracts.IndividualUserService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.IndividualUserCompleteProfileRequest;
-import com.boss.bossBackend.business.dtos.responses.userDetailResponse.GetUserDetailResponse;
+import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
 import com.boss.bossBackend.common.utilities.results.DataResult;
 import com.boss.bossBackend.dataAccess.abstracts.IndividualUserRepository;
 import com.boss.bossBackend.entities.concretes.IndividualUser;
@@ -28,7 +28,7 @@ public class IndividualUserManager implements IndividualUserService {
 
 
     @Override
-    public DataResult<GetUserDetailResponse> completeProfile(IndividualUserCompleteProfileRequest request) {
+    public DataResult<FullUserDetailResponse> completeProfile(IndividualUserCompleteProfileRequest request) {
 
         controlForRegisterParameters(request);
 

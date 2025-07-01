@@ -2,11 +2,7 @@ package com.boss.bossBackend.api.controllers;
 
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.UserUpdateRequest;
-import com.boss.bossBackend.business.dtos.responses.UserRegisterResponse;
-import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.entities.concretes.User;
-import com.boss.bossBackend.util.mappers.UserMapper;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -39,12 +35,12 @@ public class UserController {
 //    }
 
 
-    @PostMapping("/updateUser")
-    public ResponseEntity<UserRegisterResponse> updateUser(@RequestBody UserUpdateRequest request, Authentication authentication) {
-        String email = authentication.getName();
-        User updatedUser = userService.updateUser(request);
-        return new ResponseEntity<>(UserMapper.toResponse(updatedUser), HttpStatus.OK);
-    }
+//    @PostMapping("/updateUser")
+//    public ResponseEntity<UserRegisterResponse> updateUser(@RequestBody UserUpdateRequest request, Authentication authentication) {
+//        String email = authentication.getName();
+//        User updatedUser = userService.updateUser(request);
+//        return new ResponseEntity<>(UserMapper.toResponse(updatedUser), HttpStatus.OK);
+//    }
 
     @GetMapping("/getUserDetails")
     public ResponseEntity<?> getUserDetails(@RequestParam String userId) {
