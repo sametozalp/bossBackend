@@ -12,4 +12,6 @@ public interface CorporateUserService {
 
     CorporateUser findByUserId(String userId);
 
+    Optional<CorporateUser> findByUserIdOptional(String userId);
+
 }

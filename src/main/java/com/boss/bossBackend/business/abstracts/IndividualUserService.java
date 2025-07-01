@@ -12,4 +12,6 @@ public interface IndividualUserService {
 
     IndividualUser findByUserId(String userId);
 
+    Optional<IndividualUser> findByUserIdOptional(String userId);
+
 }

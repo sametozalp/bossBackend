@@ -58,4 +58,84 @@ public class CorporateUser extends BaseEntity {
         this.user = user;
         this.sector = sector;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public String getTaxNumber() {
+        return taxNumber;
+    }
+
+    public void setTaxNumber(String taxNumber) {
+        this.taxNumber = taxNumber;
+    }
+
+    public String getContactPhone() {
+        return contactPhone;
+    }
+
+    public void setContactPhone(String contactPhone) {
+        this.contactPhone = contactPhone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getTaxPlate() {
+        return taxPlate;
+    }
+
+    public void setTaxPlate(String taxPlate) {
+        this.taxPlate = taxPlate;
+    }
+
+    public String getTradeRegistryCertificate() {
+        return tradeRegistryCertificate;
+    }
+
+    public void setTradeRegistryCertificate(String tradeRegistryCertificate) {
+        this.tradeRegistryCertificate = tradeRegistryCertificate;
+    }
+
+    public Integer getFoundationYear() {
+        return foundationYear;
+    }
+
+    public void setFoundationYear(Integer foundationYear) {
+        this.foundationYear = foundationYear;
+    }
+
+    public String getTaxOffice() {
+        return taxOffice;
+    }
+
+    public void setTaxOffice(String taxOffice) {
+        this.taxOffice = taxOffice;
+    }
+
+    public Sector getSector() {
+        return sector;
+    }
+
+    public void setSector(Sector sector) {
+        this.sector = sector;
+    }
 }
