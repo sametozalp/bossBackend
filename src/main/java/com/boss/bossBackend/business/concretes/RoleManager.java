@@ -1,6 +1,7 @@
 package com.boss.bossBackend.business.concretes;
 
 import com.boss.bossBackend.business.abstracts.RoleService;
+import com.boss.bossBackend.common.utilities.results.SuccessResult;
 import com.boss.bossBackend.dataAccess.abstracts.RoleRepository;
 import com.boss.bossBackend.entities.concretes.Role;
 import com.boss.bossBackend.entities.enums.RoleEnum;
@@ -20,6 +21,13 @@ public class RoleManager implements RoleService {
     public Role findByName(RoleEnum roleEnum) {
         return repository.findByName(roleEnum)
                 .orElseThrow(() -> new RoleNotFoundException("Role not found"));
+    }
+
+    @Override
+    public SuccessResult saveToDb(RoleEnum roleEnum) {
+        Role role = new Role(roleEnum);
+        repository.save(role);
+        return new SuccessResult();
     }
 
 //    @Override

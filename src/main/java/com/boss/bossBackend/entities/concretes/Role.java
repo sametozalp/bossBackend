@@ -12,7 +12,7 @@ import java.util.Set;
 public class Role extends BaseEntity implements GrantedAuthority {
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "name")
+    @Column(name = "name", unique = true)
     private RoleEnum name;
 
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
@@ -25,5 +25,9 @@ public class Role extends BaseEntity implements GrantedAuthority {
 
     public Role() {
 
+    }
+
+    public Role(RoleEnum roleEnum) {
+        this.name = roleEnum;
     }
 }
