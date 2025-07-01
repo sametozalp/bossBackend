@@ -31,7 +31,7 @@ public class GetListingResponse {
         this.minAmount = listing.getMinAmount();
         this.maxAmount = listing.getMaxAmount();
         this.status = listing.getStatus();
-        this.reviewedBy = listing.getReviewedBy() != null ? new CustomUserResponse(listing.getReviewedBy()) : null;
+        this.reviewedBy = listing.getReviewedBy() != null ? new CustomUserResponse() : null;
         this.reviewedAt = listing.getReviewedAt();
     }
 

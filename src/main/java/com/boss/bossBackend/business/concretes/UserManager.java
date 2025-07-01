@@ -76,8 +76,6 @@ public class UserManager implements UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
 
-        CustomUserResponse customUserResponse = new CustomUserResponse(user);
-
         CorporateUserResponse corporateUserResponse = corporateUserService.findByUserIdOptional(userId)
                 .map(CorporateUserResponse::new)
                 .orElse(null);
@@ -86,6 +84,9 @@ public class UserManager implements UserService {
                 .map(IndividualUserResponse::new)
                 .orElse(null);
 
-        return new SuccessDataResult<>(new GetUserDetailResponse(customUserResponse, corporateUserResponse, individualUserResponse));
+        CustomUserResponse customUserResponse = new CustomUserResponse(user, corporateUserResponse, individualUserResponse);
+
+
+        return new SuccessDataResult<>(new GetUserDetailResponse(customUserResponse));
     }
 }
