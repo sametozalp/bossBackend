@@ -1,7 +1,9 @@
 package com.boss.bossBackend.business.dtos.responses.userDetailResponse;
 
 import com.boss.bossBackend.entities.concretes.User;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDetailResponse {
     private String id;
     private String username;
