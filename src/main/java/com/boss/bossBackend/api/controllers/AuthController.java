@@ -22,9 +22,8 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public Map<String, String> login(@RequestBody UserLoginRequest userLoginRequest) {
-        //return authManager.login(userLoginRequest);
-        return new HashMap<>();
+    public ResponseEntity<?> login(@RequestBody UserLoginRequest userLoginRequest) {
+        return ResponseEntity.ok(authService.login(userLoginRequest));
     }
 
 //    @PostMapping("/refresh")

@@ -18,4 +18,6 @@ public interface UserService {
 
     DataResult<FullUserDetailResponse> getUserDetails(String userId);
 
+    User findByEmail(String email);
+
 }

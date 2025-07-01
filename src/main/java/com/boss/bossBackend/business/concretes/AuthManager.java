@@ -4,18 +4,19 @@ import com.boss.bossBackend.business.abstracts.RoleService;
 import com.boss.bossBackend.business.abstracts.AuthService;
 import com.boss.bossBackend.business.abstracts.UserRoleService;
 import com.boss.bossBackend.business.abstracts.UserService;
+import com.boss.bossBackend.business.dtos.requests.UserLoginRequest;
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.UserDetailResponse;
 import com.boss.bossBackend.common.security.jwt.JwtService;
 import com.boss.bossBackend.common.utilities.results.DataResult;
+import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.entities.concretes.Role;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.concretes.UserRole;
 import com.boss.bossBackend.entities.enums.RoleEnum;
+import com.boss.bossBackend.exception.authException.LoginException;
 import jakarta.transaction.Transactional;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -39,7 +40,7 @@ public class AuthManager implements AuthService {
         this.userRoleService = userRoleService;
     }
 
-    public DataResult<FullUserDetailResponse> login(User user) {
+    public DataResult<FullUserDetailResponse> generateTokens(User user) {
 
         DataResult<FullUserDetailResponse> response = userService.getUserDetails(user.getId());
 
@@ -95,7 +96,15 @@ public class AuthManager implements AuthService {
         userRoleList.add(userRole2);
         savedUser.setRoles(userRoleList);
 
-        return login(savedUser);
+        return generateTokens(savedUser);
     }
 
+    @Override
+    public DataResult<FullUserDetailResponse> login(UserLoginRequest request) {
+        User user = userService.findByEmail(request.getEmail());
+        if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+            throw new LoginException("Incorrect password or email");
+        }
+        return userService.getUserDetails(user.getId());
+    }
 }
