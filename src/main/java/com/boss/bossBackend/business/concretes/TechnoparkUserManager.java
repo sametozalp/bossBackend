@@ -1,15 +1,23 @@
 package com.boss.bossBackend.business.concretes;
 
+import com.boss.bossBackend.business.abstracts.RoleService;
 import com.boss.bossBackend.business.abstracts.TechnoparkUserService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.TechnoparkRegisterRequest;
+import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
+import com.boss.bossBackend.common.utilities.results.DataResult;
 import com.boss.bossBackend.dataAccess.abstracts.TechnoparkUserRepository;
+import com.boss.bossBackend.entities.concretes.Role;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
+import com.boss.bossBackend.entities.concretes.UserRole;
+import com.boss.bossBackend.entities.enums.RoleEnum;
 import com.boss.bossBackend.exception.userException.UserNotFoundException;
+import jakarta.transaction.Transactional;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -17,10 +25,12 @@ public class TechnoparkUserManager implements TechnoparkUserService {
 
     private final TechnoparkUserRepository repository;
     private final UserService userService;
+    private final RoleService roleService;
 
-    public TechnoparkUserManager(TechnoparkUserRepository repository, @Lazy UserService userService) {
+    public TechnoparkUserManager(TechnoparkUserRepository repository, @Lazy UserService userService, RoleService roleService) {
         this.repository = repository;
         this.userService = userService;
+        this.roleService = roleService;
     }
 
     @Override
@@ -29,8 +39,9 @@ public class TechnoparkUserManager implements TechnoparkUserService {
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
+    @Transactional
     @Override
-    public TechnoparkUser save(TechnoparkRegisterRequest request) {
+    public DataResult<FullUserDetailResponse> saveToDb(TechnoparkRegisterRequest request) {
 
         User user = new User();
         user.setUsername(request.getUsername());
@@ -40,7 +51,18 @@ public class TechnoparkUserManager implements TechnoparkUserService {
         User savedUser = userService.saveToDb(user);
         TechnoparkUser technoparkUser = new TechnoparkUser(request, savedUser);
 
-        return repository.save(technoparkUser);
+        UserRole userRole = new UserRole();
+        userRole.setUser(savedUser);
+
+        Role technoparkRole = roleService.findByName(RoleEnum.TECHNOPARK);
+        userRole.setRole(technoparkRole);
+
+        ArrayList<UserRole> userRoleList = new ArrayList<>();
+        userRoleList.add(userRole);
+        savedUser.setRoles(userRoleList);
+        repository.save(technoparkUser);
+
+        return userService.getUserDetails(savedUser.getId());
     }
 
     @Override

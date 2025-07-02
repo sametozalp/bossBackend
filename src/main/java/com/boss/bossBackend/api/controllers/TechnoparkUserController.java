@@ -18,7 +18,7 @@ public class TechnoparkUserController {
     }
 
     @PostMapping("/createUser")
-    public ResponseEntity<TechnoparkUser> createUser(@RequestBody TechnoparkRegisterRequest request) {
-        return new ResponseEntity<>(technoparkUserService.save(request), HttpStatus.OK);
+    public ResponseEntity<?> createUser(@RequestBody TechnoparkRegisterRequest request) {
+        return new ResponseEntity<>(technoparkUserService.saveToDb(request), HttpStatus.OK);
     }
 }
