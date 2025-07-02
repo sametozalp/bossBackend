@@ -40,11 +40,16 @@ public class CorporateUser extends BaseEntity {
     @JoinColumn(name = "sector_id")
     private Sector sector;
 
+    @ManyToOne
+    @JoinColumn(name = "associated_technopark_id", nullable = false)
+    private TechnoparkUser associatedTechnopark;
+
+
     public CorporateUser() {
 
     }
 
-    public CorporateUser(CorporateUserCompleteProfileRequest request, User user, Sector sector) {
+    public CorporateUser(CorporateUserCompleteProfileRequest request, User user, Sector sector, TechnoparkUser associatedTechnopark) {
 
         this.companyName = request.getCompanyName();
         this.taxNumber = request.getTaxNumber();
@@ -57,6 +62,7 @@ public class CorporateUser extends BaseEntity {
 
         this.user = user;
         this.sector = sector;
+        this.associatedTechnopark = associatedTechnopark;
     }
 
     public User getUser() {

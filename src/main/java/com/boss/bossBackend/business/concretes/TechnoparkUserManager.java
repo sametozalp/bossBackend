@@ -39,6 +39,12 @@ public class TechnoparkUserManager implements TechnoparkUserService {
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
     }
 
+    @Override
+    public TechnoparkUser findById(String technoparkId) {
+        return repository.findById(technoparkId)
+                .orElseThrow(() -> new UserNotFoundException("Technopark not found"));
+    }
+
     @Transactional
     @Override
     public DataResult<FullUserDetailResponse> saveToDb(TechnoparkRegisterRequest request, User savedUser) {

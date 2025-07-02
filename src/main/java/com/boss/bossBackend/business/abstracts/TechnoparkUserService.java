@@ -12,6 +12,8 @@ public interface TechnoparkUserService {
 
     TechnoparkUser findByUserId(String technoparkId);
 
+    TechnoparkUser findById(String technoparkId);
+
     DataResult<FullUserDetailResponse> saveToDb(TechnoparkRegisterRequest request, User savedUser);
 
     Optional<TechnoparkUser> findByUserIdOptional(String userId);

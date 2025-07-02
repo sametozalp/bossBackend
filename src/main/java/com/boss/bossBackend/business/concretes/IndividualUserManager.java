@@ -1,12 +1,14 @@
 package com.boss.bossBackend.business.concretes;
 
 import com.boss.bossBackend.business.abstracts.IndividualUserService;
+import com.boss.bossBackend.business.abstracts.TechnoparkUserService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.IndividualUserCompleteProfileRequest;
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
 import com.boss.bossBackend.common.utilities.results.DataResult;
 import com.boss.bossBackend.dataAccess.abstracts.IndividualUserRepository;
 import com.boss.bossBackend.entities.concretes.IndividualUser;
+import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.exception.userException.UserAlreadyExistException;
 import com.boss.bossBackend.exception.userException.UserNotFoundException;
@@ -20,23 +22,22 @@ public class IndividualUserManager implements IndividualUserService {
 
     private final IndividualUserRepository individualUserRepository;
     private final UserService userService;
+    private final TechnoparkUserService technoparkUserService;
 
-    public IndividualUserManager(IndividualUserRepository individualUserRepository, @Lazy UserService userService) {
+    public IndividualUserManager(IndividualUserRepository individualUserRepository, @Lazy UserService userService, TechnoparkUserService technoparkUserService) {
         this.individualUserRepository = individualUserRepository;
         this.userService = userService;
+        this.technoparkUserService = technoparkUserService;
     }
 
 
     @Override
     public DataResult<FullUserDetailResponse> completeProfile(IndividualUserCompleteProfileRequest request) {
-
         controlForRegisterParameters(request);
-
         User user = userService.findById(request.getUserId());
-        IndividualUser individualUser = new IndividualUser(request, user);
-
+        TechnoparkUser associatedTechnopark = technoparkUserService.findById(request.getAssociatedTechnopark());
+        IndividualUser individualUser = new IndividualUser(request, user, associatedTechnopark);
         individualUserRepository.save(individualUser);
-
         return userService.getUserDetails(request.getUserId());
     }
 

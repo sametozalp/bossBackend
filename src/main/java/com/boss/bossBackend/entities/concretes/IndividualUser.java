@@ -26,17 +26,23 @@ public class IndividualUser extends BaseEntity {
     @Column(name = "social_security_number")
     private String socialSecurityNumber;
 
+    @ManyToOne
+    @JoinColumn(name = "associated_technopark_id", nullable = false)
+    private TechnoparkUser associatedTechnopark;
+
+
     public IndividualUser() {
 
     }
 
-    public IndividualUser(IndividualUserCompleteProfileRequest request, User user) {
+    public IndividualUser(IndividualUserCompleteProfileRequest request, User user, TechnoparkUser associatedTechnopark) {
 
         this.name = request.getName();
         this.surname = request.getSurname();
         this.phoneNumber = request.getPhoneNumber();
         this.socialSecurityNumber = request.getSocialSecurityNumber();
         this.user = user;
+        this.associatedTechnopark = associatedTechnopark;
 
     }
 

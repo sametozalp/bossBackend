@@ -2,6 +2,7 @@ package com.boss.bossBackend.business.concretes;
 
 import com.boss.bossBackend.business.abstracts.CorporateUserService;
 import com.boss.bossBackend.business.abstracts.SectorService;
+import com.boss.bossBackend.business.abstracts.TechnoparkUserService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.CorporateUserCompleteProfileRequest;
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
@@ -9,6 +10,7 @@ import com.boss.bossBackend.common.utilities.results.DataResult;
 import com.boss.bossBackend.dataAccess.abstracts.CorporateUserRepository;
 import com.boss.bossBackend.entities.concretes.CorporateUser;
 import com.boss.bossBackend.entities.concretes.Sector;
+import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.exception.userException.UserAlreadyExistException;
 import com.boss.bossBackend.exception.userException.UserNotFoundException;
@@ -23,25 +25,23 @@ public class CorporateUserManager implements CorporateUserService {
     private final CorporateUserRepository repository;
     private final UserService userService;
     private final SectorService sectorService;
+    private final TechnoparkUserService technoparkUserService;
 
-    public CorporateUserManager(CorporateUserRepository repository, @Lazy UserService userService, SectorService sectorService) {
+    public CorporateUserManager(CorporateUserRepository repository, @Lazy UserService userService, SectorService sectorService, TechnoparkUserService technoparkUserService) {
         this.repository = repository;
         this.userService = userService;
         this.sectorService = sectorService;
+        this.technoparkUserService = technoparkUserService;
     }
 
     @Override
     public DataResult<FullUserDetailResponse> completeProfile(CorporateUserCompleteProfileRequest request) {
-
         controlForRegisterParameters(request);
-
         Sector sector = sectorService.findBySectorId(request.getSectorId());
-
         User user = userService.findById(request.getUserId());
-        CorporateUser corporateUser = new CorporateUser(request, user, sector);
-
+        TechnoparkUser associatedTechnopark = technoparkUserService.findById(request.getAssociatedTechnopark());
+        CorporateUser corporateUser = new CorporateUser(request, user, sector, associatedTechnopark);
         repository.save(corporateUser);
-
         return userService.getUserDetails(request.getUserId());
     }
 

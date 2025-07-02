@@ -5,6 +5,10 @@ import jakarta.validation.constraints.NotNull;
 
 public class IndividualUserCompleteProfileRequest {
 
+    @NotNull(message = "User ID cannot be null")
+    @NotBlank(message = "User ID cannot be blank")
+    private String userId;
+
     @NotNull(message = "Name cannot be null")
     @NotBlank(message = "Name cannot be blank")
     private String name;
@@ -21,9 +25,17 @@ public class IndividualUserCompleteProfileRequest {
     @NotBlank(message = "Social security number cannot be blank")
     private String socialSecurityNumber;
 
-    @NotNull(message = "User ID cannot be null")
-    @NotBlank(message = "User ID cannot be blank")
-    private String userId;
+    @NotNull(message = "Associated Technopark cannot be null")
+    @NotBlank(message = "Associated Technopark cannot be blank")
+    private String associatedTechnopark;
+
+    public String getAssociatedTechnopark() {
+        return associatedTechnopark;
+    }
+
+    public void setAssociatedTechnopark(String associatedTechnopark) {
+        this.associatedTechnopark = associatedTechnopark;
+    }
 
     public String getName() {
         return name;
