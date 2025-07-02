@@ -16,4 +16,6 @@ public interface ListingService {
     DataResult<GetListingResponse> getListing(String listingId);
 
     DataResult<List<GetListingResponse>> getListings(String userId, ListingTypeEnum listingTypeEnum);
+
+    DataResult<List<GetListingResponse>> getAllListings(ListingTypeEnum listingTypeEnum);
 }

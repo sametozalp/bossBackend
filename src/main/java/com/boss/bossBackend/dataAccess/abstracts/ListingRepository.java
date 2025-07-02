@@ -11,4 +11,6 @@ public interface ListingRepository extends JpaRepository<Listing, String> {
 
     List<Listing> findByPublishedByAndListingType(User publishedBy, ListingTypeEnum listingTypeEnum);
 
+    List<Listing> findByListingType(ListingTypeEnum listingTypeEnum);
+
 }

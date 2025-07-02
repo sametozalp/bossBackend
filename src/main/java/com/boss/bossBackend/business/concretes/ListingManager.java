@@ -65,4 +65,14 @@ public class ListingManager implements ListingService {
         }
         return new SuccessDataResult<>(listingResponses);
     }
+
+    @Override
+    public DataResult<List<GetListingResponse>> getAllListings(ListingTypeEnum listingTypeEnum) {
+        List<Listing> listings = repository.findByListingType(listingTypeEnum);
+        List<GetListingResponse> listingResponses = new ArrayList<>();
+        for (Listing listing : listings) {
+            listingResponses.add(new GetListingResponse(listing, new FullUserDetailResponse(new UserDetailResponse(listing.getPublishedBy()))));
+        }
+        return new SuccessDataResult<>(listingResponses);
+    }
 }
