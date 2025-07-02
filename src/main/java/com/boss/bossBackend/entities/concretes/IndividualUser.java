@@ -66,6 +66,14 @@ public class IndividualUser extends BaseEntity {
         return surname;
     }
 
+    public TechnoparkUser getAssociatedTechnopark() {
+        return associatedTechnopark;
+    }
+
+    public void setAssociatedTechnopark(TechnoparkUser associatedTechnopark) {
+        this.associatedTechnopark = associatedTechnopark;
+    }
+
     public void setSurname(String surname) {
         this.surname = surname;
     }

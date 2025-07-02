@@ -65,6 +65,14 @@ public class CorporateUser extends BaseEntity {
         this.associatedTechnopark = associatedTechnopark;
     }
 
+    public TechnoparkUser getAssociatedTechnopark() {
+        return associatedTechnopark;
+    }
+
+    public void setAssociatedTechnopark(TechnoparkUser associatedTechnopark) {
+        this.associatedTechnopark = associatedTechnopark;
+    }
+
     public User getUser() {
         return user;
     }

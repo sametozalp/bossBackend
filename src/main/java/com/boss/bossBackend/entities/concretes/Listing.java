@@ -33,6 +33,7 @@ public class Listing extends BaseEntity {
     @Column(name = "max_amount", nullable = false)
     private BigDecimal maxAmount;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private ListingEnum status = ListingEnum.WAITING;
 
@@ -42,17 +43,30 @@ public class Listing extends BaseEntity {
     @Column(name = "reviewed_at")
     private LocalDateTime reviewedAt;
 
+    @ManyToOne
+    @JoinColumn(name = "associated_technopark_id", nullable = false)
+    private TechnoparkUser associatedTechnopark;
+
     public Listing() {
 
     }
 
-    public Listing(CreateListingRequest request, User publishedBy) {
+    public Listing(CreateListingRequest request, User publishedBy, TechnoparkUser associatedTechnopark) {
         this.publishedBy = publishedBy;
         this.listingType = request.getListingType();
         this.title = request.getTitle();
         this.description = request.getDescription();
         this.minAmount = request.getMinAmount();
         this.maxAmount = request.getMaxAmount();
+        this.associatedTechnopark = associatedTechnopark;
+    }
+
+    public TechnoparkUser getAssociatedTechnopark() {
+        return associatedTechnopark;
+    }
+
+    public void setAssociatedTechnopark(TechnoparkUser associatedTechnopark) {
+        this.associatedTechnopark = associatedTechnopark;
     }
 
     public User getPublishedBy() {

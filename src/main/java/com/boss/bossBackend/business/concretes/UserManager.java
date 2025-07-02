@@ -10,6 +10,9 @@ import com.boss.bossBackend.business.dtos.responses.userDetailResponse.*;
 import com.boss.bossBackend.common.utilities.results.DataResult;
 import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.dataAccess.abstracts.UserRepository;
+import com.boss.bossBackend.entities.concretes.CorporateUser;
+import com.boss.bossBackend.entities.concretes.IndividualUser;
+import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.exception.userException.EmailAlreadyUseException;
 import com.boss.bossBackend.exception.userException.UserNotFoundException;
@@ -17,6 +20,8 @@ import com.boss.bossBackend.exception.userException.UsernameAlreadyUseException;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class UserManager implements UserService {
@@ -91,5 +96,18 @@ public class UserManager implements UserService {
     public User findByEmail(String email) {
         return userRepository.findByEmail(email)
                 .orElseThrow(() -> new UserNotFoundException("User not found"));
+    }
+
+    @Override
+    public TechnoparkUser findByAssociateTechnoparkUser(User user) {
+        return Optional.ofNullable(
+                individualUserService.findByUserIdOptional(user.getId())
+                        .map(IndividualUser::getAssociatedTechnopark)
+                        .orElseGet(() -> corporateUserService.findByUserIdOptional(user.getId())
+                                .map(CorporateUser::getAssociatedTechnopark)
+                                .orElse(null))
+        ).orElseThrow(() -> new RuntimeException("Technopark not found"));
+
+
     }
 }

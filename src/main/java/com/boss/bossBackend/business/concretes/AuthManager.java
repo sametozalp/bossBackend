@@ -105,7 +105,7 @@ public class AuthManager implements AuthService {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+        user.setPassword(passwordEncoder.encode(request.getPassword()));
         User savedUser = userService.saveToDb(user);
         return technoparkUserService.saveToDb(request, savedUser);
     }

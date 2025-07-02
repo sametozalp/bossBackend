@@ -10,6 +10,7 @@ import com.boss.bossBackend.common.utilities.results.DataResult;
 import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.dataAccess.abstracts.ListingRepository;
 import com.boss.bossBackend.entities.concretes.Listing;
+import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 import com.boss.bossBackend.exception.listingException.ListingNotFound;
@@ -39,7 +40,8 @@ public class ListingManager implements ListingService {
     @Override
     public DataResult<GetListingResponse> saveToDatabase(CreateListingRequest request) {
         User publishedByUser = userService.findById(request.getPublishedById());
-        Listing listing = new Listing(request, publishedByUser);
+        TechnoparkUser associateTechnopark = userService.findByAssociateTechnoparkUser(publishedByUser);
+        Listing listing = new Listing(request, publishedByUser, associateTechnopark);
         repository.save(listing);
         FullUserDetailResponse fullUserDetailResponse = new FullUserDetailResponse(new UserDetailResponse(publishedByUser));
         return new SuccessDataResult<>(new GetListingResponse(listing, fullUserDetailResponse));

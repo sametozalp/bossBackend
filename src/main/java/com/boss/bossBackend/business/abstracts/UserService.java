@@ -4,6 +4,7 @@ import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.business.dtos.requests.UserUpdateRequest;
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
 import com.boss.bossBackend.common.utilities.results.DataResult;
+import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
 
 public interface UserService {
@@ -19,5 +20,7 @@ public interface UserService {
     DataResult<FullUserDetailResponse> getUserDetails(String userId);
 
     User findByEmail(String email);
+
+    TechnoparkUser findByAssociateTechnoparkUser(User user);
 
 }
