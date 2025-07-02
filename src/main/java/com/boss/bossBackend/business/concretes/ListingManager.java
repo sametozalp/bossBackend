@@ -2,14 +2,17 @@ package com.boss.bossBackend.business.concretes;
 
 import com.boss.bossBackend.business.abstracts.ListingService;
 import com.boss.bossBackend.business.abstracts.UserService;
-import com.boss.bossBackend.business.dtos.requests.ListingSaveRequest;
+import com.boss.bossBackend.business.dtos.requests.CreateListingRequest;
 import com.boss.bossBackend.business.dtos.responses.GetListingResponse;
+import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
+import com.boss.bossBackend.business.dtos.responses.userDetailResponse.UserDetailResponse;
 import com.boss.bossBackend.common.utilities.results.DataResult;
 import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.dataAccess.abstracts.ListingRepository;
 import com.boss.bossBackend.entities.concretes.Listing;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.exception.listingException.ListingNotFound;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -28,20 +31,23 @@ public class ListingManager implements ListingService {
 //        return new SuccessDataResult<>(repository.findByPublishedBy(request.getPublishedById()));
 //    }
 
+    @Transactional
     @Override
-    public DataResult<Listing> save(ListingSaveRequest request) {
+    public DataResult<GetListingResponse> saveToDatabase(CreateListingRequest request) {
         User publishedByUser = userService.findById(request.getPublishedById());
         Listing listing = new Listing(request, publishedByUser);
-        return new SuccessDataResult<>(repository.save(listing));
+        repository.save(listing);
+        FullUserDetailResponse fullUserDetailResponse = new FullUserDetailResponse(new UserDetailResponse(publishedByUser));
+        return new SuccessDataResult<>(new GetListingResponse(listing, fullUserDetailResponse));
     }
 
+    @Transactional
     @Override
     public DataResult<GetListingResponse> getListing(String listingId) {
         Listing listing = repository.findById(listingId)
                 .orElseThrow(() -> new ListingNotFound("Listing not found"));
-        //User publishedBy = userService.getUser(listing.getPublishedBy().getId());
-        GetListingResponse getListingResponse = new GetListingResponse(listing);
-
-        return new SuccessDataResult<>(getListingResponse);
+        FullUserDetailResponse fullUserDetailResponse =
+                new FullUserDetailResponse(new UserDetailResponse(listing.getPublishedBy()));
+        return new SuccessDataResult<>(new GetListingResponse(listing, fullUserDetailResponse));
     }
 }

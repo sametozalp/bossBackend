@@ -1,53 +1,57 @@
 package com.boss.bossBackend.business.dtos.responses;
 
+import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.UserDetailResponse;
 import com.boss.bossBackend.entities.concretes.Listing;
 import com.boss.bossBackend.entities.enums.ListingEnum;
+import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class GetListingResponse {
 
-    private UserDetailResponse publishedBy;
-    private String listingType;
+    private String id;
+    private FullUserDetailResponse publishedBy;
+    private ListingTypeEnum listingType;
     private String title;
     private String description;
     private BigDecimal minAmount;
     private BigDecimal maxAmount;
     private ListingEnum status;
-    private UserDetailResponse reviewedBy;
+    private FullUserDetailResponse reviewedBy;
     private LocalDateTime reviewedAt;
 
     public GetListingResponse() {
 
     }
 
-    public GetListingResponse(Listing listing) {
-        //this.publishedBy = listing.getPublishedBy() != null ? new CustomUserResponse(listing.getPublishedBy()) : null;
+    public GetListingResponse(Listing listing, FullUserDetailResponse fullUserDetailResponse) {
+        this.id = listing.getId();
+        this.publishedBy = fullUserDetailResponse;
         this.listingType = listing.getListingType();
         this.title = listing.getTitle();
         this.description = listing.getDescription();
         this.minAmount = listing.getMinAmount();
         this.maxAmount = listing.getMaxAmount();
         this.status = listing.getStatus();
-        this.reviewedBy = listing.getReviewedBy() != null ? new UserDetailResponse() : null;
+        this.reviewedBy = listing.getReviewedBy() != null ? new FullUserDetailResponse() : null;
         this.reviewedAt = listing.getReviewedAt();
     }
 
-    public UserDetailResponse getPublishedBy() {
-        return publishedBy;
-    }
-
-    public void setPublishedBy(UserDetailResponse publishedBy) {
-        this.publishedBy = publishedBy;
-    }
-
-    public String getListingType() {
+    public ListingTypeEnum getListingType() {
         return listingType;
     }
 
-    public void setListingType(String listingType) {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setListingType(ListingTypeEnum listingType) {
         this.listingType = listingType;
     }
 
@@ -91,11 +95,19 @@ public class GetListingResponse {
         this.status = status;
     }
 
-    public UserDetailResponse getReviewedBy() {
+    public FullUserDetailResponse getPublishedBy() {
+        return publishedBy;
+    }
+
+    public void setPublishedBy(FullUserDetailResponse publishedBy) {
+        this.publishedBy = publishedBy;
+    }
+
+    public FullUserDetailResponse getReviewedBy() {
         return reviewedBy;
     }
 
-    public void setReviewedBy(UserDetailResponse reviewedBy) {
+    public void setReviewedBy(FullUserDetailResponse reviewedBy) {
         this.reviewedBy = reviewedBy;
     }
 

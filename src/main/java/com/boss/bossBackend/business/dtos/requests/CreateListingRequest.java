@@ -1,17 +1,17 @@
 package com.boss.bossBackend.business.dtos.requests;
 
+import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 import jakarta.validation.constraints.*;
 import java.math.BigDecimal;
 
-public class ListingSaveRequest {
+public class CreateListingRequest {
 
     @NotBlank(message = "Publisher ID cannot be blank")
     @NotNull(message = "Publisher ID cannot be null")
     private String publishedById;
 
     @NotNull(message = "Listing type cannot be null")
-    @NotBlank(message = "Listing type cannot be blank")
-    private String listingType;
+    private ListingTypeEnum listingType;
 
     @NotNull(message = "Title cannot be null")
     @NotBlank(message = "Title cannot be blank")
@@ -39,11 +39,11 @@ public class ListingSaveRequest {
         this.publishedById = publishedById;
     }
 
-    public String getListingType() {
+    public ListingTypeEnum getListingType() {
         return listingType;
     }
 
-    public void setListingType(String listingType) {
+    public void setListingType(ListingTypeEnum listingType) {
         this.listingType = listingType;
     }
 

@@ -1,7 +1,7 @@
 package com.boss.bossBackend.api.controllers;
 
 import com.boss.bossBackend.business.abstracts.ListingService;
-import com.boss.bossBackend.business.dtos.requests.ListingSaveRequest;
+import com.boss.bossBackend.business.dtos.requests.CreateListingRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,9 +16,9 @@ public class ListingController {
         this.listingService = listingService;
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<?> saveListing(@Valid @RequestBody ListingSaveRequest request) {
-        return ResponseEntity.ok(listingService.save(request));
+    @PostMapping("/createListing")
+    public ResponseEntity<?> createListing(@Valid @RequestBody CreateListingRequest request) {
+        return ResponseEntity.ok(listingService.saveToDatabase(request));
     }
 
     @GetMapping("/getListing")
