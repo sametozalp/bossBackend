@@ -1,9 +1,7 @@
 package com.boss.bossBackend.business.concretes;
 
-import com.boss.bossBackend.business.abstracts.RoleService;
-import com.boss.bossBackend.business.abstracts.AuthService;
-import com.boss.bossBackend.business.abstracts.UserRoleService;
-import com.boss.bossBackend.business.abstracts.UserService;
+import com.boss.bossBackend.business.abstracts.*;
+import com.boss.bossBackend.business.dtos.requests.TechnoparkRegisterRequest;
 import com.boss.bossBackend.business.dtos.requests.UserLoginRequest;
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
@@ -31,13 +29,15 @@ public class AuthManager implements AuthService {
     private final JwtService jwtService;
     private final RoleService roleService;
     private final UserRoleService userRoleService;
+    private final TechnoparkUserService technoparkUserService;
 
-    public AuthManager(UserService userService1, PasswordEncoder passwordEncoder, JwtService jwtService, RoleService roleService, UserRoleService userRoleService) {
+    public AuthManager(UserService userService1, PasswordEncoder passwordEncoder, JwtService jwtService, RoleService roleService, UserRoleService userRoleService, TechnoparkUserService technoparkUserService) {
         this.userService = userService1;
         this.passwordEncoder = passwordEncoder;
         this.jwtService = jwtService;
         this.roleService = roleService;
         this.userRoleService = userRoleService;
+        this.technoparkUserService = technoparkUserService;
     }
 
     public DataResult<FullUserDetailResponse> generateTokens(User user) {
@@ -97,6 +97,17 @@ public class AuthManager implements AuthService {
         savedUser.setRoles(userRoleList);
 
         return generateTokens(savedUser);
+    }
+
+    @Transactional
+    @Override
+    public DataResult<FullUserDetailResponse> register(TechnoparkRegisterRequest request) {
+        User user = new User();
+        user.setUsername(request.getUsername());
+        user.setEmail(request.getEmail());
+        user.setPassword(request.getPassword());
+        User savedUser = userService.saveToDb(user);
+        return technoparkUserService.saveToDb(request, savedUser);
     }
 
     @Override

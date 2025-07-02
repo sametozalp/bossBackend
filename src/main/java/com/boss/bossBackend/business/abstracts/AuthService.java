@@ -1,5 +1,6 @@
 package com.boss.bossBackend.business.abstracts;
 
+import com.boss.bossBackend.business.dtos.requests.TechnoparkRegisterRequest;
 import com.boss.bossBackend.business.dtos.requests.UserLoginRequest;
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
@@ -13,6 +14,8 @@ public interface AuthService {
     //public ResponseEntity<UserResponse> refreshToken(String refreshToken);
 
     DataResult<FullUserDetailResponse> register(UserRegisterRequest request);
+
+    DataResult<FullUserDetailResponse> register(TechnoparkRegisterRequest request);
 
     DataResult<FullUserDetailResponse> login(UserLoginRequest request);
 }

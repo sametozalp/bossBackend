@@ -1,9 +1,12 @@
 package com.boss.bossBackend.api.controllers;
 
 import com.boss.bossBackend.business.abstracts.AuthService;
+import com.boss.bossBackend.business.dtos.requests.TechnoparkRegisterRequest;
 import com.boss.bossBackend.business.dtos.requests.UserLoginRequest;
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +25,7 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody UserLoginRequest userLoginRequest) {
+    public ResponseEntity<?> login(@Valid @RequestBody UserLoginRequest userLoginRequest) {
         return ResponseEntity.ok(authService.login(userLoginRequest));
     }
 
@@ -31,8 +34,13 @@ public class AuthController {
 //        return authManager.refreshToken(refreshToken);
 //    }
 
-    @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody UserRegisterRequest request) {
+    @PostMapping("/createUser")
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserRegisterRequest request) {
         return ResponseEntity.ok(authService.register(request));
+    }
+
+    @PostMapping("/createTechnoparkUser")
+    public ResponseEntity<?> createTechnoparkUser(@Valid @RequestBody TechnoparkRegisterRequest request) {
+        return new ResponseEntity<>(authService.register(request), HttpStatus.OK);
     }
 }

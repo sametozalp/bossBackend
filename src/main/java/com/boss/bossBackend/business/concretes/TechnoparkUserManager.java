@@ -41,14 +41,7 @@ public class TechnoparkUserManager implements TechnoparkUserService {
 
     @Transactional
     @Override
-    public DataResult<FullUserDetailResponse> saveToDb(TechnoparkRegisterRequest request) {
-
-        User user = new User();
-        user.setUsername(request.getUsername());
-        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
-
-        User savedUser = userService.saveToDb(user);
+    public DataResult<FullUserDetailResponse> saveToDb(TechnoparkRegisterRequest request, User savedUser) {
         TechnoparkUser technoparkUser = new TechnoparkUser(request, savedUser);
 
         UserRole userRole = new UserRole();
