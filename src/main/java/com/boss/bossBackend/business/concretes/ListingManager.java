@@ -11,9 +11,13 @@ import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.dataAccess.abstracts.ListingRepository;
 import com.boss.bossBackend.entities.concretes.Listing;
 import com.boss.bossBackend.entities.concretes.User;
+import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 import com.boss.bossBackend.exception.listingException.ListingNotFound;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ListingManager implements ListingService {
@@ -49,5 +53,16 @@ public class ListingManager implements ListingService {
         FullUserDetailResponse fullUserDetailResponse =
                 new FullUserDetailResponse(new UserDetailResponse(listing.getPublishedBy()));
         return new SuccessDataResult<>(new GetListingResponse(listing, fullUserDetailResponse));
+    }
+
+    @Override
+    public DataResult<List<GetListingResponse>> getListings(String userId, ListingTypeEnum listingTypeEnum) {
+        User publishedBy = userService.findById(userId);
+        List<Listing> listings = repository.findByPublishedByAndListingType(publishedBy, listingTypeEnum);
+        List<GetListingResponse> listingResponses = new ArrayList<>();
+        for (Listing listing : listings) {
+            listingResponses.add(new GetListingResponse(listing, new FullUserDetailResponse(new UserDetailResponse(listing.getPublishedBy()))));
+        }
+        return new SuccessDataResult<>(listingResponses);
     }
 }
