@@ -27,14 +27,19 @@ public class ListingController {
         return ResponseEntity.ok(listingService.getListing(listingId));
     }
 
-    @GetMapping("/getListings")
-    public ResponseEntity<?> getListings(@RequestParam String userId, @RequestParam ListingTypeEnum listingTypeEnum) {
+    @GetMapping("/getListingsForUser")
+    public ResponseEntity<?> getListingsForUser(@RequestParam String userId, @RequestParam ListingTypeEnum listingTypeEnum) {
         return ResponseEntity.ok(listingService.getListings(userId, listingTypeEnum));
     }
 
     @GetMapping("/getAllListings")
     public ResponseEntity<?> getAllListings(@RequestParam ListingTypeEnum listingTypeEnum) {
         return ResponseEntity.ok(listingService.getAllListings(listingTypeEnum));
+    }
+
+    @GetMapping("/getAllListingsForTechnoPark")
+    public ResponseEntity<?> getAllListingsForTechnopark(@RequestParam String technoparkId, @RequestParam ListingTypeEnum listingTypeEnum) {
+        return ResponseEntity.ok(listingService.getAllListingsForTechnopark(technoparkId, listingTypeEnum));
     }
 
 }

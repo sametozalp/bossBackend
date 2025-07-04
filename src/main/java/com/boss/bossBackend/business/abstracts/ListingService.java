@@ -18,4 +18,6 @@ public interface ListingService {
     DataResult<List<GetListingResponse>> getListings(String userId, ListingTypeEnum listingTypeEnum);
 
     DataResult<List<GetListingResponse>> getAllListings(ListingTypeEnum listingTypeEnum);
+
+    DataResult<List<GetListingResponse>> getAllListingsForTechnopark(String technoparkId, ListingTypeEnum listingTypeEnum);
 }

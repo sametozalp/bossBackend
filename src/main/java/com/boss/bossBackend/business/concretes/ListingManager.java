@@ -1,6 +1,7 @@
 package com.boss.bossBackend.business.concretes;
 
 import com.boss.bossBackend.business.abstracts.ListingService;
+import com.boss.bossBackend.business.abstracts.TechnoparkUserService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.CreateListingRequest;
 import com.boss.bossBackend.business.dtos.responses.GetListingResponse;
@@ -25,10 +26,12 @@ public class ListingManager implements ListingService {
 
     private final ListingRepository repository;
     private final UserService userService;
+    private final TechnoparkUserService technoparkUserService;
 
-    public ListingManager(ListingRepository repository, UserService userService) {
+    public ListingManager(ListingRepository repository, UserService userService, TechnoparkUserService technoparkUserService) {
         this.repository = repository;
         this.userService = userService;
+        this.technoparkUserService = technoparkUserService;
     }
 //
 //    @Override
@@ -71,6 +74,16 @@ public class ListingManager implements ListingService {
     @Override
     public DataResult<List<GetListingResponse>> getAllListings(ListingTypeEnum listingTypeEnum) {
         List<Listing> listings = repository.findByListingType(listingTypeEnum);
+        List<GetListingResponse> listingResponses = new ArrayList<>();
+        for (Listing listing : listings) {
+            listingResponses.add(new GetListingResponse(listing, new FullUserDetailResponse(new UserDetailResponse(listing.getPublishedBy()))));
+        }
+        return new SuccessDataResult<>(listingResponses);
+    }
+
+    @Override
+    public DataResult<List<GetListingResponse>> getAllListingsForTechnopark(String technoparkId, ListingTypeEnum listingTypeEnum) {
+        List<Listing> listings = repository.findByAssociatedTechnoparkIdAndListingType(technoparkId, listingTypeEnum);
         List<GetListingResponse> listingResponses = new ArrayList<>();
         for (Listing listing : listings) {
             listingResponses.add(new GetListingResponse(listing, new FullUserDetailResponse(new UserDetailResponse(listing.getPublishedBy()))));
