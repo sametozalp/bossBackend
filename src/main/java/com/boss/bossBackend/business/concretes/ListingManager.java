@@ -72,8 +72,9 @@ public class ListingManager implements ListingService {
     }
 
     @Override
-    public DataResult<List<GetListingResponse>> getAllListings(ListingTypeEnum listingTypeEnum) {
-        List<Listing> listings = repository.findByListingType(listingTypeEnum);
+    public DataResult<List<GetListingResponse>> getAllFeedListings(String userId, ListingTypeEnum listingTypeEnum) {
+        TechnoparkUser technoparkUser = userService.findByAssociateTechnoparkUser(userService.findById(userId));
+        List<Listing> listings = repository.findByAssociatedTechnoparkIdAndListingType(technoparkUser.getId(), listingTypeEnum);
         List<GetListingResponse> listingResponses = new ArrayList<>();
         for (Listing listing : listings) {
             listingResponses.add(new GetListingResponse(listing, new FullUserDetailResponse(new UserDetailResponse(listing.getPublishedBy()))));

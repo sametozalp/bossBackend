@@ -32,9 +32,9 @@ public class ListingController {
         return ResponseEntity.ok(listingService.getListings(userId, listingTypeEnum));
     }
 
-    @GetMapping("/getAllListings")
-    public ResponseEntity<?> getAllListings(@RequestParam ListingTypeEnum listingTypeEnum) {
-        return ResponseEntity.ok(listingService.getAllListings(listingTypeEnum));
+    @GetMapping("/getAllFeedListings")
+    public ResponseEntity<?> getAllFeedListings(@RequestParam String userId, @RequestParam ListingTypeEnum listingTypeEnum) {
+        return ResponseEntity.ok(listingService.getAllFeedListings(userId, listingTypeEnum));
     }
 
     @GetMapping("/getAllTechnoParksListings")
