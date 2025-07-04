@@ -17,7 +17,7 @@ public class SectorManager implements SectorService {
     }
 
     @Override
-    public Sector findBySectorId(int sectorId) {
+    public Sector findBySectorId(String sectorId) {
         return repository.findById(sectorId).orElseThrow(() -> new SectorNotFoundException("Sector not found"));
     }
 

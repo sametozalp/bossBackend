@@ -5,7 +5,7 @@ import com.boss.bossBackend.entities.concretes.Sector;
 
 public interface SectorService {
 
-    Sector findBySectorId(int sectorId);
+    Sector findBySectorId(String sectorId);
 
     SuccessResult saveToDbWithName(String name);
 

@@ -42,8 +42,8 @@ public class CorporateUserCompleteProfileRequest {
     private String tradeRegistryCertificate;
 
     @NotNull(message = "Sector ID cannot be null")
-    //@NotBlank(message = "Sector ID cannot be blank")
-    private int sectorId;
+    @NotBlank(message = "Sector ID cannot be blank")
+    private String sectorId;
 
     @NotNull(message = "Associated Technopark cannot be null")
     @NotBlank(message = "Associated Technopark cannot be blank")
@@ -71,10 +71,6 @@ public class CorporateUserCompleteProfileRequest {
 
     public String getTradeRegistryCertificate() {
         return tradeRegistryCertificate;
-    }
-
-    public int getSectorId() {
-        return sectorId;
     }
 
     public String getAssociatedTechnopark() {
@@ -129,7 +125,11 @@ public class CorporateUserCompleteProfileRequest {
         this.tradeRegistryCertificate = tradeRegistryCertificate;
     }
 
-    public void setSectorId(int sectorId) {
+    public String getSectorId() {
+        return sectorId;
+    }
+
+    public void setSectorId(String sectorId) {
         this.sectorId = sectorId;
     }
 
