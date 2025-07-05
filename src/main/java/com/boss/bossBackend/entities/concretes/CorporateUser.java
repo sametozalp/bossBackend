@@ -2,11 +2,12 @@ package com.boss.bossBackend.entities.concretes;
 
 import com.boss.bossBackend.business.dtos.requests.CorporateUserCompleteProfileRequest;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
+import com.boss.bossBackend.entities.abstracts.CustomerAccount;
 import jakarta.persistence.*;
 
 @Entity
 @Table(name = "corporate_users")
-public class CorporateUser extends BaseEntity {
+public class CorporateUser extends CustomerAccount {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
@@ -40,11 +41,6 @@ public class CorporateUser extends BaseEntity {
     @JoinColumn(name = "sector_id")
     private Sector sector;
 
-    @ManyToOne
-    @JoinColumn(name = "associated_technopark_id", nullable = false)
-    private TechnoparkUser associatedTechnopark;
-
-
     public CorporateUser() {
 
     }
@@ -62,14 +58,6 @@ public class CorporateUser extends BaseEntity {
 
         this.user = user;
         this.sector = sector;
-        this.associatedTechnopark = associatedTechnopark;
-    }
-
-    public TechnoparkUser getAssociatedTechnopark() {
-        return associatedTechnopark;
-    }
-
-    public void setAssociatedTechnopark(TechnoparkUser associatedTechnopark) {
         this.associatedTechnopark = associatedTechnopark;
     }
 

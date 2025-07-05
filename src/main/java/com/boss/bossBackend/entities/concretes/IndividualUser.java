@@ -2,13 +2,14 @@ package com.boss.bossBackend.entities.concretes;
 
 import com.boss.bossBackend.business.dtos.requests.IndividualUserCompleteProfileRequest;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
+import com.boss.bossBackend.entities.abstracts.CustomerAccount;
 import jakarta.persistence.*;
 import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Table(name = "individual_users")
 @SQLRestriction(value = "deleted_at IS NULL")
-public class IndividualUser extends BaseEntity {
+public class IndividualUser extends CustomerAccount {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
@@ -25,11 +26,6 @@ public class IndividualUser extends BaseEntity {
 
     @Column(name = "social_security_number")
     private String socialSecurityNumber;
-
-    @ManyToOne
-    @JoinColumn(name = "associated_technopark_id", nullable = false)
-    private TechnoparkUser associatedTechnopark;
-
 
     public IndividualUser() {
 
@@ -66,14 +62,6 @@ public class IndividualUser extends BaseEntity {
         return surname;
     }
 
-    public TechnoparkUser getAssociatedTechnopark() {
-        return associatedTechnopark;
-    }
-
-    public void setAssociatedTechnopark(TechnoparkUser associatedTechnopark) {
-        this.associatedTechnopark = associatedTechnopark;
-    }
-
     public void setSurname(String surname) {
         this.surname = surname;
     }
@@ -93,4 +81,5 @@ public class IndividualUser extends BaseEntity {
     public void setSocialSecurityNumber(String socialSecurityNumber) {
         this.socialSecurityNumber = socialSecurityNumber;
     }
+
 }
