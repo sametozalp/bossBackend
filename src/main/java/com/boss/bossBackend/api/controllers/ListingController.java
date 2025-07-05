@@ -2,6 +2,7 @@ package com.boss.bossBackend.api.controllers;
 
 import com.boss.bossBackend.business.abstracts.ListingService;
 import com.boss.bossBackend.business.dtos.requests.CreateListingRequest;
+import com.boss.bossBackend.entities.enums.ListingStatusEnum;
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,11 @@ public class ListingController {
     @GetMapping("/getAllTechnoParksListings")
     public ResponseEntity<?> getAllTechnoParksListings(@RequestParam String technoparkId, @RequestParam ListingTypeEnum listingTypeEnum) {
         return ResponseEntity.ok(listingService.getAllListingsForTechnopark(technoparkId, listingTypeEnum));
+    }
+
+    @PutMapping("/api/setListingStatus")
+    public ResponseEntity<?> setListingStatus(@RequestParam String listingId, @RequestParam ListingStatusEnum listingStatusEnum) {
+        return ResponseEntity.ok(listingService.setListingStatus(listingId, listingStatusEnum));
     }
 
 }

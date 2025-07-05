@@ -2,7 +2,7 @@ package com.boss.bossBackend.entities.concretes;
 
 import com.boss.bossBackend.business.dtos.requests.CreateListingRequest;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
-import com.boss.bossBackend.entities.enums.ListingEnum;
+import com.boss.bossBackend.entities.enums.ListingStatusEnum;
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 import jakarta.persistence.*;
 
@@ -35,7 +35,7 @@ public class Listing extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private ListingEnum status = ListingEnum.WAITING;
+    private ListingStatusEnum status = ListingStatusEnum.WAITING;
 
     @Column(name = "reviewed_by")
     private User reviewedBy;
@@ -89,7 +89,7 @@ public class Listing extends BaseEntity {
         return maxAmount;
     }
 
-    public ListingEnum getStatus() {
+    public ListingStatusEnum getStatus() {
         return status;
     }
 
@@ -129,7 +129,7 @@ public class Listing extends BaseEntity {
         this.maxAmount = maxAmount;
     }
 
-    public void setStatus(ListingEnum status) {
+    public void setStatus(ListingStatusEnum status) {
         this.status = status;
     }
 

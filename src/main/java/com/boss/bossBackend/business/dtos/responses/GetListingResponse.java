@@ -1,9 +1,8 @@
 package com.boss.bossBackend.business.dtos.responses;
 
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
-import com.boss.bossBackend.business.dtos.responses.userDetailResponse.UserDetailResponse;
 import com.boss.bossBackend.entities.concretes.Listing;
-import com.boss.bossBackend.entities.enums.ListingEnum;
+import com.boss.bossBackend.entities.enums.ListingStatusEnum;
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 
 import java.math.BigDecimal;
@@ -18,12 +17,24 @@ public class GetListingResponse {
     private String description;
     private BigDecimal minAmount;
     private BigDecimal maxAmount;
-    private ListingEnum status;
+    private ListingStatusEnum status;
     private FullUserDetailResponse reviewedBy;
     private LocalDateTime reviewedAt;
 
     public GetListingResponse() {
 
+    }
+
+    public GetListingResponse(Listing listing) {
+        this.id = listing.getId();
+        this.listingType = listing.getListingType();
+        this.title = listing.getTitle();
+        this.description = listing.getDescription();
+        this.minAmount = listing.getMinAmount();
+        this.maxAmount = listing.getMaxAmount();
+        this.status = listing.getStatus();
+        this.reviewedBy = listing.getReviewedBy() != null ? new FullUserDetailResponse() : null;
+        this.reviewedAt = listing.getReviewedAt();
     }
 
     public GetListingResponse(Listing listing, FullUserDetailResponse fullUserDetailResponse) {
@@ -87,11 +98,11 @@ public class GetListingResponse {
         this.maxAmount = maxAmount;
     }
 
-    public ListingEnum getStatus() {
+    public ListingStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(ListingEnum status) {
+    public void setStatus(ListingStatusEnum status) {
         this.status = status;
     }
 

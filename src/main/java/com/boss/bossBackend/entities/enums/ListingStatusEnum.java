@@ -1,5 +1,5 @@
 package com.boss.bossBackend.entities.enums;
 
-public enum ListingEnum {
+public enum ListingStatusEnum {
     WAITING, APPROVED, NOT_APPROVED
 }
