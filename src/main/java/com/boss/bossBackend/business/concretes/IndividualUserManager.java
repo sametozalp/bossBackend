@@ -10,11 +10,13 @@ import com.boss.bossBackend.dataAccess.abstracts.IndividualUserRepository;
 import com.boss.bossBackend.entities.concretes.IndividualUser;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
+import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import com.boss.bossBackend.exception.userException.UserAlreadyExistException;
 import com.boss.bossBackend.exception.userException.UserNotFoundException;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -50,6 +52,11 @@ public class IndividualUserManager implements IndividualUserService {
     @Override
     public Optional<IndividualUser> findByUserIdOptional(String userId) {
         return individualUserRepository.findByUserId(userId);
+    }
+
+    @Override
+    public List<IndividualUser> findByApprovalStatusEnumOrderByCreatedAtDesc(ApprovalStatusEnum approvalStatusEnum) {
+        return individualUserRepository.findByApprovalStatusEnumOrderByCreatedAtDesc(approvalStatusEnum);
     }
 
     private void controlForRegisterParameters(IndividualUserCompleteProfileRequest request) {

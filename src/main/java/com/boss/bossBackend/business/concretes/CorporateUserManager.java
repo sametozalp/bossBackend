@@ -12,11 +12,13 @@ import com.boss.bossBackend.entities.concretes.CorporateUser;
 import com.boss.bossBackend.entities.concretes.Sector;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
+import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import com.boss.bossBackend.exception.userException.UserAlreadyExistException;
 import com.boss.bossBackend.exception.userException.UserNotFoundException;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -54,6 +56,11 @@ public class CorporateUserManager implements CorporateUserService {
     @Override
     public Optional<CorporateUser> findByUserIdOptional(String userId) {
         return repository.findByUserId(userId);
+    }
+
+    @Override
+    public List<CorporateUser> findByApprovalStatusEnumOrderByCreatedAtDesc(ApprovalStatusEnum approvalStatusEnum) {
+        return repository.findByApprovalStatusEnumOrderByCreatedAtDesc(approvalStatusEnum);
     }
 
     private void controlForRegisterParameters(CorporateUserCompleteProfileRequest request) {

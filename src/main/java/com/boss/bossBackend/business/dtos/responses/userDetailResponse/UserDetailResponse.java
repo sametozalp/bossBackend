@@ -22,9 +22,18 @@ public class UserDetailResponse {
     private IndividualUserDetailResponse individualUser;
     private TechnoParkUserDetailResponse technoParkUser;
 
-
     public UserDetailResponse() {
 
+    }
+
+    public UserDetailResponse(CorporateUserDetailResponse corporateUser) {
+        this.corporateUser = corporateUser;
+        this.createdAt = corporateUser.getCreatedAt();
+    }
+
+    public UserDetailResponse(IndividualUserDetailResponse individualUser) {
+        this.individualUser = individualUser;
+        this.createdAt = individualUser.getCreatedAt();
     }
 
     public UserDetailResponse(User user) {

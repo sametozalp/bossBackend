@@ -2,6 +2,8 @@ package com.boss.bossBackend.business.dtos.responses.userDetailResponse;
 
 import com.boss.bossBackend.entities.concretes.IndividualUser;
 
+import java.time.LocalDateTime;
+
 public class IndividualUserDetailResponse {
 
     private String id;
@@ -9,6 +11,7 @@ public class IndividualUserDetailResponse {
     private String surname;
     private String socialSecurityNumber;
     private String phoneNumber;
+    private LocalDateTime createdAt;
 
     public IndividualUserDetailResponse() {
     }
@@ -19,7 +22,7 @@ public class IndividualUserDetailResponse {
         this.surname = individualUser.getSurname();
         this.socialSecurityNumber = individualUser.getSocialSecurityNumber();
         this.phoneNumber = individualUser.getPhoneNumber();
-
+        this.createdAt = individualUser.getCreatedAt();
     }
 
     public String getId() {
@@ -60,5 +63,13 @@ public class IndividualUserDetailResponse {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }

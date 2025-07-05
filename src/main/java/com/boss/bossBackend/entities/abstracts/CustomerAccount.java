@@ -2,15 +2,13 @@ package com.boss.bossBackend.entities.abstracts;
 
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 
 @MappedSuperclass
 public abstract class CustomerAccount extends BaseEntity {
 
-    @Column(name = "technopark_approved")
+    @Enumerated(EnumType.STRING)
+    @Column(name = "approval_status", nullable = false)
     private ApprovalStatusEnum approvalStatusEnum = ApprovalStatusEnum.PENDING;
 
     @ManyToOne

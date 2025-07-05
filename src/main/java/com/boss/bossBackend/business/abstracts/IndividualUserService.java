@@ -4,7 +4,9 @@ import com.boss.bossBackend.business.dtos.requests.IndividualUserCompleteProfile
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
 import com.boss.bossBackend.common.utilities.results.DataResult;
 import com.boss.bossBackend.entities.concretes.IndividualUser;
+import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface IndividualUserService {
@@ -14,5 +16,8 @@ public interface IndividualUserService {
     IndividualUser findByUserId(String userId);
 
     Optional<IndividualUser> findByUserIdOptional(String userId);
+
+    List<IndividualUser> findByApprovalStatusEnumOrderByCreatedAtDesc(ApprovalStatusEnum approvalStatusEnum);
+
 
 }

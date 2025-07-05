@@ -2,6 +2,8 @@ package com.boss.bossBackend.business.dtos.responses.userDetailResponse;
 
 import com.boss.bossBackend.entities.concretes.CorporateUser;
 
+import java.time.LocalDateTime;
+
 public class CorporateUserDetailResponse {
 
     private String id;
@@ -12,6 +14,7 @@ public class CorporateUserDetailResponse {
     private String taxOffice;
     private String taxPlate;
     private String tradeRegistryCertificate;
+    private LocalDateTime createdAt;
 
     public CorporateUserDetailResponse() {
 
@@ -26,6 +29,7 @@ public class CorporateUserDetailResponse {
         this.taxOffice = corporateUser.getTaxOffice();
         this.taxPlate = corporateUser.getTaxPlate();
         this.tradeRegistryCertificate = corporateUser.getTradeRegistryCertificate();
+        this.createdAt = corporateUser.getCreatedAt();
 
     }
 
@@ -71,6 +75,14 @@ public class CorporateUserDetailResponse {
 
     public String getTaxOffice() {
         return taxOffice;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public void setTaxOffice(String taxOffice) {
