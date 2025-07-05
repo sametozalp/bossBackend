@@ -4,10 +4,12 @@ import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserD
 import com.boss.bossBackend.entities.concretes.Listing;
 import com.boss.bossBackend.entities.enums.ListingStatusEnum;
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
+import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class GetListingResponse {
 
     private String id;

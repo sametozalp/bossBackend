@@ -97,7 +97,6 @@ public class ListingManager implements ListingService {
     public DataResult<GetListingResponse> setListingStatus(String listingId, ListingStatusEnum listingStatusEnum) {
         Listing listing = repository.findById(listingId)
                 .orElseThrow(() -> new ListingNotFound("Listing not found"));
-
         listing.setStatus(listingStatusEnum);
         return new SuccessDataResult<>(new GetListingResponse(repository.save(listing)));
     }

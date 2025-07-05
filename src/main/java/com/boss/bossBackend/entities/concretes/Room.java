@@ -1,10 +1,7 @@
 package com.boss.bossBackend.entities.concretes;
 
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "rooms")
@@ -13,6 +10,9 @@ public class Room extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "technopark_id", nullable = false)
     private TechnoparkUser technoparkUser;
+
+    @Column(name = "room_name", nullable = false, unique = true)
+    private String roomName;
 
     public Room() {
 
