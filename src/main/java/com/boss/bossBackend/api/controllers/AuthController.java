@@ -29,10 +29,10 @@ public class AuthController {
         return ResponseEntity.ok(authService.login(userLoginRequest));
     }
 
-//    @PostMapping("/refresh")
-//    public ResponseEntity<UserResponse> refresh(@Valid @RequestParam String refreshToken) {
-//        return authManager.refreshToken(refreshToken);
-//    }
+    @PostMapping("/refresh")
+    public ResponseEntity<?> refresh(@Valid @RequestParam String refreshToken) {
+        return ResponseEntity.ok(authService.refreshToken(refreshToken));
+    }
 
     @PostMapping("/createUser")
     public ResponseEntity<?> createUser(@Valid @RequestBody UserRegisterRequest request) {

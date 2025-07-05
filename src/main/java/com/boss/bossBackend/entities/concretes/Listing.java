@@ -35,7 +35,7 @@ public class Listing extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
-    private ListingStatusEnum status = ListingStatusEnum.WAITING;
+    private ListingStatusEnum status = ListingStatusEnum.PUBLISHED;
 
     @Column(name = "reviewed_by")
     private User reviewedBy;

@@ -47,8 +47,7 @@ public class AuthManager implements AuthService {
         String generatedToken = jwtService.generateToken(user.getEmail(),
                 user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
 
-        String refreshToken = jwtService.generateToken(user.getEmail(),
-                user.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList());
+        String refreshToken = jwtService.generateRefreshToken(user.getEmail());
 
         UserDetailResponse userDetailResponse = response.getData().getUser();
         userDetailResponse.setAccessToken(generatedToken);
@@ -59,15 +58,12 @@ public class AuthManager implements AuthService {
         return response;
     }
 
-//
-//    public ResponseEntity<UserResponse> refreshToken(String refreshToken) {
-//        if (!jwtService.isTokenValid(refreshToken)) {
-//            throw new RuntimeException("Invalid refresh token");
-//        }
-//
-//        User user = jwtService.extractUser(refreshToken);
-//        return login(user);
-//    }
+    @Override
+    public DataResult<FullUserDetailResponse> refreshToken(String refreshToken) {
+        String email = jwtService.extractEmail(refreshToken);
+        User user = userService.findByEmail(email);
+        return generateTokens(user);
+    }
 
     @Transactional
     public DataResult<FullUserDetailResponse> register(UserRegisterRequest request) {
@@ -113,9 +109,9 @@ public class AuthManager implements AuthService {
     @Override
     public DataResult<FullUserDetailResponse> login(UserLoginRequest request) {
         User user = userService.findByEmail(request.getEmail());
-        if(!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new LoginException("Incorrect password or email");
         }
-        return userService.getUserDetails(user.getId());
+        return generateTokens(user);
     }
 }

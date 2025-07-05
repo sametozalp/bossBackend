@@ -22,11 +22,27 @@ public class JwtService {
     @Value("${jwt.expiration}")
     private long expiration;
 
+    @Value("${jwt.refresh-expiration}")
+    private long refreshExpiration;
+
     public String generateToken(String email, List<String> roles){
         Map<String,Object> claims = new HashMap<>();
         claims.put("roles",roles);
         return createToken(claims,email);
     }
+
+    public String generateRefreshToken(String email) {
+        Map<String, Object> claims = new HashMap<>();
+
+        return Jwts.builder()
+                .claims(claims)
+                .subject(email)
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + refreshExpiration * 1000))
+                .signWith(getSigningKey(), Jwts.SIG.HS256)
+                .compact();
+    }
+
 
     public List<String> extractRoles(String token){
         return getClaimsFromToken(token).get("roles",List.class);

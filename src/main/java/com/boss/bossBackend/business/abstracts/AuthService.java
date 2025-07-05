@@ -11,7 +11,7 @@ public interface AuthService {
 
     DataResult<FullUserDetailResponse> generateTokens(User user);
 
-    //public ResponseEntity<UserResponse> refreshToken(String refreshToken);
+    DataResult<FullUserDetailResponse> refreshToken(String refreshToken);
 
     DataResult<FullUserDetailResponse> register(UserRegisterRequest request);
 
