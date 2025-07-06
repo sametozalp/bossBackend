@@ -7,6 +7,7 @@ import com.boss.bossBackend.business.dtos.requests.IndividualUserCompleteProfile
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
 import com.boss.bossBackend.common.utilities.results.DataResult;
 import com.boss.bossBackend.dataAccess.abstracts.IndividualUserRepository;
+import com.boss.bossBackend.entities.concretes.CorporateUser;
 import com.boss.bossBackend.entities.concretes.IndividualUser;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
@@ -55,9 +56,9 @@ public class IndividualUserManager implements IndividualUserService {
     }
 
     @Override
-    public List<IndividualUser> findByApprovalStatusEnumOrderByCreatedAtDesc(ApprovalStatusEnum approvalStatusEnum) {
-        return individualUserRepository.findByApprovalStatusEnumOrderByCreatedAtDesc(approvalStatusEnum);
-    }
+    public List<IndividualUser> findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(ApprovalStatusEnum approvalStatusEnum, String associatedTechnoparkId) {
+        TechnoparkUser associatedTechnopark = technoparkUserService.findById(associatedTechnoparkId);
+        return individualUserRepository.findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(approvalStatusEnum, associatedTechnopark);    }
 
     private void controlForRegisterParameters(IndividualUserCompleteProfileRequest request) {
         if (individualUserRepository.existsByUserId(request.getUserId())) {

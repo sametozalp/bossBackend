@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CustomerAccountService {
 
-    DataResult<List<UserDetailResponse>> getAccountsByApprovalStatusSortedByCreatedDate(ApprovalStatusEnum approvalStatusEnum);
+    DataResult<List<UserDetailResponse>> getAccountsByApprovalStatusSortedByCreatedDate(ApprovalStatusEnum approvalStatusEnum, String associatedTechnoparkId);
 
 
 }

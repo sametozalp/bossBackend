@@ -1,6 +1,7 @@
 package com.boss.bossBackend.dataAccess.abstracts;
 
 import com.boss.bossBackend.entities.concretes.CorporateUser;
+import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -13,7 +14,9 @@ public interface CorporateUserRepository extends JpaRepository<CorporateUser, St
 
     Optional<CorporateUser> findByUserId(String userId);
 
-    List<CorporateUser> findByApprovalStatusEnumOrderByCreatedAtDesc(ApprovalStatusEnum approvalStatusEnum);
-
+    List<CorporateUser> findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(
+            ApprovalStatusEnum approvalStatusEnum,
+            TechnoparkUser associatedTechnopark
+    );
 
 }

@@ -12,6 +12,7 @@ public class Desk extends BaseEntity {
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "desk_available")
     private DeskAvailableEnum deskAvailable = DeskAvailableEnum.AVAILABLE;
 

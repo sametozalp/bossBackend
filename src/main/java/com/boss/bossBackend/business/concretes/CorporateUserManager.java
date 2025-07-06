@@ -59,9 +59,11 @@ public class CorporateUserManager implements CorporateUserService {
     }
 
     @Override
-    public List<CorporateUser> findByApprovalStatusEnumOrderByCreatedAtDesc(ApprovalStatusEnum approvalStatusEnum) {
-        return repository.findByApprovalStatusEnumOrderByCreatedAtDesc(approvalStatusEnum);
+    public List<CorporateUser> findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(ApprovalStatusEnum approvalStatusEnum, String associatedTechnoparkId) {
+        TechnoparkUser associatedTechnopark = technoparkUserService.findById(associatedTechnoparkId);
+        return repository.findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(approvalStatusEnum, associatedTechnopark);
     }
+
 
     private void controlForRegisterParameters(CorporateUserCompleteProfileRequest request) {
         if (repository.existsByUserId(request.getUserId())) {

@@ -5,6 +5,7 @@ import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,7 +19,7 @@ public class CustomerAccountController {
     }
 
     @PostMapping("/getAccountsByApprovalStatus")
-    ResponseEntity<?> getAccountsByApprovalStatus(ApprovalStatusEnum approvalStatusEnum) {
-        return ResponseEntity.ok(customerAccountService.getAccountsByApprovalStatusSortedByCreatedDate(approvalStatusEnum));
+    ResponseEntity<?> getAccountsByApprovalStatus(@RequestParam ApprovalStatusEnum approvalStatusEnum, @RequestParam String associatedTechnoparkId) {
+        return ResponseEntity.ok(customerAccountService.getAccountsByApprovalStatusSortedByCreatedDate(approvalStatusEnum, associatedTechnoparkId));
     }
 }

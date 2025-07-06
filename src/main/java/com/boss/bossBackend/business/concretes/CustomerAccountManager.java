@@ -30,14 +30,14 @@ public class CustomerAccountManager implements CustomerAccountService {
     }
 
     @Override
-    public DataResult<List<UserDetailResponse>> getAccountsByApprovalStatusSortedByCreatedDate(ApprovalStatusEnum approvalStatusEnum) {
+    public DataResult<List<UserDetailResponse>> getAccountsByApprovalStatusSortedByCreatedDate(ApprovalStatusEnum approvalStatusEnum, String associatedTechnoparkId) {
         List<UserDetailResponse> corporateUsers = corporateUserService
-                .findByApprovalStatusEnumOrderByCreatedAtDesc(approvalStatusEnum)
+                .findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(approvalStatusEnum, associatedTechnoparkId)
                 .stream()
                 .map(user -> new UserDetailResponse(new CorporateUserDetailResponse(user)))
                 .toList();
         List<UserDetailResponse> individualUsers = individualUserService
-                .findByApprovalStatusEnumOrderByCreatedAtDesc(approvalStatusEnum)
+                .findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(approvalStatusEnum,associatedTechnoparkId)
                 .stream()
                 .map(user -> new UserDetailResponse(new IndividualUserDetailResponse(user)))
                 .toList();
