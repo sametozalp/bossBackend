@@ -8,8 +8,12 @@ import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.dataAccess.abstracts.DeskRepository;
 import com.boss.bossBackend.entities.concretes.Desk;
 import com.boss.bossBackend.entities.concretes.Room;
+import com.boss.bossBackend.entities.concretes.TechnoparkUser;
+import com.boss.bossBackend.entities.enums.DeskAvailableEnum;
 import com.boss.bossBackend.exception.deskException.DeskNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DeskManager implements DeskService {
@@ -31,7 +35,24 @@ public class DeskManager implements DeskService {
     @Override
     public DataResult<Desk> createDesk(CreateDeskRequest request) {
         Room room = roomService.findById(request.getRoomId());
-        Desk desk = new Desk(room);
+        Desk desk = new Desk(request, room);
         return new SuccessDataResult<>(repository.save(desk));
     }
+
+    @Override
+    public List<Desk> findByDeskAvailableAndRoom_TechnoparkUser(DeskAvailableEnum deskAvailableEnum, TechnoparkUser technoparkUser) {
+        List<Desk> availableDesks = repository.findByDeskAvailableAndRoom_TechnoparkUser(deskAvailableEnum, technoparkUser);
+        if (availableDesks.isEmpty()) {
+            throw new DeskNotFoundException("Available desk not found");
+        }
+        return availableDesks;
+    }
+
+    @Override
+    public Desk updateDeskAsNotAvailable(String deskId) {
+        Desk desk = findById(deskId).getData();
+        desk.setDeskAvailable(DeskAvailableEnum.UNAVAILABLE);
+        return repository.save(desk);
+    }
+
 }

@@ -4,6 +4,7 @@ import com.boss.bossBackend.business.abstracts.RoomService;
 import com.boss.bossBackend.business.abstracts.TechnoparkUserService;
 import com.boss.bossBackend.business.dtos.requests.CreateRoomRequest;
 import com.boss.bossBackend.dataAccess.abstracts.RoomRepository;
+import com.boss.bossBackend.entities.concretes.Desk;
 import com.boss.bossBackend.entities.concretes.Room;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.exception.roomException.RoomNotFoundException;
@@ -21,10 +22,10 @@ public class RoomManager implements RoomService {
     }
 
     @Override
-    public Room createRoom(CreateRoomRequest createRoomRequest) {
+    public void createRoom(CreateRoomRequest createRoomRequest) {
         TechnoparkUser technoparkUser = technoparkUserService.findByUserId(createRoomRequest.getTechnoparkUserId());
-        Room room = new Room(technoparkUser);
-        return repository.save(room);
+        Room room = new Room(createRoomRequest, technoparkUser);
+        repository.save(room);
     }
 
     @Override
