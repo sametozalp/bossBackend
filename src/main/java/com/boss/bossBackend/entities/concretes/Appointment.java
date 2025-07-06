@@ -28,7 +28,8 @@ public class Appointment extends BaseEntity {
     @JoinColumn(name = "listing_id", nullable = false)
     private Listing listing;
 
-    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(name = "appointment_status", nullable = false)
     private AppointmentStatusEnum appointmentStatus = AppointmentStatusEnum.PENDING;
 
     @ManyToOne(fetch = FetchType.LAZY)

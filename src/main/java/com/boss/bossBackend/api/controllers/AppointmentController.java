@@ -3,12 +3,10 @@ package com.boss.bossBackend.api.controllers;
 import com.boss.bossBackend.business.abstracts.AppointmentService;
 import com.boss.bossBackend.business.dtos.requests.CreateAppointmentRequest;
 import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
+import com.boss.bossBackend.entities.enums.AppointmentStatusEnum;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/appointments")
@@ -23,5 +21,10 @@ public class AppointmentController {
     @PostMapping("/createAppointment")
     public ResponseEntity<?> createAppointment(@Valid @RequestBody CreateAppointmentRequest request) {
         return ResponseEntity.ok(appointmentService.saveToDb(request));
+    }
+
+    @GetMapping("/getAppointmentDetails")
+    ResponseEntity<?> getAppointmentDetails(AppointmentStatusEnum appointmentStatusEnum, String technoparkId) {
+        return ResponseEntity.ok(appointmentService.findByAppointmentStatusAndTechnoparkUserOrderByCreatedAtDesc(appointmentStatusEnum, technoparkId));
     }
 }
