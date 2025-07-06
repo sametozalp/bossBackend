@@ -36,8 +36,8 @@ public class AppointmentResponse {
         this.appointmentStatus = appointment.getAppointmentStatus();
         this.appointmentDate = appointment.getAppointmentDate();
         this.meetingTypeEnum = appointment.getMeetingTypeEnum();
-        this.room = new RoomResponse(appointment.getRoom());
-        this.desk = new DeskResponse(appointment.getDesk());
+        this.room = appointment.getRoom() != null ? new RoomResponse(appointment.getRoom()) : null;
+        this.desk = appointment.getDesk() != null ? new DeskResponse(appointment.getDesk()) : null;
         this.onlineLink = appointment.getOnlineLink();
         this.listing = listing;
     }
