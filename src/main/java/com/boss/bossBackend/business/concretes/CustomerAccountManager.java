@@ -8,8 +8,13 @@ import com.boss.bossBackend.business.dtos.responses.userDetailResponse.Corporate
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.IndividualUserDetailResponse;
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.UserDetailResponse;
 import com.boss.bossBackend.common.utilities.results.DataResult;
+import com.boss.bossBackend.common.utilities.results.Result;
 import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
+import com.boss.bossBackend.common.utilities.results.SuccessResult;
+import com.boss.bossBackend.entities.concretes.CorporateUser;
+import com.boss.bossBackend.entities.concretes.IndividualUser;
 import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
+import com.boss.bossBackend.exception.userException.UserNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.xml.crypto.Data;
@@ -44,5 +49,22 @@ public class CustomerAccountManager implements CustomerAccountService {
         return new SuccessDataResult<>(Stream.concat(corporateUsers.stream(), individualUsers.stream())
                 .sorted(Comparator.comparing(UserDetailResponse::getCreatedAt).reversed())
                 .collect(Collectors.toList()));
+    }
+
+    @Override
+    public Result changeApprovalStatus(String customerId, ApprovalStatusEnum approvalStatusEnum) {
+        if(corporateUserService.existsById(customerId)) {
+            CorporateUser corporateUser = corporateUserService.findById(customerId);
+            corporateUser.setApprovalStatusEnum(approvalStatusEnum);
+            corporateUserService.saveToDb(corporateUser);
+        } else if(individualUserService.existsById(customerId)) {
+            IndividualUser individualUser = individualUserService.findById(customerId);
+            individualUser.setApprovalStatusEnum(approvalStatusEnum);
+            individualUserService.saveToDb(individualUser);
+        } else {
+            throw new UserNotFoundException("User not exception");
+        }
+
+        return new SuccessResult();
     }
 }

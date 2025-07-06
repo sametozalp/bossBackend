@@ -22,4 +22,9 @@ public class CustomerAccountController {
     ResponseEntity<?> getAccountsByApprovalStatus(@RequestParam ApprovalStatusEnum approvalStatusEnum, @RequestParam String associatedTechnoparkId) {
         return ResponseEntity.ok(customerAccountService.getAccountsByApprovalStatusSortedByCreatedDate(approvalStatusEnum, associatedTechnoparkId));
     }
+
+    @PostMapping("/changeApprovalStatus")
+    ResponseEntity<?> changeApprovalStatus(@RequestParam String customerId, @RequestParam ApprovalStatusEnum approvalStatusEnum) {
+        return ResponseEntity.ok(customerAccountService.changeApprovalStatus(customerId, approvalStatusEnum));
+    }
 }

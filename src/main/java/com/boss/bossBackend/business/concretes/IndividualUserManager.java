@@ -60,6 +60,22 @@ public class IndividualUserManager implements IndividualUserService {
         TechnoparkUser associatedTechnopark = technoparkUserService.findById(associatedTechnoparkId);
         return individualUserRepository.findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(approvalStatusEnum, associatedTechnopark);    }
 
+    @Override
+    public Boolean existsById(String id) {
+        return individualUserRepository.existsById(id);
+    }
+
+    @Override
+    public IndividualUser findById(String id) {
+        return individualUserRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("Individual use not found"));
+    }
+
+    @Override
+    public void saveToDb(IndividualUser individualUser) {
+        individualUserRepository.save(individualUser);
+    }
+
     private void controlForRegisterParameters(IndividualUserCompleteProfileRequest request) {
         if (individualUserRepository.existsByUserId(request.getUserId())) {
             throw new UserAlreadyExistException("User is already exist.");

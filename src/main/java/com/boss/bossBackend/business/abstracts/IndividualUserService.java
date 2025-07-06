@@ -24,5 +24,11 @@ public interface IndividualUserService {
             String associatedTechnoparkId
     );
 
+    Boolean existsById(String id);
+
+    IndividualUser findById(String id);
+
+    void saveToDb(IndividualUser individualUser);
+
 
 }

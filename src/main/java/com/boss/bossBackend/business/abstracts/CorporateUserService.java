@@ -23,5 +23,11 @@ public interface CorporateUserService {
             String associatedTechnoparkId
     );
 
+    Boolean existsById(String id);
+
+    CorporateUser findById(String id);
+
+    void saveToDb(CorporateUser corporateUser);
+
 
 }

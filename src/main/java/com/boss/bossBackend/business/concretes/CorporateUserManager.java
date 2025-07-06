@@ -64,6 +64,22 @@ public class CorporateUserManager implements CorporateUserService {
         return repository.findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(approvalStatusEnum, associatedTechnopark);
     }
 
+    @Override
+    public Boolean existsById(String id) {
+        return repository.existsById(id);
+    }
+
+    @Override
+    public CorporateUser findById(String id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("Corporate user not found"));
+    }
+
+    @Override
+    public void saveToDb(CorporateUser corporateUser) {
+        repository.save(corporateUser);
+    }
+
 
     private void controlForRegisterParameters(CorporateUserCompleteProfileRequest request) {
         if (repository.existsByUserId(request.getUserId())) {
