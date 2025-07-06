@@ -14,9 +14,11 @@ public class DeskResponse {
     }
 
     public DeskResponse(Desk desk) {
-        this.id = desk.getId();
-        this.deskName = desk.getDeskName();
-        this.deskAvailableEnum = desk.getDeskAvailable();
+        if (desk != null) {
+            this.id = desk.getId();
+            this.deskName = desk.getDeskName();
+            this.deskAvailableEnum = desk.getDeskAvailable();
+        }
     }
 
     public String getId() {

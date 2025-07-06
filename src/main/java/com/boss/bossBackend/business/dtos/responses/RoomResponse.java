@@ -12,8 +12,10 @@ public class RoomResponse {
     }
 
     public RoomResponse(Room room) {
-        this.id = room.getId();
-        this.roomName = room.getRoomName();
+        if (room != null) {
+            this.id = room.getId();
+            this.roomName = room.getRoomName();
+        }
     }
 
     public String getId() {
