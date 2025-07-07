@@ -5,6 +5,7 @@ import com.boss.bossBackend.business.dtos.requests.UserUpdateRequest;
 import com.boss.bossBackend.entities.concretes.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,6 +43,8 @@ public class UserController {
 //        return new ResponseEntity<>(UserMapper.toResponse(updatedUser), HttpStatus.OK);
 //    }
 
+
+    @PreAuthorize("hasAnyRole('ENTREPRENEUR', 'INVESTOR')")
     @GetMapping("/getUserDetails")
     public ResponseEntity<?> getUserDetails(@RequestParam String userId) {
         return ResponseEntity.ok(userService.getUserDetails(userId));

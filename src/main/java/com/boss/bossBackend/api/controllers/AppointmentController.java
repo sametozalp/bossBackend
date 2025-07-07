@@ -6,6 +6,7 @@ import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.entities.enums.AppointmentStatusEnum;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,11 +19,13 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
+    @PreAuthorize("hasAnyRole('ENTREPRENEUR', 'INVESTOR')")
     @PostMapping("/createAppointment")
     public ResponseEntity<?> createAppointment(@Valid @RequestBody CreateAppointmentRequest request) {
         return ResponseEntity.ok(appointmentService.saveToDb(request));
     }
 
+    @PreAuthorize("hasRole('TECHNOPARK')")
     @GetMapping("/getAppointmentDetails")
     ResponseEntity<?> getAppointmentDetails(AppointmentStatusEnum appointmentStatusEnum, String technoparkId) {
         return ResponseEntity.ok(appointmentService.findByAppointmentStatusAndTechnoparkUserOrderByCreatedAtDesc(appointmentStatusEnum, technoparkId));

@@ -8,7 +8,6 @@ import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserD
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.UserDetailResponse;
 import com.boss.bossBackend.common.security.jwt.JwtService;
 import com.boss.bossBackend.common.utilities.results.DataResult;
-import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.entities.concretes.Role;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.concretes.UserRole;
@@ -77,13 +76,13 @@ public class AuthManager implements AuthService {
         UserRole userRole1 = new UserRole();
         userRole1.setUser(savedUser);
 
-        Role investorRole = roleService.findByName(RoleEnum.INVESTOR);
+        Role investorRole = roleService.findByName(RoleEnum.ROLE_INVESTOR);
         userRole1.setRole(investorRole);
         userRoleService.save(userRole1);
 
         UserRole userRole2 = new UserRole();
         userRole2.setUser(savedUser);
-        Role entrepreneurRole = roleService.findByName(RoleEnum.ENTREPRENEUR);
+        Role entrepreneurRole = roleService.findByName(RoleEnum.ROLE_ENTREPRENEUR);
         userRole2.setRole(entrepreneurRole);
         userRoleService.save(userRole2);
 

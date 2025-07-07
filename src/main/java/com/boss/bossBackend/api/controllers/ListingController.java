@@ -6,6 +6,7 @@ import com.boss.bossBackend.entities.enums.ListingStatusEnum;
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,6 +19,8 @@ public class ListingController {
         this.listingService = listingService;
     }
 
+
+    @PreAuthorize("hasAnyRole('ENTREPRENEUR', 'INVESTOR')")
     @PostMapping("/createListing")
     public ResponseEntity<?> createListing(@Valid @RequestBody CreateListingRequest request) {
         return ResponseEntity.ok(listingService.saveToDatabase(request));
@@ -38,11 +41,13 @@ public class ListingController {
         return ResponseEntity.ok(listingService.getAllFeedListings(userId, listingTypeEnum));
     }
 
+    @PreAuthorize("hasAnyRole('ENTREPRENEUR', 'INVESTOR')")
     @GetMapping("/getAllTechnoParksListings")
     public ResponseEntity<?> getAllTechnoParksListings(@RequestParam String technoparkId, @RequestParam ListingTypeEnum listingTypeEnum) {
         return ResponseEntity.ok(listingService.getAllListingsForTechnopark(technoparkId, listingTypeEnum));
     }
 
+    @PreAuthorize("hasRole('TECHNOPARK')")
     @PutMapping("/api/setListingStatus")
     public ResponseEntity<?> setListingStatus(@RequestParam String listingId, @RequestParam ListingStatusEnum listingStatusEnum) {
         return ResponseEntity.ok(listingService.setListingStatus(listingId, listingStatusEnum));

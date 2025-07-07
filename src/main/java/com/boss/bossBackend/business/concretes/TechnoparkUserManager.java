@@ -53,7 +53,7 @@ public class TechnoparkUserManager implements TechnoparkUserService {
         UserRole userRole = new UserRole();
         userRole.setUser(savedUser);
 
-        Role technoparkRole = roleService.findByName(RoleEnum.TECHNOPARK);
+        Role technoparkRole = roleService.findByName(RoleEnum.ROLE_TECHNOPARK);
         userRole.setRole(technoparkRole);
 
         ArrayList<UserRole> userRoleList = new ArrayList<>();
