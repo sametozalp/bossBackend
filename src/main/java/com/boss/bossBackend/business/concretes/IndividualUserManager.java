@@ -2,10 +2,16 @@ package com.boss.bossBackend.business.concretes;
 
 import com.boss.bossBackend.business.abstracts.IndividualUserService;
 import com.boss.bossBackend.business.abstracts.TechnoparkUserService;
+import com.boss.bossBackend.business.abstracts.UserAccountService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.IndividualUserCompleteProfileRequest;
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
+import com.boss.bossBackend.business.dtos.responses.userDetailResponse.IndividualUserDetailResponse;
+import com.boss.bossBackend.business.dtos.responses.userDetailResponse.UserDetailResponse;
 import com.boss.bossBackend.common.utilities.results.DataResult;
+import com.boss.bossBackend.common.utilities.results.Result;
+import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
+import com.boss.bossBackend.common.utilities.results.SuccessResult;
 import com.boss.bossBackend.dataAccess.abstracts.IndividualUserRepository;
 import com.boss.bossBackend.entities.concretes.CorporateUser;
 import com.boss.bossBackend.entities.concretes.IndividualUser;
@@ -22,7 +28,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class IndividualUserManager implements IndividualUserService {
+public class IndividualUserManager implements IndividualUserService, UserAccountService {
 
     private final IndividualUserRepository individualUserRepository;
     private final UserService userService;
@@ -60,7 +66,8 @@ public class IndividualUserManager implements IndividualUserService {
     @Override
     public List<IndividualUser> findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(ApprovalStatusEnum approvalStatusEnum, String associatedTechnoparkId) {
         TechnoparkUser associatedTechnopark = technoparkUserService.findById(associatedTechnoparkId);
-        return individualUserRepository.findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(approvalStatusEnum, associatedTechnopark);    }
+        return individualUserRepository.findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(approvalStatusEnum, associatedTechnopark);
+    }
 
     @Override
     public Boolean existsById(String id) {
@@ -82,5 +89,22 @@ public class IndividualUserManager implements IndividualUserService {
         if (individualUserRepository.existsByUserId(request.getUserId())) {
             throw new UserAlreadyExistException("User is already exist.");
         }
+    }
+
+    @Override
+    public DataResult<List<UserDetailResponse>> getUsersByApprovalStatusAndTechnopark(ApprovalStatusEnum approvalStatusEnum, String associatedTechnoparkId) {
+        List<UserDetailResponse> individualUsers = findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(approvalStatusEnum, associatedTechnoparkId)
+                .stream()
+                .map(user -> new UserDetailResponse(new IndividualUserDetailResponse(user)))
+                .toList();
+        return new SuccessDataResult<>(individualUsers);
+    }
+
+    @Override
+    public Result updateApprovalStatus(String userId, ApprovalStatusEnum approvalStatusEnum) {
+        IndividualUser individualUser = findById(userId);
+        individualUser.setApprovalStatusEnum(approvalStatusEnum);
+        saveToDb(individualUser);
+        return new SuccessResult();
     }
 }

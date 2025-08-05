@@ -48,7 +48,7 @@ public class UserDetailResponse {
         this.createdAt = user.getCreatedAt();
 
         this.roles = new ArrayList<>();
-        for (UserRole userRole: user.getUserRoles()) {
+        for (UserRole userRole: user.getRoles()) {
             this.roles.add(userRole.getRole().getAuthority());
         }
     }
@@ -64,7 +64,7 @@ public class UserDetailResponse {
         this.createdAt = user.getCreatedAt();
 
         this.roles = new ArrayList<>();
-        for (UserRole userRole: user.getUserRoles()) {
+        for (UserRole userRole: user.getRoles()) {
             this.roles.add(userRole.getRole().getAuthority());
         }
     }
@@ -81,7 +81,7 @@ public class UserDetailResponse {
         this.refreshToken = refreshToken;
 
         this.roles = new ArrayList<>();
-        for (UserRole userRole: user.getUserRoles()) {
+        for (UserRole userRole: user.getRoles()) {
             this.roles.add(userRole.getRole().getAuthority());
         }
 

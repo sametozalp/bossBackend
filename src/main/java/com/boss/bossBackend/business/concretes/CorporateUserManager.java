@@ -1,12 +1,14 @@
 package com.boss.bossBackend.business.concretes;
 
-import com.boss.bossBackend.business.abstracts.CorporateUserService;
-import com.boss.bossBackend.business.abstracts.SectorService;
-import com.boss.bossBackend.business.abstracts.TechnoparkUserService;
-import com.boss.bossBackend.business.abstracts.UserService;
+import com.boss.bossBackend.business.abstracts.*;
 import com.boss.bossBackend.business.dtos.requests.CorporateUserCompleteProfileRequest;
+import com.boss.bossBackend.business.dtos.responses.userDetailResponse.CorporateUserDetailResponse;
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
+import com.boss.bossBackend.business.dtos.responses.userDetailResponse.UserDetailResponse;
 import com.boss.bossBackend.common.utilities.results.DataResult;
+import com.boss.bossBackend.common.utilities.results.Result;
+import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
+import com.boss.bossBackend.common.utilities.results.SuccessResult;
 import com.boss.bossBackend.dataAccess.abstracts.CorporateUserRepository;
 import com.boss.bossBackend.entities.concretes.CorporateUser;
 import com.boss.bossBackend.entities.concretes.Sector;
@@ -23,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CorporateUserManager implements CorporateUserService {
+public class CorporateUserManager implements CorporateUserService, UserAccountService {
 
     private final CorporateUserRepository repository;
     private final UserService userService;
@@ -64,6 +66,23 @@ public class CorporateUserManager implements CorporateUserService {
     public List<CorporateUser> findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(ApprovalStatusEnum approvalStatusEnum, String associatedTechnoparkId) {
         TechnoparkUser associatedTechnopark = technoparkUserService.findById(associatedTechnoparkId);
         return repository.findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(approvalStatusEnum, associatedTechnopark);
+    }
+
+    @Override
+    public DataResult<List<UserDetailResponse>> getUsersByApprovalStatusAndTechnopark(ApprovalStatusEnum approvalStatusEnum, String associatedTechnoparkId) {
+        List<UserDetailResponse> corporateUsers = findByApprovalStatusEnumAndAssociatedTechnoparkOrderByCreatedAtDesc(approvalStatusEnum, associatedTechnoparkId)
+                .stream()
+                .map(user -> new UserDetailResponse(new CorporateUserDetailResponse(user)))
+                .toList();
+        return new SuccessDataResult<>(corporateUsers);
+    }
+
+    @Override
+    public Result updateApprovalStatus(String userId, ApprovalStatusEnum approvalStatusEnum) {
+        CorporateUser corporateUser = findById(userId);
+        corporateUser.setApprovalStatusEnum(approvalStatusEnum);
+        saveToDb(corporateUser);
+        return new SuccessResult();
     }
 
     @Override
