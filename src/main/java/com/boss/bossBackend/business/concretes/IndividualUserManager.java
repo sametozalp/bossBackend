@@ -12,6 +12,7 @@ import com.boss.bossBackend.entities.concretes.IndividualUser;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
+import com.boss.bossBackend.entities.enums.UserType;
 import com.boss.bossBackend.exception.userException.UserAlreadyExistException;
 import com.boss.bossBackend.exception.userException.UserNotFoundException;
 import org.springframework.context.annotation.Lazy;
@@ -38,6 +39,7 @@ public class IndividualUserManager implements IndividualUserService {
     public DataResult<FullUserDetailResponse> completeProfile(IndividualUserCompleteProfileRequest request) {
         controlForRegisterParameters(request);
         User user = userService.findById(request.getUserId());
+        user.setUserType(UserType.INDIVIDUAL);
         TechnoparkUser associatedTechnopark = technoparkUserService.findById(request.getAssociatedTechnopark());
         IndividualUser individualUser = new IndividualUser(request, user, associatedTechnopark);
         individualUserRepository.save(individualUser);

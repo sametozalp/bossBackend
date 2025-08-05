@@ -13,6 +13,7 @@ import com.boss.bossBackend.entities.concretes.Sector;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
+import com.boss.bossBackend.entities.enums.UserType;
 import com.boss.bossBackend.exception.userException.UserAlreadyExistException;
 import com.boss.bossBackend.exception.userException.UserNotFoundException;
 import org.springframework.context.annotation.Lazy;
@@ -41,6 +42,7 @@ public class CorporateUserManager implements CorporateUserService {
         controlForRegisterParameters(request);
         Sector sector = sectorService.findBySectorId(request.getSectorId());
         User user = userService.findById(request.getUserId());
+        user.setUserType(UserType.CORPORATE);
         TechnoparkUser associatedTechnopark = technoparkUserService.findById(request.getAssociatedTechnopark());
         CorporateUser corporateUser = new CorporateUser(request, user, sector, associatedTechnopark);
         repository.save(corporateUser);

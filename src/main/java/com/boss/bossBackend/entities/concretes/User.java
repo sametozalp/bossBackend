@@ -2,6 +2,7 @@ package com.boss.bossBackend.entities.concretes;
 
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
+import com.boss.bossBackend.entities.enums.UserType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,6 +32,10 @@ public class User extends BaseEntity implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<UserRole> roles;
+
+    @Column()
+    @Enumerated(EnumType.STRING)
+    private UserType userType;
 
     public User() {
 

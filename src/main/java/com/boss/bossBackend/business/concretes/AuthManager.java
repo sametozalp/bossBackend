@@ -12,6 +12,7 @@ import com.boss.bossBackend.entities.concretes.Role;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.concretes.UserRole;
 import com.boss.bossBackend.entities.enums.RoleEnum;
+import com.boss.bossBackend.entities.enums.UserType;
 import com.boss.bossBackend.exception.authException.LoginException;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.GrantedAuthority;
@@ -102,6 +103,7 @@ public class AuthManager implements AuthService {
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         User savedUser = userService.saveToDb(user);
+        savedUser.setUserType(UserType.TECHNOPARK);
         return technoparkUserService.saveToDb(request, savedUser);
     }
 
