@@ -7,7 +7,7 @@ import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 
 import java.util.List;
 
-public interface CustomerAccountService {
+public interface CustomerAccountService  {
 
     DataResult<List<UserDetailResponse>> getAccountsByApprovalStatusSortedByCreatedDate(ApprovalStatusEnum approvalStatusEnum, String associatedTechnoparkId);
 
