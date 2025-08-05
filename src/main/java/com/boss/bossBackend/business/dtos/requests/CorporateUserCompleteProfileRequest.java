@@ -2,7 +2,11 @@ package com.boss.bossBackend.business.dtos.requests;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class CorporateUserCompleteProfileRequest {
 
     @NotNull(message = "User ID cannot be null")
@@ -48,92 +52,4 @@ public class CorporateUserCompleteProfileRequest {
     @NotNull(message = "Associated Technopark cannot be null")
     @NotBlank(message = "Associated Technopark cannot be blank")
     private String associatedTechnopark;
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public int getFoundationYear() {
-        return foundationYear;
-    }
-
-    public String getTaxNumber() {
-        return taxNumber;
-    }
-
-    public String getTaxOffice() {
-        return taxOffice;
-    }
-
-    public String getTradeRegistryCertificate() {
-        return tradeRegistryCertificate;
-    }
-
-    public String getAssociatedTechnopark() {
-        return associatedTechnopark;
-    }
-
-    public void setAssociatedTechnopark(String associatedTechnopark) {
-        this.associatedTechnopark = associatedTechnopark;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getTaxPlate() {
-        return taxPlate;
-    }
-
-    public void setTaxPlate(String taxPlate) {
-        this.taxPlate = taxPlate;
-    }
-
-    public String getContactPhone() {
-        return contactPhone;
-    }
-
-    public void setContactPhone(String contactPhone) {
-        this.contactPhone = contactPhone;
-    }
-
-    public void setFoundationYear(int foundationYear) {
-        this.foundationYear = foundationYear;
-    }
-
-    public void setTaxNumber(String taxNumber) {
-        this.taxNumber = taxNumber;
-    }
-
-    public void setTaxOffice(String taxOffice) {
-        this.taxOffice = taxOffice;
-    }
-
-    public void setTradeRegistryCertificate(String tradeRegistryCertificate) {
-        this.tradeRegistryCertificate = tradeRegistryCertificate;
-    }
-
-    public String getSectorId() {
-        return sectorId;
-    }
-
-    public void setSectorId(String sectorId) {
-        this.sectorId = sectorId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 }

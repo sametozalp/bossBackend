@@ -3,8 +3,12 @@ package com.boss.bossBackend.entities.abstracts;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @MappedSuperclass
+@Getter
+@Setter
 public abstract class CustomerAccount extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
@@ -14,20 +18,4 @@ public abstract class CustomerAccount extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "associated_technopark_id", nullable = false)
     protected TechnoparkUser associatedTechnopark;
-
-    public TechnoparkUser getAssociatedTechnopark() {
-        return associatedTechnopark;
-    }
-
-    public void setAssociatedTechnopark(TechnoparkUser associatedTechnopark) {
-        this.associatedTechnopark = associatedTechnopark;
-    }
-
-    public ApprovalStatusEnum getApprovalStatusEnum() {
-        return approvalStatusEnum;
-    }
-
-    public void setApprovalStatusEnum(ApprovalStatusEnum approvalStatusEnum) {
-        this.approvalStatusEnum = approvalStatusEnum;
-    }
 }

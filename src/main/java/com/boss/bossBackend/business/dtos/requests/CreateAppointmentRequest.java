@@ -3,9 +3,13 @@ package com.boss.bossBackend.business.dtos.requests;
 import com.boss.bossBackend.entities.enums.MeetingTypeEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
 public class CreateAppointmentRequest {
 
     @NotBlank(message = "Investor id cannot be blank")
@@ -33,60 +37,4 @@ public class CreateAppointmentRequest {
 
     @NotNull(message = "Meeting type cannot be null")
     private MeetingTypeEnum meetingTypeEnum;
-
-    public String getInvestorId() {
-        return investorId;
-    }
-
-    public void setInvestorId(String investorId) {
-        this.investorId = investorId;
-    }
-
-    public String getEntrepreneurId() {
-        return entrepreneurId;
-    }
-
-    public void setEntrepreneurId(String entrepreneurId) {
-        this.entrepreneurId = entrepreneurId;
-    }
-
-    public String getRequestById() {
-        return requestById;
-    }
-
-    public void setRequestById(String requestById) {
-        this.requestById = requestById;
-    }
-
-    public String getTechnoparkId() {
-        return technoparkId;
-    }
-
-    public void setTechnoparkId(String technoparkId) {
-        this.technoparkId = technoparkId;
-    }
-
-    public MeetingTypeEnum getMeetingTypeEnum() {
-        return meetingTypeEnum;
-    }
-
-    public void setMeetingTypeEnum(MeetingTypeEnum meetingTypeEnum) {
-        this.meetingTypeEnum = meetingTypeEnum;
-    }
-
-    public LocalDateTime getAppointmentDate() {
-        return appointmentDate;
-    }
-
-    public String getListingId() {
-        return listingId;
-    }
-
-    public void setListingId(String listingId) {
-        this.listingId = listingId;
-    }
-
-    public void setAppointmentDate(LocalDateTime appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
 }

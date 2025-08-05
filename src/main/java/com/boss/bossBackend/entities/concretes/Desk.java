@@ -4,9 +4,13 @@ import com.boss.bossBackend.business.dtos.requests.CreateDeskRequest;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
 import com.boss.bossBackend.entities.enums.DeskAvailableEnum;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "desks")
+@Getter
+@Setter
 public class Desk extends BaseEntity {
 
     @OneToOne
@@ -32,29 +36,5 @@ public class Desk extends BaseEntity {
     public Desk(CreateDeskRequest request, Room room) {
         this.room = room;
         this.deskName = request.getDeskName();
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public DeskAvailableEnum getDeskAvailable() {
-        return deskAvailable;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public void setDeskAvailable(DeskAvailableEnum deskAvailable) {
-        this.deskAvailable = deskAvailable;
-    }
-
-    public void setDeskName(String deskName) {
-        this.deskName = deskName;
-    }
-
-    public String getDeskName() {
-        return deskName;
     }
 }

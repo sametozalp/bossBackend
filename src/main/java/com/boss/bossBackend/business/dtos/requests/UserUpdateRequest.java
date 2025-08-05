@@ -4,7 +4,11 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class UserUpdateRequest {
 
     @NotNull(message = "Id cannot be null")
@@ -20,24 +24,4 @@ public class UserUpdateRequest {
     @Email(message = "Invalid email format")
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@(gmail|hotmail|yahoo|outlook)\\.com$", message = "Email error")
     private String email;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }

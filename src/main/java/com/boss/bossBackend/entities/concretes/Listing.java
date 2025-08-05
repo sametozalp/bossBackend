@@ -5,12 +5,16 @@ import com.boss.bossBackend.entities.abstracts.BaseEntity;
 import com.boss.bossBackend.entities.enums.ListingStatusEnum;
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "listings")
+@Getter
+@Setter
 public class Listing extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -59,85 +63,5 @@ public class Listing extends BaseEntity {
         this.minAmount = request.getMinAmount();
         this.maxAmount = request.getMaxAmount();
         this.associatedTechnopark = associatedTechnopark;
-    }
-
-    public TechnoparkUser getAssociatedTechnopark() {
-        return associatedTechnopark;
-    }
-
-    public void setAssociatedTechnopark(TechnoparkUser associatedTechnopark) {
-        this.associatedTechnopark = associatedTechnopark;
-    }
-
-    public User getPublishedBy() {
-        return publishedBy;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public BigDecimal getMinAmount() {
-        return minAmount;
-    }
-
-    public BigDecimal getMaxAmount() {
-        return maxAmount;
-    }
-
-    public ListingStatusEnum getStatus() {
-        return status;
-    }
-
-    public User getReviewedBy() {
-        return reviewedBy;
-    }
-
-    public LocalDateTime getReviewedAt() {
-        return reviewedAt;
-    }
-
-    public void setPublishedBy(User publishedBy) {
-        this.publishedBy = publishedBy;
-    }
-
-    public ListingTypeEnum getListingType() {
-        return listingType;
-    }
-
-    public void setListingType(ListingTypeEnum listingType) {
-        this.listingType = listingType;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setMinAmount(BigDecimal minAmount) {
-        this.minAmount = minAmount;
-    }
-
-    public void setMaxAmount(BigDecimal maxAmount) {
-        this.maxAmount = maxAmount;
-    }
-
-    public void setStatus(ListingStatusEnum status) {
-        this.status = status;
-    }
-
-    public void setReviewedBy(User reviewedBy) {
-        this.reviewedBy = reviewedBy;
-    }
-
-    public void setReviewedAt(LocalDateTime reviewedAt) {
-        this.reviewedAt = reviewedAt;
     }
 }

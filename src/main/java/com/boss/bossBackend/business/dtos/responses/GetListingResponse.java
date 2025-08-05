@@ -8,8 +8,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Getter
+@Setter
 public class GetListingResponse {
 
     private String id;
@@ -50,85 +54,5 @@ public class GetListingResponse {
         this.status = listing.getStatus();
         this.reviewedBy = listing.getReviewedBy() != null ? new FullUserDetailResponse() : null;
         this.reviewedAt = listing.getReviewedAt();
-    }
-
-    public ListingTypeEnum getListingType() {
-        return listingType;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setListingType(ListingTypeEnum listingType) {
-        this.listingType = listingType;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getMinAmount() {
-        return minAmount;
-    }
-
-    public void setMinAmount(BigDecimal minAmount) {
-        this.minAmount = minAmount;
-    }
-
-    public BigDecimal getMaxAmount() {
-        return maxAmount;
-    }
-
-    public void setMaxAmount(BigDecimal maxAmount) {
-        this.maxAmount = maxAmount;
-    }
-
-    public ListingStatusEnum getStatus() {
-        return status;
-    }
-
-    public void setStatus(ListingStatusEnum status) {
-        this.status = status;
-    }
-
-    public FullUserDetailResponse getPublishedBy() {
-        return publishedBy;
-    }
-
-    public void setPublishedBy(FullUserDetailResponse publishedBy) {
-        this.publishedBy = publishedBy;
-    }
-
-    public FullUserDetailResponse getReviewedBy() {
-        return reviewedBy;
-    }
-
-    public void setReviewedBy(FullUserDetailResponse reviewedBy) {
-        this.reviewedBy = reviewedBy;
-    }
-
-    public LocalDateTime getReviewedAt() {
-        return reviewedAt;
-    }
-
-    public void setReviewedAt(LocalDateTime reviewedAt) {
-        this.reviewedAt = reviewedAt;
     }
 }

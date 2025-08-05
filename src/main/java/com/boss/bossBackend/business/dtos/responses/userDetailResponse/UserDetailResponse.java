@@ -8,8 +8,12 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import lombok.Getter;
+import lombok.Setter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Getter
+@Setter
 public class UserDetailResponse {
     private String id;
     private String username;
@@ -81,85 +85,5 @@ public class UserDetailResponse {
             this.roles.add(userRole.getRole().getAuthority());
         }
 
-    }
-
-    public CorporateUserDetailResponse getCorporateUser() {
-        return corporateUser;
-    }
-
-    public void setCorporateUser(CorporateUserDetailResponse corporateUser) {
-        this.corporateUser = corporateUser;
-    }
-
-    public IndividualUserDetailResponse getIndividualUser() {
-        return individualUser;
-    }
-
-    public void setIndividualUser(IndividualUserDetailResponse individualUser) {
-        this.individualUser = individualUser;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public TechnoParkUserDetailResponse getTechnoParkUser() {
-        return technoParkUser;
-    }
-
-    public void setTechnoParkUser(TechnoParkUserDetailResponse technoParkUser) {
-        this.technoParkUser = technoParkUser;
-    }
-
-    public String getAccessToken() {
-        return accessToken;
-    }
-
-    public void setAccessToken(String accessToken) {
-        this.accessToken = accessToken;
-    }
-
-    public String getRefreshToken() {
-        return refreshToken;
-    }
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
-    }
-
-    public List<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<String> roles) {
-        this.roles = roles;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 }

@@ -3,9 +3,13 @@ package com.boss.bossBackend.entities.concretes;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "user_roles")
+@Getter
+@Setter
 public class UserRole extends BaseEntity{
 
     @ManyToOne
@@ -16,20 +20,4 @@ public class UserRole extends BaseEntity{
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false)
     private Role role;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

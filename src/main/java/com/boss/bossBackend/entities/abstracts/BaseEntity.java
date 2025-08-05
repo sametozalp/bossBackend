@@ -1,11 +1,15 @@
 package com.boss.bossBackend.entities.abstracts;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @MappedSuperclass
+@Getter
+@Setter
 public abstract class BaseEntity {
 
     @Id
@@ -34,33 +38,5 @@ public abstract class BaseEntity {
 
     public void markAsDeleted() {
         this.deletedAt = LocalDateTime.now();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public LocalDateTime getDeletedAt() {
-        return deletedAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public void setDeletedAt(LocalDateTime deletedAt) {
-        this.deletedAt = deletedAt;
     }
 }

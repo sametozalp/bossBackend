@@ -5,11 +5,15 @@ import com.boss.bossBackend.entities.abstracts.BaseEntity;
 import com.boss.bossBackend.entities.enums.AppointmentStatusEnum;
 import com.boss.bossBackend.entities.enums.MeetingTypeEnum;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "appointments")
+@Getter
+@Setter
 public class Appointment extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -64,93 +68,5 @@ public class Appointment extends BaseEntity {
         this.requestBy = requestBy;
         this.appointmentDate = request.getAppointmentDate();
         this.meetingTypeEnum = request.getMeetingTypeEnum();
-    }
-
-    public User getInvestor() {
-        return investor;
-    }
-
-    public void setInvestor(User investor) {
-        this.investor = investor;
-    }
-
-    public User getEntrepreneur() {
-        return entrepreneur;
-    }
-
-    public void setEntrepreneur(User entrepreneur) {
-        this.entrepreneur = entrepreneur;
-    }
-
-    public User getRequestBy() {
-        return requestBy;
-    }
-
-    public void setRequestBy(User requestBy) {
-        this.requestBy = requestBy;
-    }
-
-    public AppointmentStatusEnum getAppointmentStatus() {
-        return appointmentStatus;
-    }
-
-    public Listing getListing() {
-        return listing;
-    }
-
-    public void setListing(Listing listing) {
-        this.listing = listing;
-    }
-
-    public void setAppointmentStatus(AppointmentStatusEnum appointmentStatus) {
-        this.appointmentStatus = appointmentStatus;
-    }
-
-    public TechnoparkUser getTechnoparkUser() {
-        return technoparkUser;
-    }
-
-    public void setTechnoparkUser(TechnoparkUser technoparkUser) {
-        this.technoparkUser = technoparkUser;
-    }
-
-    public LocalDateTime getAppointmentDate() {
-        return appointmentDate;
-    }
-
-    public void setAppointmentDate(LocalDateTime appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
-
-    public MeetingTypeEnum getMeetingTypeEnum() {
-        return meetingTypeEnum;
-    }
-
-    public void setMeetingTypeEnum(MeetingTypeEnum meetingTypeEnum) {
-        this.meetingTypeEnum = meetingTypeEnum;
-    }
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
-
-    public Desk getDesk() {
-        return desk;
-    }
-
-    public void setDesk(Desk desk) {
-        this.desk = desk;
-    }
-
-    public String getOnlineLink() {
-        return onlineLink;
-    }
-
-    public void setOnlineLink(String onlineLink) {
-        this.onlineLink = onlineLink;
     }
 }

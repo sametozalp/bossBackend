@@ -3,9 +3,13 @@ package com.boss.bossBackend.entities.concretes;
 import com.boss.bossBackend.business.dtos.requests.CreateRoomRequest;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "rooms")
+@Getter
+@Setter
 public class Room extends BaseEntity {
 
     @ManyToOne
@@ -22,21 +26,5 @@ public class Room extends BaseEntity {
     public Room(CreateRoomRequest request, TechnoparkUser technoparkUser) {
         this.roomName = request.getRoomName();
         this.technoparkUser = technoparkUser;
-    }
-
-    public TechnoparkUser getTechnoparkUser() {
-        return technoparkUser;
-    }
-
-    public void setTechnoparkUser(TechnoparkUser technoparkUser) {
-        this.technoparkUser = technoparkUser;
-    }
-
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
     }
 }

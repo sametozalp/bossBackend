@@ -2,7 +2,11 @@ package com.boss.bossBackend.business.dtos.requests;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class IndividualUserCompleteProfileRequest {
 
     @NotNull(message = "User ID cannot be null")
@@ -28,52 +32,4 @@ public class IndividualUserCompleteProfileRequest {
     @NotNull(message = "Associated Technopark cannot be null")
     @NotBlank(message = "Associated Technopark cannot be blank")
     private String associatedTechnopark;
-
-    public String getAssociatedTechnopark() {
-        return associatedTechnopark;
-    }
-
-    public void setAssociatedTechnopark(String associatedTechnopark) {
-        this.associatedTechnopark = associatedTechnopark;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getSocialSecurityNumber() {
-        return socialSecurityNumber;
-    }
-
-    public void setSocialSecurityNumber(String socialSecurityNumber) {
-        this.socialSecurityNumber = socialSecurityNumber;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 }

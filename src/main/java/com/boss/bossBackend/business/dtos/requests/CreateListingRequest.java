@@ -2,8 +2,12 @@ package com.boss.bossBackend.business.dtos.requests;
 
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 import jakarta.validation.constraints.*;
+import lombok.Getter;
+import lombok.Setter;
 import java.math.BigDecimal;
 
+@Getter
+@Setter
 public class CreateListingRequest {
 
     @NotBlank(message = "Publisher ID cannot be blank")
@@ -30,52 +34,4 @@ public class CreateListingRequest {
     @NotNull(message = "Maximum amount cannot be null")
     @DecimalMin(value = "0.0", inclusive = false, message = "Maximum amount must be greater than 0") // inclusive: not included
     private BigDecimal maxAmount;
-
-    public String getPublishedById() {
-        return publishedById;
-    }
-
-    public void setPublishedById(String publishedById) {
-        this.publishedById = publishedById;
-    }
-
-    public ListingTypeEnum getListingType() {
-        return listingType;
-    }
-
-    public void setListingType(ListingTypeEnum listingType) {
-        this.listingType = listingType;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public BigDecimal getMinAmount() {
-        return minAmount;
-    }
-
-    public void setMinAmount(BigDecimal minAmount) {
-        this.minAmount = minAmount;
-    }
-
-    public BigDecimal getMaxAmount() {
-        return maxAmount;
-    }
-
-    public void setMaxAmount(BigDecimal maxAmount) {
-        this.maxAmount = maxAmount;
-    }
 }

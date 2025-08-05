@@ -3,7 +3,11 @@ package com.boss.bossBackend.business.dtos.responses.userDetailResponse;
 import com.boss.bossBackend.entities.concretes.CorporateUser;
 
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class CorporateUserDetailResponse {
 
     private String id;
@@ -31,77 +35,5 @@ public class CorporateUserDetailResponse {
         this.tradeRegistryCertificate = corporateUser.getTradeRegistryCertificate();
         this.createdAt = corporateUser.getCreatedAt();
 
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getContactPhone() {
-        return contactPhone;
-    }
-
-    public void setContactPhone(String contactPhone) {
-        this.contactPhone = contactPhone;
-    }
-
-    public int getFoundationYear() {
-        return foundationYear;
-    }
-
-    public void setFoundationYear(int foundationYear) {
-        this.foundationYear = foundationYear;
-    }
-
-    public String getTaxNumber() {
-        return taxNumber;
-    }
-
-    public void setTaxNumber(String taxNumber) {
-        this.taxNumber = taxNumber;
-    }
-
-    public String getTaxOffice() {
-        return taxOffice;
-    }
-
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public void setTaxOffice(String taxOffice) {
-        this.taxOffice = taxOffice;
-    }
-
-    public String getTaxPlate() {
-        return taxPlate;
-    }
-
-    public void setTaxPlate(String taxPlate) {
-        this.taxPlate = taxPlate;
-    }
-
-    public String getTradeRegistryCertificate() {
-        return tradeRegistryCertificate;
-    }
-
-    public void setTradeRegistryCertificate(String tradeRegistryCertificate) {
-        this.tradeRegistryCertificate = tradeRegistryCertificate;
     }
 }

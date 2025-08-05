@@ -1,7 +1,11 @@
 package com.boss.bossBackend.business.dtos.responses;
 
 import com.boss.bossBackend.entities.concretes.Room;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class RoomResponse {
 
     String id;
@@ -16,21 +20,5 @@ public class RoomResponse {
             this.id = room.getId();
             this.roomName = room.getRoomName();
         }
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getRoomName() {
-        return roomName;
-    }
-
-    public void setRoomName(String roomName) {
-        this.roomName = roomName;
     }
 }

@@ -1,5 +1,10 @@
 package com.boss.bossBackend.business.dtos.responses.userDetailResponse;
 
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 public class FullUserDetailResponse {
 
     private UserDetailResponse user;
@@ -10,13 +15,5 @@ public class FullUserDetailResponse {
 
     public FullUserDetailResponse(UserDetailResponse userDetailResponse) {
         this.user = userDetailResponse;
-    }
-
-    public UserDetailResponse getUser() {
-        return user;
-    }
-
-    public void setUser(UserDetailResponse user) {
-        this.user = user;
     }
 }

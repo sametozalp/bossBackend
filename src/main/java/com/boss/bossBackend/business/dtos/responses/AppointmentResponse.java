@@ -10,8 +10,12 @@ import com.boss.bossBackend.entities.enums.MeetingTypeEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.time.LocalDateTime;
+import lombok.Getter;
+import lombok.Setter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@Getter
+@Setter
 public class AppointmentResponse {
 
     private UserDetailResponse investor;
@@ -40,85 +44,5 @@ public class AppointmentResponse {
         this.desk = appointment.getDesk() != null ? new DeskResponse(appointment.getDesk()) : null;
         this.onlineLink = appointment.getOnlineLink();
         this.listing = listing;
-    }
-
-    public UserDetailResponse getInvestor() {
-        return investor;
-    }
-
-    public void setInvestor(UserDetailResponse investor) {
-        this.investor = investor;
-    }
-
-    public UserDetailResponse getEntrepreneur() {
-        return entrepreneur;
-    }
-
-    public void setEntrepreneur(UserDetailResponse entrepreneur) {
-        this.entrepreneur = entrepreneur;
-    }
-
-    public UserDetailResponse getRequestBy() {
-        return requestBy;
-    }
-
-    public void setRequestBy(UserDetailResponse requestBy) {
-        this.requestBy = requestBy;
-    }
-
-    public GetListingResponse getListing() {
-        return listing;
-    }
-
-    public void setListing(GetListingResponse listing) {
-        this.listing = listing;
-    }
-
-    public AppointmentStatusEnum getAppointmentStatus() {
-        return appointmentStatus;
-    }
-
-    public void setAppointmentStatus(AppointmentStatusEnum appointmentStatus) {
-        this.appointmentStatus = appointmentStatus;
-    }
-
-    public LocalDateTime getAppointmentDate() {
-        return appointmentDate;
-    }
-
-    public void setAppointmentDate(LocalDateTime appointmentDate) {
-        this.appointmentDate = appointmentDate;
-    }
-
-    public MeetingTypeEnum getMeetingTypeEnum() {
-        return meetingTypeEnum;
-    }
-
-    public void setMeetingTypeEnum(MeetingTypeEnum meetingTypeEnum) {
-        this.meetingTypeEnum = meetingTypeEnum;
-    }
-
-    public RoomResponse getRoom() {
-        return room;
-    }
-
-    public void setRoom(RoomResponse room) {
-        this.room = room;
-    }
-
-    public DeskResponse getDesk() {
-        return desk;
-    }
-
-    public void setDesk(DeskResponse desk) {
-        this.desk = desk;
-    }
-
-    public String getOnlineLink() {
-        return onlineLink;
-    }
-
-    public void setOnlineLink(String onlineLink) {
-        this.onlineLink = onlineLink;
     }
 }

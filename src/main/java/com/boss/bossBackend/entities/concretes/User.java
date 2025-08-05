@@ -3,6 +3,8 @@ package com.boss.bossBackend.entities.concretes;
 import com.boss.bossBackend.business.dtos.requests.UserRegisterRequest;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +16,8 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @SQLRestriction(value = "deleted_at IS NULL")
+@Getter
+@Setter
 public class User extends BaseEntity implements UserDetails {
 
     @Column(nullable = false, unique = true)
@@ -38,10 +42,6 @@ public class User extends BaseEntity implements UserDetails {
         this.password = request.getPassword();
     }
 
-    public String getUsername() {
-        return username;
-    }
-
     @Override
     public boolean isAccountNonExpired() {
         return UserDetails.super.isAccountNonExpired();
@@ -62,22 +62,6 @@ public class User extends BaseEntity implements UserDetails {
         return UserDetails.super.isEnabled();
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setRoles(List<UserRole> roles) {
-        this.roles = roles;
-    }
-
     public List<UserRole> getUserRoles() {
         return this.roles;
     }
@@ -87,13 +71,5 @@ public class User extends BaseEntity implements UserDetails {
         if (this.roles == null)
             return new HashSet<>();
         return (Collection<? extends GrantedAuthority>) roles.stream().map(UserRole::getRole).toList();
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

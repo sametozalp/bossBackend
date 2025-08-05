@@ -12,8 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
-@EnableMethodSecurity(prePostEnabled = true)
+//@EnableWebSecurity
+//@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration {
 
     private final BaseSecurityService baseSecurityService;

@@ -3,9 +3,13 @@ package com.boss.bossBackend.entities.concretes;
 import com.boss.bossBackend.business.dtos.requests.TechnoparkRegisterRequest;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "technopark_users")
+@Getter
+@Setter
 public class TechnoparkUser extends BaseEntity {
 
     @OneToOne
@@ -28,29 +32,5 @@ public class TechnoparkUser extends BaseEntity {
         this.name = request.getTechnoparkName();
         this.location = request.getLocation();
 
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
     }
 }

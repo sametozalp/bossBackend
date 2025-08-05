@@ -4,11 +4,15 @@ import com.boss.bossBackend.business.dtos.requests.IndividualUserCompleteProfile
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
 import com.boss.bossBackend.entities.abstracts.CustomerAccount;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
 
 @Entity
 @Table(name = "individual_users")
 @SQLRestriction(value = "deleted_at IS NULL")
+@Getter
+@Setter
 public class IndividualUser extends CustomerAccount {
 
     @OneToOne
@@ -41,45 +45,4 @@ public class IndividualUser extends CustomerAccount {
         this.associatedTechnopark = associatedTechnopark;
 
     }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getSocialSecurityNumber() {
-        return socialSecurityNumber;
-    }
-
-    public void setSocialSecurityNumber(String socialSecurityNumber) {
-        this.socialSecurityNumber = socialSecurityNumber;
-    }
-
 }

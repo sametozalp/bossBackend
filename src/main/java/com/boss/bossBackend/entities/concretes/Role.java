@@ -3,12 +3,16 @@ package com.boss.bossBackend.entities.concretes;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
 import com.boss.bossBackend.entities.enums.RoleEnum;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Set;
 
 @Entity
 @Table(name = "roles")
+@Getter
+@Setter
 public class Role extends BaseEntity implements GrantedAuthority {
 
     @Enumerated(EnumType.STRING)
