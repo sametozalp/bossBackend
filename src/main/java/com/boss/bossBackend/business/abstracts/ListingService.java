@@ -21,7 +21,5 @@ public interface ListingService {
 
     DataResult<List<GetListingResponse>> getAllListingsForTechnopark(String technoparkId, ListingTypeEnum listingTypeEnum);
 
-    DataResult<GetListingResponse> setListingStatus(String listingId, ApprovalStatusEnum listingStatusEnum);
-
     Listing findById(String listingId);
 }

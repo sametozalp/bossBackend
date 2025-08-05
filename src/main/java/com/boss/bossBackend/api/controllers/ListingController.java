@@ -47,10 +47,4 @@ public class ListingController {
         return ResponseEntity.ok(listingService.getAllListingsForTechnopark(technoparkId, listingTypeEnum));
     }
 
-    @PreAuthorize("hasRole('TECHNOPARK')")
-    @PutMapping("/api/setListingStatus")
-    public ResponseEntity<?> setListingStatus(@RequestParam String listingId, @RequestParam ApprovalStatusEnum listingStatusEnum) {
-        return ResponseEntity.ok(listingService.setListingStatus(listingId, listingStatusEnum));
-    }
-
 }

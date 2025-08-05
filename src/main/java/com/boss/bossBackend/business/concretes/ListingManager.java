@@ -94,13 +94,6 @@ public class ListingManager implements ListingService {
     }
 
     @Override
-    public DataResult<GetListingResponse> setListingStatus(String listingId, ApprovalStatusEnum listingStatusEnum) {
-        Listing listing = repository.findById(listingId)
-                .orElseThrow(() -> new ListingNotFound("Listing not found"));
-        return new SuccessDataResult<>(new GetListingResponse(repository.save(listing)));
-    }
-
-    @Override
     public Listing findById(String listingId) {
         return repository.findById(listingId)
                 .orElseThrow(() -> new ListingNotFound("Listing not found"));

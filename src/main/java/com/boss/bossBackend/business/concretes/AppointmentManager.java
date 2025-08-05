@@ -48,7 +48,7 @@ public class AppointmentManager implements AppointmentService {
         User investor = userService.findById(request.getInvestorId());
         User entrepreneur = userService.findById(request.getEntrepreneurId());
         User requestBy = userService.findById(request.getRequestById());
-        TechnoparkUser technoparkUser = technoparkUserService.findByUserId(request.getTechnoparkId());
+        TechnoparkUser technoparkUser = technoparkUserService.findById(request.getTechnoparkId());
         Listing listing = listingService.findById(request.getListingId());
         Appointment appointment = new Appointment(request, investor, entrepreneur, requestBy, technoparkUser);
         appointment.setListing(listing);

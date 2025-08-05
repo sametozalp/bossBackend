@@ -34,4 +34,7 @@ public class CreateListingRequest {
     @NotNull(message = "Maximum amount cannot be null")
     @DecimalMin(value = "0.0", inclusive = false, message = "Maximum amount must be greater than 0") // inclusive: not included
     private BigDecimal maxAmount;
+
+    @NotNull(message = "Meeting time cannot be null")
+    private int meetingTime;
 }
