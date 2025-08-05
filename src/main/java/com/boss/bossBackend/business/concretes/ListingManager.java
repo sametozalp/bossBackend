@@ -13,7 +13,7 @@ import com.boss.bossBackend.dataAccess.abstracts.ListingRepository;
 import com.boss.bossBackend.entities.concretes.Listing;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
-import com.boss.bossBackend.entities.enums.ListingStatusEnum;
+import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 import com.boss.bossBackend.exception.listingException.ListingNotFound;
 import jakarta.transaction.Transactional;
@@ -94,10 +94,9 @@ public class ListingManager implements ListingService {
     }
 
     @Override
-    public DataResult<GetListingResponse> setListingStatus(String listingId, ListingStatusEnum listingStatusEnum) {
+    public DataResult<GetListingResponse> setListingStatus(String listingId, ApprovalStatusEnum listingStatusEnum) {
         Listing listing = repository.findById(listingId)
                 .orElseThrow(() -> new ListingNotFound("Listing not found"));
-        listing.setStatus(listingStatusEnum);
         return new SuccessDataResult<>(new GetListingResponse(repository.save(listing)));
     }
 

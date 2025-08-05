@@ -67,10 +67,6 @@ public class User extends BaseEntity implements UserDetails {
         return UserDetails.super.isEnabled();
     }
 
-    public List<UserRole> getUserRoles() {
-        return this.roles;
-    }
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         if (this.roles == null)

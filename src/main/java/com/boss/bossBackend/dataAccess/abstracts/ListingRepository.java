@@ -1,7 +1,6 @@
 package com.boss.bossBackend.dataAccess.abstracts;
 
 import com.boss.bossBackend.entities.concretes.Listing;
-import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 import org.springframework.data.jpa.repository.JpaRepository;

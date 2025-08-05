@@ -2,8 +2,7 @@ package com.boss.bossBackend.api.controllers;
 
 import com.boss.bossBackend.business.abstracts.AppointmentService;
 import com.boss.bossBackend.business.dtos.requests.CreateAppointmentRequest;
-import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
-import com.boss.bossBackend.entities.enums.AppointmentStatusEnum;
+import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,7 +26,7 @@ public class AppointmentController {
 
     @PreAuthorize("hasRole('TECHNOPARK')")
     @GetMapping("/getAppointmentDetails")
-    ResponseEntity<?> getAppointmentDetails(AppointmentStatusEnum appointmentStatusEnum, String technoparkId) {
+    ResponseEntity<?> getAppointmentDetails(ApprovalStatusEnum appointmentStatusEnum, String technoparkId) {
         return ResponseEntity.ok(appointmentService.findByAppointmentStatusAndTechnoparkUserOrderByCreatedAtDesc(appointmentStatusEnum, technoparkId));
     }
 }

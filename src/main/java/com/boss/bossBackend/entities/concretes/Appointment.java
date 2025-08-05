@@ -2,7 +2,7 @@ package com.boss.bossBackend.entities.concretes;
 
 import com.boss.bossBackend.business.dtos.requests.CreateAppointmentRequest;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
-import com.boss.bossBackend.entities.enums.AppointmentStatusEnum;
+import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import com.boss.bossBackend.entities.enums.MeetingTypeEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -34,7 +34,7 @@ public class Appointment extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "appointment_status", nullable = false)
-    private AppointmentStatusEnum appointmentStatus = AppointmentStatusEnum.PENDING;
+    private ApprovalStatusEnum appointmentStatus = ApprovalStatusEnum.PENDING;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "technopark_id", nullable = false)
@@ -42,6 +42,9 @@ public class Appointment extends BaseEntity {
 
     @Column(name = "appointment_date", nullable = false)
     private LocalDateTime appointmentDate;
+
+    @Column(name = "meeting_time", nullable = false)
+    private int meetingTime; // seconds
 
     @Enumerated(EnumType.STRING)
     @Column(name = "meeting_type", nullable = false)
@@ -68,5 +71,6 @@ public class Appointment extends BaseEntity {
         this.requestBy = requestBy;
         this.appointmentDate = request.getAppointmentDate();
         this.meetingTypeEnum = request.getMeetingTypeEnum();
+        this.meetingTime = request.getMeetingTime();
     }
 }

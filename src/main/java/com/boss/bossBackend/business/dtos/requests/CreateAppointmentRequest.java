@@ -37,4 +37,7 @@ public class CreateAppointmentRequest {
 
     @NotNull(message = "Meeting type cannot be null")
     private MeetingTypeEnum meetingTypeEnum;
+
+    @NotNull(message = "Meeting time cannot be null")
+    private int meetingTime;
 }

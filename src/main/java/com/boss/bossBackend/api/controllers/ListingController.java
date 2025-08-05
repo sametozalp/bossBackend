@@ -2,7 +2,7 @@ package com.boss.bossBackend.api.controllers;
 
 import com.boss.bossBackend.business.abstracts.ListingService;
 import com.boss.bossBackend.business.dtos.requests.CreateListingRequest;
-import com.boss.bossBackend.entities.enums.ListingStatusEnum;
+import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +49,7 @@ public class ListingController {
 
     @PreAuthorize("hasRole('TECHNOPARK')")
     @PutMapping("/api/setListingStatus")
-    public ResponseEntity<?> setListingStatus(@RequestParam String listingId, @RequestParam ListingStatusEnum listingStatusEnum) {
+    public ResponseEntity<?> setListingStatus(@RequestParam String listingId, @RequestParam ApprovalStatusEnum listingStatusEnum) {
         return ResponseEntity.ok(listingService.setListingStatus(listingId, listingStatusEnum));
     }
 

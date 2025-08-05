@@ -4,7 +4,7 @@ import com.boss.bossBackend.business.dtos.requests.CreateListingRequest;
 import com.boss.bossBackend.business.dtos.responses.GetListingResponse;
 import com.boss.bossBackend.common.utilities.results.DataResult;
 import com.boss.bossBackend.entities.concretes.Listing;
-import com.boss.bossBackend.entities.enums.ListingStatusEnum;
+import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public interface ListingService {
 
     DataResult<List<GetListingResponse>> getAllListingsForTechnopark(String technoparkId, ListingTypeEnum listingTypeEnum);
 
-    DataResult<GetListingResponse> setListingStatus(String listingId, ListingStatusEnum listingStatusEnum);
+    DataResult<GetListingResponse> setListingStatus(String listingId, ApprovalStatusEnum listingStatusEnum);
 
     Listing findById(String listingId);
 }

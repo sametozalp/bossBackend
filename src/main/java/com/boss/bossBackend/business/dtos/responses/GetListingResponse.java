@@ -2,7 +2,7 @@ package com.boss.bossBackend.business.dtos.responses;
 
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
 import com.boss.bossBackend.entities.concretes.Listing;
-import com.boss.bossBackend.entities.enums.ListingStatusEnum;
+import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -23,7 +23,7 @@ public class GetListingResponse {
     private String description;
     private BigDecimal minAmount;
     private BigDecimal maxAmount;
-    private ListingStatusEnum status;
+    private ApprovalStatusEnum status;
     private FullUserDetailResponse reviewedBy;
     private LocalDateTime reviewedAt;
 
@@ -38,7 +38,6 @@ public class GetListingResponse {
         this.description = listing.getDescription();
         this.minAmount = listing.getMinAmount();
         this.maxAmount = listing.getMaxAmount();
-        this.status = listing.getStatus();
         this.reviewedBy = listing.getReviewedBy() != null ? new FullUserDetailResponse() : null;
         this.reviewedAt = listing.getReviewedAt();
     }
@@ -51,7 +50,6 @@ public class GetListingResponse {
         this.description = listing.getDescription();
         this.minAmount = listing.getMinAmount();
         this.maxAmount = listing.getMaxAmount();
-        this.status = listing.getStatus();
         this.reviewedBy = listing.getReviewedBy() != null ? new FullUserDetailResponse() : null;
         this.reviewedAt = listing.getReviewedAt();
     }

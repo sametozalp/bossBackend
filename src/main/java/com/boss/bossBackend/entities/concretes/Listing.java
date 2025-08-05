@@ -2,7 +2,6 @@ package com.boss.bossBackend.entities.concretes;
 
 import com.boss.bossBackend.business.dtos.requests.CreateListingRequest;
 import com.boss.bossBackend.entities.abstracts.BaseEntity;
-import com.boss.bossBackend.entities.enums.ListingStatusEnum;
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -36,10 +35,6 @@ public class Listing extends BaseEntity {
 
     @Column(name = "max_amount", nullable = false)
     private BigDecimal maxAmount;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
-    private ListingStatusEnum status = ListingStatusEnum.PUBLISHED;
 
     @Column(name = "reviewed_by")
     private User reviewedBy;

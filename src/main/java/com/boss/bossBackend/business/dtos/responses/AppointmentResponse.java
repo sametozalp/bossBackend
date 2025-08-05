@@ -1,11 +1,8 @@
 package com.boss.bossBackend.business.dtos.responses;
 
-import com.boss.bossBackend.business.dtos.requests.CreateAppointmentRequest;
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.UserDetailResponse;
 import com.boss.bossBackend.entities.concretes.Appointment;
-import com.boss.bossBackend.entities.concretes.Desk;
-import com.boss.bossBackend.entities.concretes.Room;
-import com.boss.bossBackend.entities.enums.AppointmentStatusEnum;
+import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import com.boss.bossBackend.entities.enums.MeetingTypeEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -21,7 +18,7 @@ public class AppointmentResponse {
     private UserDetailResponse investor;
     private UserDetailResponse entrepreneur;
     private UserDetailResponse requestBy;
-    private AppointmentStatusEnum appointmentStatus;
+    private ApprovalStatusEnum appointmentStatus;
     private LocalDateTime appointmentDate;
     private MeetingTypeEnum meetingTypeEnum;
     private RoomResponse room;

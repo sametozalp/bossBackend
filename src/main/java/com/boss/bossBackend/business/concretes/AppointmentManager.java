@@ -9,7 +9,7 @@ import com.boss.bossBackend.common.utilities.results.DataResult;
 import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.dataAccess.abstracts.AppointmentRepository;
 import com.boss.bossBackend.entities.concretes.*;
-import com.boss.bossBackend.entities.enums.AppointmentStatusEnum;
+import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import com.boss.bossBackend.entities.enums.DeskAvailableEnum;
 import com.boss.bossBackend.entities.enums.MeetingTypeEnum;
 import com.boss.bossBackend.exception.appointmentException.AppointmentNotFoundException;
@@ -70,7 +70,7 @@ public class AppointmentManager implements AppointmentService {
     }
 
     @Override
-    public DataResult<List<AppointmentResponse>> findByAppointmentStatusAndTechnoparkUserOrderByCreatedAtDesc(AppointmentStatusEnum status, String technoparkUserId) {
+    public DataResult<List<AppointmentResponse>> findByAppointmentStatusAndTechnoparkUserOrderByCreatedAtDesc(ApprovalStatusEnum status, String technoparkUserId) {
         TechnoparkUser technoparkUser = technoparkUserService.findById(technoparkUserId);
         List<AppointmentResponse> appointmentResponses = new ArrayList<>();
         for (Appointment appointment : repository.findByAppointmentStatusAndTechnoparkUserOrderByCreatedAtDesc(status, technoparkUser)) {
