@@ -2,7 +2,7 @@ package com.boss.bossBackend.business.concretes;
 
 import com.boss.bossBackend.business.abstracts.IndividualUserService;
 import com.boss.bossBackend.business.abstracts.TechnoparkUserService;
-import com.boss.bossBackend.business.abstracts.UserAccountService;
+import com.boss.bossBackend.business.abstracts.CustomerAccountService;
 import com.boss.bossBackend.business.abstracts.UserService;
 import com.boss.bossBackend.business.dtos.requests.IndividualUserCompleteProfileRequest;
 import com.boss.bossBackend.business.dtos.responses.userDetailResponse.FullUserDetailResponse;
@@ -13,7 +13,6 @@ import com.boss.bossBackend.common.utilities.results.Result;
 import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.common.utilities.results.SuccessResult;
 import com.boss.bossBackend.dataAccess.abstracts.IndividualUserRepository;
-import com.boss.bossBackend.entities.concretes.CorporateUser;
 import com.boss.bossBackend.entities.concretes.IndividualUser;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
@@ -28,13 +27,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class IndividualUserManager implements IndividualUserService, UserAccountService {
+public class IndividualCustomerManager implements IndividualUserService, CustomerAccountService {
 
     private final IndividualUserRepository individualUserRepository;
     private final UserService userService;
     private final TechnoparkUserService technoparkUserService;
 
-    public IndividualUserManager(IndividualUserRepository individualUserRepository, @Lazy UserService userService, TechnoparkUserService technoparkUserService) {
+    public IndividualCustomerManager(IndividualUserRepository individualUserRepository, @Lazy UserService userService, TechnoparkUserService technoparkUserService) {
         this.individualUserRepository = individualUserRepository;
         this.userService = userService;
         this.technoparkUserService = technoparkUserService;

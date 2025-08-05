@@ -25,14 +25,14 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CorporateUserManager implements CorporateUserService, UserAccountService {
+public class CorporateCustomerManager implements CorporateUserService, CustomerAccountService {
 
     private final CorporateUserRepository repository;
     private final UserService userService;
     private final SectorService sectorService;
     private final TechnoparkUserService technoparkUserService;
 
-    public CorporateUserManager(CorporateUserRepository repository, @Lazy UserService userService, SectorService sectorService, TechnoparkUserService technoparkUserService) {
+    public CorporateCustomerManager(CorporateUserRepository repository, @Lazy UserService userService, SectorService sectorService, TechnoparkUserService technoparkUserService) {
         this.repository = repository;
         this.userService = userService;
         this.sectorService = sectorService;
