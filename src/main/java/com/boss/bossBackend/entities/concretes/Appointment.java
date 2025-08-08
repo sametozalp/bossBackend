@@ -46,6 +46,9 @@ public class Appointment extends BaseEntity {
     @Column(name = "meeting_time", nullable = false)
     private int meetingTime; // seconds
 
+    @Column(name = "appointment_date_end")
+    private LocalDateTime appointmentDateEnd;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "meeting_type", nullable = false)
     private MeetingTypeEnum meetingTypeEnum;
@@ -72,5 +75,6 @@ public class Appointment extends BaseEntity {
         this.appointmentDate = request.getAppointmentDate();
         this.meetingTypeEnum = request.getMeetingTypeEnum();
         this.meetingTime = request.getMeetingTime();
+        this.appointmentDateEnd = request.getAppointmentDate().plusMinutes(request.getMeetingTime());
     }
 }

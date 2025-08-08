@@ -7,6 +7,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "desks")
 @Getter
@@ -17,20 +19,18 @@ public class Desk extends BaseEntity {
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "desk_available")
-    private DeskAvailableEnum deskAvailable = DeskAvailableEnum.AVAILABLE;
-
     @Column(name = "desk_name", nullable = false, unique = true)
     private String deskName;
+
+    @OneToMany(mappedBy = "desk")
+    private List<Appointment> appointment;
 
     public Desk() {
 
     }
 
-    public Desk(Room room, DeskAvailableEnum deskAvailable) {
+    public Desk(Room room) {
         this.room = room;
-        this.deskAvailable = deskAvailable;
     }
 
     public Desk(CreateDeskRequest request, Room room) {

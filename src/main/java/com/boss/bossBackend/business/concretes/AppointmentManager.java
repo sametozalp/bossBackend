@@ -52,14 +52,14 @@ public class AppointmentManager implements AppointmentService {
         Listing listing = listingService.findById(request.getListingId());
         Appointment appointment = new Appointment(request, investor, entrepreneur, requestBy, technoparkUser);
         appointment.setListing(listing);
-        if (request.getMeetingTypeEnum() == MeetingTypeEnum.ONLINE) {
-            appointment.setOnlineLink("https://buluşma linki.com");
-        } else if (request.getMeetingTypeEnum() == MeetingTypeEnum.FACE_TO_FACE) {
-            Desk availableDesk = deskService.findByDeskAvailableAndRoom_TechnoparkUser(DeskAvailableEnum.AVAILABLE, technoparkUser).get(0);
-            appointment.setDesk(availableDesk);
-            appointment.setRoom(availableDesk.getRoom());
-            deskService.updateDeskAsNotAvailable(availableDesk.getId());
-        }
+
+//        if (request.getMeetingTypeEnum() == MeetingTypeEnum.ONLINE) {
+//           // appointment.setOnlineLink("https://buluşma linki.com");
+//        } else if (request.getMeetingTypeEnum() == MeetingTypeEnum.FACE_TO_FACE) {
+//            Desk availableDesk = deskService.findAvailableDeskBetweenDatesAndTechnopark(appointment.getAppointmentDate(), appointment.getAppointmentDateEnd(), technoparkUser.getId());
+//            appointment.setDesk(availableDesk);
+//            appointment.setRoom(availableDesk.getRoom());
+//        }
         Appointment savedAppointment = repository.save(appointment);
         return new SuccessDataResult<>(new AppointmentResponse(savedAppointment,
                 new UserDetailResponse(investor),

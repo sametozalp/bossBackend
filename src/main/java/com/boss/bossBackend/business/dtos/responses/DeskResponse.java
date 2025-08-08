@@ -21,7 +21,7 @@ public class DeskResponse {
         if (desk != null) {
             this.id = desk.getId();
             this.deskName = desk.getDeskName();
-            this.deskAvailableEnum = desk.getDeskAvailable();
+            //this.deskAvailableEnum = desk.getDeskAvailable();
         }
     }
 }

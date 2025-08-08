@@ -13,7 +13,9 @@ import com.boss.bossBackend.entities.enums.DeskAvailableEnum;
 import com.boss.bossBackend.exception.deskException.DeskNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DeskManager implements DeskService {
@@ -39,20 +41,24 @@ public class DeskManager implements DeskService {
         return new SuccessDataResult<>(repository.save(desk));
     }
 
-    @Override
-    public List<Desk> findByDeskAvailableAndRoom_TechnoparkUser(DeskAvailableEnum deskAvailableEnum, TechnoparkUser technoparkUser) {
-        List<Desk> availableDesks = repository.findByDeskAvailableAndRoom_TechnoparkUser(deskAvailableEnum, technoparkUser);
-        if (availableDesks.isEmpty()) {
-            throw new DeskNotFoundException("Available desk not found");
-        }
-        return availableDesks;
-    }
+//    @Override
+//    public List<Desk> findByDeskAvailableAndRoom_TechnoparkUser(DeskAvailableEnum deskAvailableEnum, TechnoparkUser technoparkUser) {
+//        List<Desk> availableDesks = repository.findByDeskAvailableAndRoom_TechnoparkUser(deskAvailableEnum, technoparkUser);
+//        if (availableDesks.isEmpty()) {
+//            throw new DeskNotFoundException("Available desk not found");
+//        }
+//        return availableDesks;
+//    }
 
     @Override
-    public Desk updateDeskAsNotAvailable(String deskId) {
-        Desk desk = findById(deskId).getData();
-        desk.setDeskAvailable(DeskAvailableEnum.UNAVAILABLE);
-        return repository.save(desk);
+    public Desk findAvailableDeskBetweenDatesAndTechnopark(LocalDateTime startDate, LocalDateTime endDate, String technoparkId) {
+        Optional<Desk> availableDesk = repository.findAvailableDeskBetweenDatesAndTechnopark(startDate, endDate, technoparkId);
+
+        if(availableDesk.isPresent()) {
+            return availableDesk.get();
+        }
+
+        throw new DeskNotFoundException("Available desk not found");
     }
 
 }
