@@ -4,6 +4,7 @@ import com.boss.bossBackend.business.abstracts.DeskService;
 import com.boss.bossBackend.business.abstracts.RoomService;
 import com.boss.bossBackend.business.dtos.requests.CreateDeskRequest;
 import com.boss.bossBackend.common.utilities.results.DataResult;
+import com.boss.bossBackend.common.utilities.results.Result;
 import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.dataAccess.abstracts.DeskRepository;
 import com.boss.bossBackend.entities.concretes.Desk;
@@ -35,10 +36,11 @@ public class DeskManager implements DeskService {
     }
 
     @Override
-    public DataResult<Desk> createDesk(CreateDeskRequest request) {
+    public Result createDesk(CreateDeskRequest request) {
         Room room = roomService.findById(request.getRoomId());
         Desk desk = new Desk(request, room);
-        return new SuccessDataResult<>(repository.save(desk));
+        repository.save(desk);
+        return new Result(true);
     }
 
 //    @Override

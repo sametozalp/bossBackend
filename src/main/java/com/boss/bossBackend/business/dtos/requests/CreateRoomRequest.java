@@ -11,7 +11,7 @@ public class CreateRoomRequest {
 
     @NotBlank(message = "Technopark user id cannot be blank")
     @NotNull(message = "Technopark user id cannot be null")
-    private String technoparkUserId;
+    private String technoparkId;
 
     @NotBlank(message = "Room name cannot be blank")
     @NotNull(message = "Room name cannot be null")

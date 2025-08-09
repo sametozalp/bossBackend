@@ -23,7 +23,7 @@ public class RoomManager implements RoomService {
 
     @Override
     public void createRoom(CreateRoomRequest createRoomRequest) {
-        TechnoparkUser technoparkUser = technoparkUserService.findByUserId(createRoomRequest.getTechnoparkUserId());
+        TechnoparkUser technoparkUser = technoparkUserService.findById(createRoomRequest.getTechnoparkId());
         Room room = new Room(createRoomRequest, technoparkUser);
         repository.save(room);
     }

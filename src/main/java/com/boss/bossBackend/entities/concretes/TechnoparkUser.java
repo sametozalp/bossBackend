@@ -6,6 +6,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "technopark_users")
 @Getter
@@ -21,6 +23,9 @@ public class TechnoparkUser extends BaseEntity {
 
     @Column(name = "location", nullable = false)
     private String location;
+
+    @OneToMany(mappedBy = "technoparkUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Room> rooms;
 
     public  TechnoparkUser() {
 

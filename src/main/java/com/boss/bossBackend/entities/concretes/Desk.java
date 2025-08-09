@@ -15,7 +15,7 @@ import java.util.List;
 @Setter
 public class Desk extends BaseEntity {
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "room_id", nullable = false)
     private Room room;
 
