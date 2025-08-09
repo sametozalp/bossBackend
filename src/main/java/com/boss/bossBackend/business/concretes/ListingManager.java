@@ -13,9 +13,8 @@ import com.boss.bossBackend.dataAccess.abstracts.ListingRepository;
 import com.boss.bossBackend.entities.concretes.Listing;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
-import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import com.boss.bossBackend.entities.enums.ListingTypeEnum;
-import com.boss.bossBackend.exception.listingException.ListingNotFound;
+import com.boss.bossBackend.exception.exceptions.listingException.ListingNotFound;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 

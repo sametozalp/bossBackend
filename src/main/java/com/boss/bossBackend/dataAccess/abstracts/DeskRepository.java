@@ -29,7 +29,7 @@ public interface DeskRepository extends JpaRepository<Desk, String> {
                       AND a.appointmentDateEnd > :startDate
                 )
             """)
-    Optional<Desk> findAvailableDeskBetweenDatesAndTechnopark(
+    Optional<List<Desk>> findAvailableDeskBetweenDatesAndTechnopark(
             @Param("startDate") LocalDateTime startDate,
             @Param("endDate") LocalDateTime endDate,
             @Param("technoparkId") String technoparkId);

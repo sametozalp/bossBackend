@@ -9,9 +9,7 @@ import com.boss.bossBackend.common.utilities.results.SuccessDataResult;
 import com.boss.bossBackend.dataAccess.abstracts.DeskRepository;
 import com.boss.bossBackend.entities.concretes.Desk;
 import com.boss.bossBackend.entities.concretes.Room;
-import com.boss.bossBackend.entities.concretes.TechnoparkUser;
-import com.boss.bossBackend.entities.enums.DeskAvailableEnum;
-import com.boss.bossBackend.exception.deskException.DeskNotFoundException;
+import com.boss.bossBackend.exception.exceptions.deskException.DeskNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -53,8 +51,8 @@ public class DeskManager implements DeskService {
 //    }
 
     @Override
-    public Desk findAvailableDeskBetweenDatesAndTechnopark(LocalDateTime startDate, LocalDateTime endDate, String technoparkId) {
-        Optional<Desk> availableDesk = repository.findAvailableDeskBetweenDatesAndTechnopark(startDate, endDate, technoparkId);
+    public List<Desk> findAvailableDeskBetweenDatesAndTechnopark(LocalDateTime startDate, LocalDateTime endDate, String technoparkId) {
+        Optional<List<Desk>> availableDesk = repository.findAvailableDeskBetweenDatesAndTechnopark(startDate, endDate, technoparkId);
 
         if(availableDesk.isPresent()) {
             return availableDesk.get();

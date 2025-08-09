@@ -12,7 +12,7 @@ import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.concretes.UserRole;
 import com.boss.bossBackend.entities.enums.RoleEnum;
-import com.boss.bossBackend.exception.userException.UserNotFoundException;
+import com.boss.bossBackend.exception.exceptions.userException.UserNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;

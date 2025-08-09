@@ -4,10 +4,9 @@ import com.boss.bossBackend.business.abstracts.RoomService;
 import com.boss.bossBackend.business.abstracts.TechnoparkUserService;
 import com.boss.bossBackend.business.dtos.requests.CreateRoomRequest;
 import com.boss.bossBackend.dataAccess.abstracts.RoomRepository;
-import com.boss.bossBackend.entities.concretes.Desk;
 import com.boss.bossBackend.entities.concretes.Room;
 import com.boss.bossBackend.entities.concretes.TechnoparkUser;
-import com.boss.bossBackend.exception.roomException.RoomNotFoundException;
+import com.boss.bossBackend.exception.exceptions.roomException.RoomNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service

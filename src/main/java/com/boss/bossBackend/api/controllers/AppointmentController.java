@@ -2,6 +2,7 @@ package com.boss.bossBackend.api.controllers;
 
 import com.boss.bossBackend.business.abstracts.AppointmentService;
 import com.boss.bossBackend.business.dtos.requests.CreateAppointmentRequest;
+import com.boss.bossBackend.business.dtos.requests.UpdateAppointmentStatusRequest;
 import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
@@ -28,5 +29,10 @@ public class AppointmentController {
     @GetMapping("/getAppointmentDetails")
     ResponseEntity<?> getAppointmentDetails(ApprovalStatusEnum appointmentStatusEnum, String technoparkId) {
         return ResponseEntity.ok(appointmentService.findByAppointmentStatusAndTechnoparkUserOrderByCreatedAtDesc(appointmentStatusEnum, technoparkId));
+    }
+
+    @GetMapping("/updateAppointment")
+    ResponseEntity<?> updateAppointment(UpdateAppointmentStatusRequest updateAppointmentStatusRequest) {
+        return ResponseEntity.ok(appointmentService.updateAppointment(updateAppointmentStatusRequest));
     }
 }

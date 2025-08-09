@@ -18,8 +18,8 @@ import com.boss.bossBackend.entities.concretes.TechnoparkUser;
 import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import com.boss.bossBackend.entities.enums.UserType;
-import com.boss.bossBackend.exception.userException.UserAlreadyExistException;
-import com.boss.bossBackend.exception.userException.UserNotFoundException;
+import com.boss.bossBackend.exception.exceptions.userException.UserAlreadyExistException;
+import com.boss.bossBackend.exception.exceptions.userException.UserNotFoundException;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 

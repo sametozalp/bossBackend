@@ -5,7 +5,7 @@ import com.boss.bossBackend.common.utilities.results.SuccessResult;
 import com.boss.bossBackend.dataAccess.abstracts.RoleRepository;
 import com.boss.bossBackend.entities.concretes.Role;
 import com.boss.bossBackend.entities.enums.RoleEnum;
-import com.boss.bossBackend.exception.roleException.RoleNotFoundException;
+import com.boss.bossBackend.exception.exceptions.roleException.RoleNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service

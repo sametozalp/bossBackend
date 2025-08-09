@@ -24,6 +24,6 @@ public interface DeskService {
 //            TechnoparkUser technoparkUser
 //    );
 
-    Desk findAvailableDeskBetweenDatesAndTechnopark(LocalDateTime startDate, LocalDateTime endDate, String technoparkId);
+    List<Desk> findAvailableDeskBetweenDatesAndTechnopark(LocalDateTime startDate, LocalDateTime endDate, String technoparkId);
 
 }

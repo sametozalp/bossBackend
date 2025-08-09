@@ -13,7 +13,7 @@ import com.boss.bossBackend.entities.concretes.User;
 import com.boss.bossBackend.entities.concretes.UserRole;
 import com.boss.bossBackend.entities.enums.RoleEnum;
 import com.boss.bossBackend.entities.enums.UserType;
-import com.boss.bossBackend.exception.authException.LoginException;
+import com.boss.bossBackend.exception.exceptions.authException.LoginException;
 import jakarta.transaction.Transactional;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
