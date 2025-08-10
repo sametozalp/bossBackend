@@ -12,9 +12,10 @@ import com.boss.bossBackend.dataAccess.abstracts.AppointmentRepository;
 import com.boss.bossBackend.entities.concretes.*;
 import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
 import com.boss.bossBackend.entities.enums.MeetingTypeEnum;
-import com.boss.bossBackend.entities.enums.UserType;
 import com.boss.bossBackend.exception.exceptions.appointmentException.AppointmentNotFoundException;
 import com.boss.bossBackend.exception.exceptions.generalException.OwnerViolationException;
+import com.boss.bossBackend.handler.AppointmentHandler;
+import com.boss.bossBackend.handler.AppointmentHandlerFactory;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -97,27 +98,53 @@ public class AppointmentManager implements AppointmentService {
             throw new OwnerViolationException("Owner violation error");
 
         }
-
         appointment.setAppointmentStatus(updateAppointmentStatusRequest.getAppointmentStatus());
 
+//        if (appointment.getAppointmentStatus() == ApprovalStatusEnum.APPROVED) {
+//            if (appointment.getMeetingTypeEnum() == MeetingTypeEnum.ONLINE) {
+//
+//                appointment.setOnlineLink("gorusmelink.com");
+//
+//            } else if (appointment.getMeetingTypeEnum() == MeetingTypeEnum.FACE_TO_FACE) {
+//
+//                List<Desk> availableDesks = deskService.findAvailableDeskBetweenDatesAndTechnopark(appointment.getAppointmentDate(), appointment.getAppointmentDateEnd(), appointment.getTechnoparkUser().getId());
+//                if(!availableDesks.isEmpty()) {
+//                    appointment.setRoom(availableDesks.get(0).getRoom());
+//                    appointment.setDesk(availableDesks.get(0));
+//                } else {
+//                    throw new DeskNotFoundException("Available desk not found");
+//                }
+//            }
+//
+//        }
+
         if (appointment.getAppointmentStatus() == ApprovalStatusEnum.APPROVED) {
-            if (appointment.getMeetingTypeEnum() == MeetingTypeEnum.ONLINE) {
-
-                appointment.setOnlineLink("gorusmelink.com");
-
-            } else if (appointment.getMeetingTypeEnum() == MeetingTypeEnum.FACE_TO_FACE) {
-
-                List<Desk> availableDesks = deskService.findAvailableDeskBetweenDatesAndTechnopark(appointment.getAppointmentDate(), appointment.getAppointmentDateEnd(), appointment.getTechnoparkUser().getId());
-                appointment.setRoom(availableDesks.get(0).getRoom());
-                appointment.setDesk(availableDesks.get(0));
-            }
-
+            AppointmentHandlerFactory factory = new AppointmentHandlerFactory(deskService);
+            AppointmentHandler handler = factory.getHandler(appointment.getMeetingTypeEnum());
+            handler.handle(appointment);
         }
+
         Appointment savedAppointment = repository.save(appointment);
         return new SuccessDataResult<>(new AppointmentResponse(savedAppointment,
-                new UserDetailResponse(appointment.getInvestor()),
-                new UserDetailResponse(appointment.getEntrepreneur()),
-                new UserDetailResponse(appointment.getRequestBy()),
-                new GetListingResponse(appointment.getListing())));
+                new UserDetailResponse(savedAppointment.getInvestor()),
+                new UserDetailResponse(savedAppointment.getEntrepreneur()),
+                new UserDetailResponse(savedAppointment.getRequestBy()),
+                new GetListingResponse(savedAppointment.getListing())));
+    }
+
+    @Override
+    public DataResult<AppointmentResponse> updateAppointment(Appointment appointment) {
+        Appointment savedAppointment = repository.save(appointment);
+        return new SuccessDataResult<>(new AppointmentResponse(savedAppointment,
+                new UserDetailResponse(savedAppointment.getInvestor()),
+                new UserDetailResponse(savedAppointment.getEntrepreneur()),
+                new UserDetailResponse(savedAppointment.getRequestBy()),
+                new GetListingResponse(savedAppointment.getListing())
+        ));
+    }
+
+    @Override
+    public List<Appointment> findByAppointmentStatusAndMeetingTypeAndRoomIdIsNull(ApprovalStatusEnum appointmentStatus, MeetingTypeEnum meetingType) {
+        return repository.findByAppointmentStatusAndMeetingTypeEnumAndRoomIdIsNull(appointmentStatus, meetingType);
     }
 }

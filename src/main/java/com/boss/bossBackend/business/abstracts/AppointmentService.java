@@ -6,6 +6,7 @@ import com.boss.bossBackend.business.dtos.responses.AppointmentResponse;
 import com.boss.bossBackend.common.utilities.results.DataResult;
 import com.boss.bossBackend.entities.concretes.Appointment;
 import com.boss.bossBackend.entities.enums.ApprovalStatusEnum;
+import com.boss.bossBackend.entities.enums.MeetingTypeEnum;
 
 import java.util.List;
 
@@ -21,4 +22,9 @@ public interface AppointmentService {
     );
 
     DataResult<AppointmentResponse> updateAppointment(UpdateAppointmentStatusRequest updateAppointmentStatusRequest);
+
+    DataResult<AppointmentResponse> updateAppointment(Appointment appointment);
+
+    List<Appointment> findByAppointmentStatusAndMeetingTypeAndRoomIdIsNull(ApprovalStatusEnum appointmentStatus, MeetingTypeEnum meetingType);
+
 }
